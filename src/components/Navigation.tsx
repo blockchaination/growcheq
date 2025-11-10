@@ -45,9 +45,11 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center space-x-2">
-            <span className="text-2xl lg:text-3xl font-heading font-bold gradient-text">
-              GrowCheq
-            </span>
+            <img 
+              src="/branding/main_logo.png" 
+              alt="GrowCheq Logo" 
+              className="h-8 lg:h-10 w-auto object-contain"
+            />
           </a>
 
           {/* Desktop Menu */}
