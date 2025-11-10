@@ -42,13 +42,13 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
       )}
     >
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-24 lg:h-32">
           {/* Logo */}
           <a href="#" className="flex items-center space-x-2">
             <img 
               src="/branding/main_logo.png" 
               alt="GrowCheq Logo" 
-              className="h-12 lg:h-16 w-auto object-contain"
+              className="h-20 lg:h-28 w-auto object-contain"
             />
           </a>
 
