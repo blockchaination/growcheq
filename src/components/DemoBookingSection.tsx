@@ -9,6 +9,7 @@ import { CalendarIcon, Clock, Video, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const timeSlots = [
   "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -41,19 +42,49 @@ export const DemoBookingSection = () => {
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Demo Scheduled! 🎉",
-      description: `We'll see you on ${format(date, "PPP")} at ${selectedTime}`,
-    });
-    
-    // Reset form
-    setDate(undefined);
-    setSelectedTime("");
-    setFormData({ name: "", email: "", company: "", phone: "" });
-    setIsSubmitting(false);
+    try {
+      // Save to Supabase
+      const { error } = await supabase
+        .from('demo_bookings')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          phone: formData.phone || null,
+          scheduled_date: format(date, "yyyy-MM-dd"),
+          scheduled_time: selectedTime,
+          status: 'pending'
+        });
+
+      if (error) {
+        console.error('Error saving booking:', error);
+        toast({
+          title: "Booking Failed",
+          description: "There was an error scheduling your demo. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Demo Scheduled! 🎉",
+        description: `We'll see you on ${format(date, "PPP")} at ${selectedTime}`,
+      });
+      
+      // Reset form
+      setDate(undefined);
+      setSelectedTime("");
+      setFormData({ name: "", email: "", company: "", phone: "" });
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

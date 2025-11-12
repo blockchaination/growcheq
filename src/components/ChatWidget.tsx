@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageCircle, X, Send, Bot, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   id: string;
@@ -41,6 +42,8 @@ export const ChatWidget = () => {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -57,6 +60,42 @@ export const ChatWidget = () => {
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  // Initialize conversation in database when chat is opened
+  useEffect(() => {
+    const initConversation = async () => {
+      if (isOpen && !conversationId) {
+        try {
+          const { data, error } = await supabase
+            .from('chat_conversations')
+            .insert({
+              session_id: sessionId,
+              status: 'active'
+            })
+            .select()
+            .single();
+
+          if (error) {
+            console.error('Error creating conversation:', error);
+            return;
+          }
+
+          setConversationId(data.id);
+
+          // Save initial bot message
+          await supabase.from('chat_messages').insert({
+            conversation_id: data.id,
+            sender: 'bot',
+            message: messages[0].text
+          });
+        } catch (error) {
+          console.error('Error initializing conversation:', error);
+        }
+      }
+    };
+
+    initConversation();
+  }, [isOpen, conversationId, sessionId, messages]);
 
   const getAutomatedResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase();
@@ -80,9 +119,33 @@ export const ChatWidget = () => {
     return AUTOMATED_RESPONSES.default;
   };
 
+  const assessLeadQuality = (messageText: string): string | null => {
+    const lowerMessage = messageText.toLowerCase();
+    
+    // Hot leads - ready to buy/demo
+    if (lowerMessage.includes("demo") || lowerMessage.includes("schedule") || 
+        lowerMessage.includes("buy") || lowerMessage.includes("purchase") ||
+        lowerMessage.includes("pricing") || lowerMessage.includes("price")) {
+      return "hot";
+    }
+    
+    // Warm leads - interested and asking questions
+    if (lowerMessage.includes("how") || lowerMessage.includes("feature") || 
+        lowerMessage.includes("integration") || lowerMessage.includes("work")) {
+      return "warm";
+    }
+    
+    // Cold leads - just browsing
+    if (lowerMessage.includes("hello") || lowerMessage.includes("hi")) {
+      return "cold";
+    }
+    
+    return null;
+  };
+
   const handleSendMessage = async (text?: string) => {
     const messageText = text || inputValue.trim();
-    if (!messageText) return;
+    if (!messageText || !conversationId) return;
 
     // Add user message
     const userMessage: Message = {
@@ -93,6 +156,26 @@ export const ChatWidget = () => {
     };
     setMessages(prev => [...prev, userMessage]);
     setInputValue("");
+
+    // Save user message to database
+    try {
+      await supabase.from('chat_messages').insert({
+        conversation_id: conversationId,
+        sender: 'user',
+        message: messageText
+      });
+
+      // Assess and update lead quality
+      const leadQuality = assessLeadQuality(messageText);
+      if (leadQuality) {
+        await supabase
+          .from('chat_conversations')
+          .update({ lead_quality: leadQuality })
+          .eq('id', conversationId);
+      }
+    } catch (error) {
+      console.error('Error saving user message:', error);
+    }
 
     // Show typing indicator
     setIsTyping(true);
@@ -109,6 +192,18 @@ export const ChatWidget = () => {
     };
     
     setMessages(prev => [...prev, botResponse]);
+
+    // Save bot response to database
+    try {
+      await supabase.from('chat_messages').insert({
+        conversation_id: conversationId,
+        sender: 'bot',
+        message: botResponse.text
+      });
+    } catch (error) {
+      console.error('Error saving bot message:', error);
+    }
+
     setIsTyping(false);
   };
 
