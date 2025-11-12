@@ -83,13 +83,13 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <Card
               key={index}
               className={`relative hover:shadow-2xl transition-all duration-300 animate-scale-in ${
                 plan.popular
-                  ? "border-4 border-primary shadow-2xl scale-105"
+                  ? "border-4 border-primary shadow-2xl lg:scale-105"
                   : "border-2 hover:scale-105"
               }`}
               style={{ animationDelay: `${index * 100}ms` }}

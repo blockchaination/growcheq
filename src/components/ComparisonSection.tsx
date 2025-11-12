@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface ComparisonSectionProps {
   onCtaClick: () => void;
 }
 
 export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
+  const [displaySavings, setDisplaySavings] = useState(0);
+  
   const comparisons = [
     { feature: "CRM & Pipeline Management", competitor: "HubSpot", cost: "£99" },
     { feature: "Website Builder", competitor: "Wix Pro", cost: "£29" },
@@ -22,12 +25,32 @@ export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
   const totalCost = comparisons.reduce((sum, item) => sum + parseInt(item.cost.replace("£", "")), 0);
   const savings = totalCost - 197;
 
+  // Animated counter effect
+  useEffect(() => {
+    let start = 0;
+    const end = savings;
+    const duration = 2000;
+    const increment = end / (duration / 16);
+    
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setDisplaySavings(end);
+        clearInterval(timer);
+      } else {
+        setDisplaySavings(Math.floor(start));
+      }
+    }, 16);
+    
+    return () => clearInterval(timer);
+  }, [savings]);
+
   return (
     <section className="py-20 lg:py-32 bg-gradient-to-br from-background via-primary/5 to-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl lg:text-5xl font-heading font-bold">
-            Stop <span className="gradient-text">Overpaying</span> for Multiple Tools
+            Why Pay <span className="gradient-text">£800+/Month</span> for Multiple Tools?
           </h2>
           <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
             GrowCheq replaces 10+ expensive subscriptions with one affordable platform
@@ -69,7 +92,7 @@ export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
                 <td className="px-6 py-6">TOTAL</td>
                 <td className="px-6 py-6">£{totalCost}/month</td>
                 <td className="px-6 py-6">£197/month</td>
-                <td className="px-6 py-6 text-2xl gradient-text bg-white">£{savings}/month</td>
+                <td className="px-6 py-6 text-2xl gradient-text bg-white">£{displaySavings}/month</td>
               </tr>
             </tbody>
           </table>
@@ -112,7 +135,7 @@ export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
               <p className="text-3xl font-bold">£197/month</p>
               <div className="pt-4 border-t border-white/20">
                 <p className="text-2xl font-bold gradient-text bg-white px-4 py-2 rounded-lg inline-block">
-                  YOU SAVE: £{savings}/month
+                  YOU SAVE: £{displaySavings}/month
                 </p>
               </div>
             </div>
@@ -121,10 +144,16 @@ export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
 
         <div className="text-center mt-12 space-y-6 animate-fade-in" style={{ animationDelay: "500ms" }}>
           <p className="text-2xl font-heading font-bold">
-            That's <span className="gradient-text text-4xl">£{savings * 12} saved per year</span>
+            That's <span className="gradient-text text-4xl">£{displaySavings * 12} saved per year</span>
           </p>
-          <Button variant="hero" size="lg" onClick={onCtaClick}>
+          <Button 
+            variant="hero" 
+            size="lg" 
+            onClick={onCtaClick}
+            className="px-8 py-4 h-auto text-lg font-bold shadow-2xl hover:shadow-[0_20px_50px_rgba(47,25,109,0.4)] hover:scale-105 transition-all duration-300 group"
+          >
             Stop Overpaying. Start Your Free Trial
+            <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
       </div>

@@ -61,14 +61,17 @@ export const FeaturesSection = () => {
             return (
               <Card
                 key={index}
-                className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 animate-fade-in"
+                className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 animate-fade-in relative overflow-hidden"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
+                {/* Gradient accent bar */}
+                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.gradient}`} />
+                
                 <CardHeader>
                   <div
-                    className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                    className={`w-16 h-16 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
                   >
-                    <Icon className="h-7 w-7 text-white" />
+                    <Icon className="h-8 w-8 text-white" />
                   </div>
                   <CardTitle className="text-xl font-heading">{feature.title}</CardTitle>
                 </CardHeader>

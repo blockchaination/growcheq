@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 interface HeroSectionProps {
@@ -21,7 +21,7 @@ export const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
 
           {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-heading font-bold leading-tight">
-            Turn Every Message Into{" "}
+            Turn Every <span className="gradient-text">Interaction</span> Into{" "}
             <span className="gradient-text">Revenue</span>
           </h1>
 
@@ -33,20 +33,32 @@ export const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Button variant="hero" size="lg" onClick={onCtaClick} className="group">
+            <Button 
+              variant="hero" 
+              size="lg" 
+              onClick={onCtaClick} 
+              className="group px-8 py-4 h-auto text-lg font-bold shadow-2xl hover:shadow-[0_20px_50px_rgba(47,25,109,0.4)] hover:scale-105 transition-all duration-300"
+            >
               Start Free Trial
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="ml-2 h-6 w-6 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button variant="outline" size="lg" onClick={onCtaClick}>
+            <Button variant="outline" size="lg" onClick={onCtaClick} className="h-auto px-8 py-4 text-lg">
               <Play className="mr-2 h-5 w-5" />
               Watch Demo
             </Button>
           </div>
 
           {/* Trust indicators */}
-          <p className="text-sm text-muted-foreground pt-2">
-            No credit card required • 14-day free trial • Cancel anytime
-          </p>
+          <div className="text-sm text-muted-foreground pt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <span className="flex items-center gap-1">
+              <Check className="h-4 w-4 text-green-600" />
+              No credit card required
+            </span>
+            <span className="flex items-center gap-1">
+              <Check className="h-4 w-4 text-green-600" />
+              14-day free trial
+            </span>
+          </div>
 
           {/* Hero Visual */}
           <div className="pt-12 animate-slide-up">
