@@ -12,6 +12,8 @@ import { FAQSection } from "@/components/FAQSection";
 import { FinalCTASection } from "@/components/FinalCTASection";
 import { Footer } from "@/components/Footer";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
+import { DemoBookingSection } from "@/components/DemoBookingSection";
+import { ChatWidget } from "@/components/ChatWidget";
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,9 +41,11 @@ const Index = () => {
       <PricingSection onCtaClick={handleCtaClick} />
       <ComparisonSection onCtaClick={() => handleCtaClick("trial")} />
       <TestimonialsSection />
+      <DemoBookingSection />
       <FAQSection />
       <FinalCTASection onCtaClick={() => handleCtaClick("trial")} />
       <Footer />
+      <ChatWidget />
       
       <LeadCaptureModal
         open={isModalOpen}
