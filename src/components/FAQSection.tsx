@@ -8,10 +8,6 @@ import {
 export const FAQSection = () => {
   const faqs = [
     {
-      question: "How does GrowCheq compare to Podium?",
-      answer: "GrowCheq offers similar core features to Podium but at a fraction of the cost, specifically tailored for UK businesses. We include more features in our base plans (like website builder, courses, and communities) without expensive add-ons. Plus, our pricing is transparent with no hidden fees.",
-    },
-    {
       question: "Is my data secure?",
       answer: "Absolutely. We use bank-level encryption (256-bit SSL) and are fully GDPR compliant. Your data is stored in UK-based servers, and we never share your information with third parties. We undergo regular security audits to ensure your business and customer data stays protected.",
     },
