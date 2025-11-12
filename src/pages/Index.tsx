@@ -47,15 +47,6 @@ const Index = () => {
       <Footer />
       <ChatWidget />
       
-      <div className="fixed bottom-6 left-6 z-40">
-        <a 
-          href="/auth"
-          className="px-4 py-2 bg-muted/80 backdrop-blur-sm rounded-full text-xs font-medium hover:bg-muted transition-colors"
-        >
-          Admin Login
-        </a>
-      </div>
-      
       <LeadCaptureModal
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
