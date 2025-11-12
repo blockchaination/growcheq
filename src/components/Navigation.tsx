@@ -38,17 +38,17 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "glass-effect shadow-md" : "bg-transparent"
+        isScrolled ? "shadow-md backdrop-blur-sm bg-white/95" : "bg-transparent"
       )}
     >
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-52 lg:h-60">
+        <div className="flex items-center justify-between h-16 py-3">
           {/* Logo */}
           <a href="#" className="flex items-center space-x-2">
             <img 
               src="/branding/main_logo.png" 
               alt="GrowCheq Logo" 
-              className="h-48 lg:h-56 w-auto object-contain"
+              className="h-10 w-auto"
             />
           </a>
 
@@ -58,12 +58,15 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className="text-foreground hover:text-primary transition-colors font-medium"
+                className="text-gray-700 hover:text-[#2f196d] transition-colors duration-200 font-medium"
               >
                 {item.label}
               </button>
             ))}
-            <Button variant="gradient" onClick={onCtaClick}>
+            <Button 
+              onClick={onCtaClick}
+              className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#2f196d] to-[#4865b7] text-white font-semibold text-sm hover:shadow-lg hover:scale-105 transition-all duration-200"
+            >
               Get Started
             </Button>
           </div>
@@ -85,13 +88,16 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className="block w-full text-left px-4 py-2 text-foreground hover:bg-muted rounded-lg transition-colors"
+                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-muted rounded-lg transition-colors duration-200"
               >
                 {item.label}
               </button>
             ))}
             <div className="px-4">
-              <Button variant="gradient" className="w-full" onClick={onCtaClick}>
+              <Button 
+                className="w-full px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#2f196d] to-[#4865b7] text-white font-semibold text-sm hover:shadow-lg transition-all duration-200" 
+                onClick={onCtaClick}
+              >
                 Get Started
               </Button>
             </div>
