@@ -44,7 +44,7 @@ export const Footer = () => {
             <img 
               src="/branding/main_logo.png" 
               alt="GrowCheq Logo" 
-              className="h-10 w-auto mb-4 brightness-0 invert"
+              className="h-48 lg:h-56 w-auto object-contain mb-4 brightness-0 invert"
             />
             <p className="text-background/70 text-sm leading-relaxed mb-6">
               The all-in-one customer engagement platform for UK businesses.
