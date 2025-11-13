@@ -8,6 +8,18 @@ import {
 export const FAQSection = () => {
   const faqs = [
     {
+      question: "What pricing plans do you offer?",
+      answer: "We offer flexible pricing plans to suit businesses of all sizes. Our Starter plan begins at £29/month, Professional at £79/month, and Enterprise with custom pricing. All plans include core features like unified inbox, SMS/WhatsApp messaging, and automation tools. Visit our pricing page for detailed comparisons.",
+    },
+    {
+      question: "Do you offer a free trial?",
+      answer: "Yes! We offer a 14-day free trial with full access to all features. No credit card required to start your trial. You can explore all the tools, set up automations, and see how GrowCheq works for your business before committing to a paid plan.",
+    },
+    {
+      question: "What kind of support do you provide?",
+      answer: "All plans include email support and access to our comprehensive Help Center with video tutorials and guides. Professional plan users get priority email support with faster response times. Enterprise clients receive dedicated account management, phone support, and personalized onboarding sessions with our team.",
+    },
+    {
       question: "Is my data secure?",
       answer: "Absolutely. We use bank-level encryption (256-bit SSL) and are fully GDPR compliant. Your data is stored in UK-based servers, and we never share your information with third parties. We undergo regular security audits to ensure your business and customer data stays protected.",
     },
