@@ -66,6 +66,23 @@ export const DemoBookingSection = () => {
         return;
       }
 
+      // Send email notification
+      try {
+        await supabase.functions.invoke('send-booking-notification', {
+          body: {
+            name: formData.name,
+            email: formData.email,
+            company: formData.company,
+            phone: formData.phone,
+            scheduled_date: format(date, "yyyy-MM-dd"),
+            scheduled_time: selectedTime,
+          }
+        });
+      } catch (emailError) {
+        console.error('Error sending email notification:', emailError);
+        // Don't fail the booking if email fails
+      }
+
       toast({
         title: "Demo Scheduled! 🎉",
         description: `We'll see you on ${format(date, "PPP")} at ${selectedTime}`,
