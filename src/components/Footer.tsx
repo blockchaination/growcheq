@@ -139,7 +139,7 @@ export const Footer = () => {
         <div className="pt-8 border-t border-background/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-background/70 text-sm">
-              © 2025 GrowCheq. All rights reserved.
+              © 2025 GrowCheq. All rights reserved. GDPR compliant. Your data is secure and never shared.
             </p>
             <p className="text-background/70 text-sm">
               Made with ❤️ for UK businesses
