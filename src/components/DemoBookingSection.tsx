@@ -31,6 +31,16 @@ export const DemoBookingSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validate form fields
+    if (!formData.name || !formData.email || !formData.company) {
+      toast({
+        title: "Missing information",
+        description: "Please fill in your name, email, and company",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!date || !selectedTime) {
       toast({
         title: "Missing information",
@@ -43,45 +53,60 @@ export const DemoBookingSection = () => {
     setIsSubmitting(true);
     
     try {
+      const bookingData = {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        phone: formData.phone || null,
+        scheduled_date: format(date, "yyyy-MM-dd"),
+        scheduled_time: selectedTime,
+        status: 'pending'
+      };
+
+      console.log('Submitting booking:', bookingData);
+
       // Save to Supabase
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('demo_bookings')
-        .insert({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          phone: formData.phone || null,
-          scheduled_date: format(date, "yyyy-MM-dd"),
-          scheduled_time: selectedTime,
-          status: 'pending'
-        });
+        .insert(bookingData)
+        .select()
+        .single();
 
       if (error) {
-        console.error('Error saving booking:', error);
+        console.error('Supabase insert error:', error);
+        console.error('Error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        
         toast({
           title: "Booking Failed",
-          description: "There was an error scheduling your demo. Please try again.",
+          description: error.message || "There was an error scheduling your demo. Please try again or contact us directly.",
           variant: "destructive",
         });
         return;
       }
 
-      // Send email notification
-      try {
-        await supabase.functions.invoke('send-booking-notification', {
-          body: {
-            name: formData.name,
-            email: formData.email,
-            company: formData.company,
-            phone: formData.phone,
-            scheduled_date: format(date, "yyyy-MM-dd"),
-            scheduled_time: selectedTime,
-          }
-        });
-      } catch (emailError) {
+      console.log('Booking saved successfully:', data);
+
+      // Send email notification (don't block on this)
+      supabase.functions.invoke('send-booking-notification', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          phone: formData.phone,
+          scheduled_date: format(date, "yyyy-MM-dd"),
+          scheduled_time: selectedTime,
+        }
+      }).then(() => {
+        console.log('Email notification sent successfully');
+      }).catch((emailError) => {
         console.error('Error sending email notification:', emailError);
         // Don't fail the booking if email fails
-      }
+      });
 
       toast({
         title: "Demo Scheduled! 🎉",
@@ -92,11 +117,11 @@ export const DemoBookingSection = () => {
       setDate(undefined);
       setSelectedTime("");
       setFormData({ name: "", email: "", company: "", phone: "" });
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (error: any) {
+      console.error('Unexpected error:', error);
       toast({
         title: "Error",
-        description: "An unexpected error occurred. Please try again.",
+        description: error?.message || "An unexpected error occurred. Please try again or email us at hello@growcheq.com",
         variant: "destructive",
       });
     } finally {
