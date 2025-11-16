@@ -1,1 +1,7 @@
 project_id = "gpprdjdeydavukbufibf"
+
+[functions.send-booking-notification]
+verify_jwt = false
+
+[functions.send-chat-notification]
+verify_jwt = false

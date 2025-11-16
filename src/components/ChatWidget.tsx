@@ -172,6 +172,21 @@ export const ChatWidget = () => {
           .from('chat_conversations')
           .update({ lead_quality: leadQuality })
           .eq('id', conversationId);
+
+        // Send email notification for hot and warm leads
+        if (leadQuality === 'hot' || leadQuality === 'warm') {
+          try {
+            await supabase.functions.invoke('send-chat-notification', {
+              body: {
+                session_id: sessionId,
+                message: messageText,
+                lead_quality: leadQuality,
+              }
+            });
+          } catch (emailError) {
+            console.error('Error sending chat notification:', emailError);
+          }
+        }
       }
     } catch (error) {
       console.error('Error saving user message:', error);
