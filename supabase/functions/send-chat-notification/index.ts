@@ -38,7 +38,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Chat Notifications <onboarding@resend.dev>",
-        to: ["admin@example.com"], // TODO: Replace with actual admin email
+        to: ["yassine.anaddam@hotmail.co.uk"],
         subject: `New Chat Message ${lead_quality ? `(${lead_quality.toUpperCase()} Lead)` : ''}`,
         html: `
           <h1>New Chat Message Received</h1>

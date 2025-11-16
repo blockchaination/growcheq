@@ -38,7 +38,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Demo Bookings <onboarding@resend.dev>",
-        to: ["admin@example.com"], // TODO: Replace with actual admin email
+        to: ["yassine.anaddam@hotmail.co.uk"],
         subject: "New Demo Booking Received",
         html: `
           <h1>New Demo Booking</h1>
