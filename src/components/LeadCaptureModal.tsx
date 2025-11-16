@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface LeadCaptureModalProps {
   open: boolean;
@@ -30,17 +31,32 @@ export const LeadCaptureModal = ({ open, onOpenChange, interestLevel = "trial", 
     setIsSubmitting(true);
 
     try {
-      // For now, we'll simulate a successful submission
-      // In production, this would connect to Supabase
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Simulate Supabase insert
-      console.log("Lead captured:", {
-        ...formData,
+      // Insert lead into Supabase
+      const { error } = await supabase.from("leads").insert({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || null,
+        phone: formData.phone || null,
+        message: formData.message || null,
         interest_level: interestLevel,
-        plan_name: planName,
+        plan_name: planName || null,
         source_page: window.location.pathname,
-        created_at: new Date().toISOString(),
+      });
+
+      if (error) throw error;
+
+      // Send email notification to admin
+      await supabase.functions.invoke("send-lead-notification", {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          phone: formData.phone,
+          message: formData.message,
+          interest_level: interestLevel,
+          plan_name: planName,
+          source_page: window.location.pathname,
+        },
       });
 
       toast({

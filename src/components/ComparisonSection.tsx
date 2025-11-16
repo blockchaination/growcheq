@@ -143,8 +143,11 @@ export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
         </div>
 
         <div className="text-center mt-12 space-y-6 animate-fade-in" style={{ animationDelay: "500ms" }}>
-          <p className="text-2xl font-heading font-bold">
-            That's <span className="gradient-text text-4xl">£{displaySavings * 12} saved per year</span>
+          <p className="text-2xl lg:text-3xl font-heading font-bold text-muted-foreground">
+            That's{" "}
+            <span className="gradient-text text-4xl lg:text-5xl block mt-2">
+              £{(displaySavings * 12).toLocaleString()} saved per year
+            </span>
           </p>
           <Button 
             variant="hero" 

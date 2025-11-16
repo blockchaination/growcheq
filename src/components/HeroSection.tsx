@@ -28,7 +28,7 @@ export const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
           {/* Subheadline */}
           <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             The all-in-one customer engagement platform that helps UK SMEs capture leads, 
-            automate follow-ups, and get paid faster—all from one unified inbox.
+            automate follow-ups, manage reviews, and get paid faster—all from one unified dashboard.
           </p>
 
           {/* CTAs */}
