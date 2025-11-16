@@ -65,12 +65,10 @@ export const DemoBookingSection = () => {
 
       console.log('Submitting booking:', bookingData);
 
-      // Save to Supabase
-      const { data, error } = await supabase
+      // Save to Supabase (without .select() to avoid RLS SELECT permission issue for anonymous users)
+      const { error } = await supabase
         .from('demo_bookings')
-        .insert(bookingData)
-        .select()
-        .single();
+        .insert(bookingData);
 
       if (error) {
         console.error('Supabase insert error:', error);
@@ -89,7 +87,7 @@ export const DemoBookingSection = () => {
         return;
       }
 
-      console.log('Booking saved successfully:', data);
+      console.log('Booking saved successfully');
 
       // Send email notification (don't block on this)
       supabase.functions.invoke('send-booking-notification', {
