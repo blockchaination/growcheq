@@ -38,27 +38,21 @@ serve(async (req) => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "GrowCheq Leads <onboarding@resend.dev>",
+        from: "GrowCheq Leads <leads@growcheq.com>",
         to: ["yassine.anaddam@hotmail.co.uk"],
-        subject: `New Lead: ${leadData.interest_level.toUpperCase()}${leadData.plan_name ? ` - ${leadData.plan_name}` : ''}`,
+        subject: `New Lead: ${leadData.name}${leadData.company ? ` from ${leadData.company}` : ''}`,
         html: `
-          <h1>New Lead Received</h1>
-          <h2>Contact Information</h2>
+          <h1>New Lead Captured!</h1>
           <p><strong>Name:</strong> ${leadData.name}</p>
           <p><strong>Email:</strong> ${leadData.email}</p>
           ${leadData.company ? `<p><strong>Company:</strong> ${leadData.company}</p>` : ''}
           ${leadData.phone ? `<p><strong>Phone:</strong> ${leadData.phone}</p>` : ''}
-          
-          <h2>Lead Details</h2>
           <p><strong>Interest Level:</strong> ${leadData.interest_level}</p>
-          ${leadData.plan_name ? `<p><strong>Plan Selected:</strong> ${leadData.plan_name}</p>` : ''}
-          ${leadData.source_page ? `<p><strong>Source Page:</strong> ${leadData.source_page}</p>` : ''}
+          ${leadData.plan_name ? `<p><strong>Plan:</strong> ${leadData.plan_name}</p>` : ''}
+          ${leadData.source_page ? `<p><strong>Source:</strong> ${leadData.source_page}</p>` : ''}
           ${leadData.message ? `<p><strong>Message:</strong><br>${leadData.message.replace(/\n/g, '<br>')}</p>` : ''}
-          
-          <hr style="margin: 20px 0;">
-          <p style="color: #666; font-size: 12px;">
-            This email was sent automatically from your GrowCheq lead capture system.
-          </p>
+          <hr>
+          <p style="color: #666; font-size: 12px;">View in Supabase dashboard to follow up.</p>
         `,
       }),
     });
