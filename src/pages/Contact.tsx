@@ -7,10 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
+import { SEO } from "@/components/SEO";
 
 const Contact = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,7 +100,13 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <HelmetProvider>
+      <SEO 
+        title="Contact Us - Get Help with Customer Engagement"
+        description="Have questions? Contact the GrowCheq team. We typically respond within 24 hours. Email: hello@growcheq.com"
+        canonical="https://growcheq.com/contact"
+      />
+      <div className="min-h-screen bg-background">
       <Navigation onCtaClick={() => setIsModalOpen(true)} />
 
       {/* Hero Section */}
@@ -263,6 +271,7 @@ const Contact = () => {
         planName=""
       />
     </div>
+    </HelmetProvider>
   );
 };
 

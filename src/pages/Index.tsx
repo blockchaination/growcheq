@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
 import { StatsBar } from "@/components/StatsBar";
@@ -11,6 +12,7 @@ import { Footer } from "@/components/Footer";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { BackToTopButton } from "@/components/BackToTopButton";
 import { ChatWidget } from "@/components/ChatWidget";
+import { SEO } from "@/components/SEO";
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +30,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <HelmetProvider>
+      <SEO 
+        title="Turn Every Interaction Into Revenue"
+        description="Save £683/month with GrowCheq. The all-in-one customer engagement platform for UK SMEs. Unified inbox, automated follow-ups, reviews & payments. 14-day free trial."
+        canonical="https://growcheq.com"
+      />
+      <div className="min-h-screen bg-background">
       <Navigation onCtaClick={() => handleCtaClick("trial")} />
       <HeroSection onCtaClick={() => handleCtaClick("trial")} />
       <StatsBar />
@@ -48,6 +56,7 @@ const Index = () => {
         planName={modalConfig.planName}
       />
     </div>
+    </HelmetProvider>
   );
 };
 

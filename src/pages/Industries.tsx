@@ -5,7 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Car, Scissors, Wrench, ShoppingBag, Heart, Briefcase } from "lucide-react";
 import { useState } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
+import { SEO } from "@/components/SEO";
 
 const Industries = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,7 +84,13 @@ const Industries = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <HelmetProvider>
+      <SEO 
+        title="Industries - Customer Engagement for UK Businesses"
+        description="Tailored solutions for automotive, salons, home services, retail, healthcare and professional services. See how GrowCheq helps your industry."
+        canonical="https://growcheq.com/industries"
+      />
+      <div className="min-h-screen bg-background">
       <Navigation onCtaClick={() => setIsModalOpen(true)} />
 
       {/* Hero Section */}
@@ -202,6 +210,7 @@ const Industries = () => {
         planName=""
       />
     </div>
+    </HelmetProvider>
   );
 };
 

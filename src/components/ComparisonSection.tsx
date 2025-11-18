@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Check, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Card } from "@/components/ui/card";
 
 interface ComparisonSectionProps {
   onCtaClick: () => void;
@@ -93,48 +95,60 @@ export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
           </table>
         </div>
 
-        {/* Mobile Cards */}
-        <div className="lg:hidden space-y-4">
-          {comparisons.map((item, index) => (
-            <div
-              key={index}
-              className="bg-card rounded-lg shadow-lg p-6 border-2 animate-scale-in"
-              style={{ animationDelay: `${index * 50}ms` }}
-            >
-              <h3 className="font-heading font-bold text-lg mb-4">{item.feature}</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Separate Tools:</span>
-                  <span className="font-semibold">{item.competitor} - {item.cost}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">With GrowCheq:</span>
-                  <div className="flex items-center gap-1 text-green-600 font-semibold">
-                    <Check className="h-4 w-4" />
-                    Included
+        {/* Mobile Accordion */}
+        <div className="lg:hidden">
+          <Accordion type="single" collapsible className="space-y-4">
+            {comparisons.map((item, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-4 hover:no-underline hover:bg-muted/50">
+                  <div className="flex items-center justify-between w-full pr-4">
+                    <div className="text-left">
+                      <div className="font-semibold">{item.feature}</div>
+                      <div className="text-sm text-muted-foreground">{item.competitor}</div>
+                    </div>
+                    <div className="text-destructive font-bold">{item.cost}</div>
                   </div>
-                </div>
-                <div className="flex justify-between pt-2 border-t">
-                  <span className="font-semibold">You Save:</span>
-                  <span className="font-bold text-green-600">{item.cost}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+                </AccordionTrigger>
+                <AccordionContent className="px-4 pb-4">
+                  <Card className="p-4 space-y-3 bg-muted/30">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Separate Tools:</span>
+                      <span className="text-lg font-semibold text-destructive">{item.cost}/mo</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">With GrowCheq:</span>
+                      <div className="flex items-center gap-2">
+                        <Check className="h-4 w-4 text-green-600" />
+                        <span className="font-semibold text-green-600">Included</span>
+                      </div>
+                    </div>
+                    <div className="border-t pt-3 flex justify-between items-center">
+                      <span className="font-semibold">You Save:</span>
+                      <span className="text-lg font-bold text-green-600">{item.cost}/mo</span>
+                    </div>
+                  </Card>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
 
-          <div className="gradient-primary text-white rounded-lg p-6 shadow-xl">
-            <div className="text-center space-y-2">
-              <p className="text-lg">Total with Separate Tools:</p>
-              <p className="text-3xl font-bold">£{totalCost}/month</p>
-              <p className="text-lg">GrowCheq Professional:</p>
-              <p className="text-3xl font-bold">£197/month</p>
-              <div className="pt-4 border-t border-white/20">
-                <p className="text-2xl font-bold gradient-text bg-white px-4 py-2 rounded-lg inline-block">
-                  YOU SAVE: £{displaySavings}/month
-                </p>
+          {/* Mobile Total Card */}
+          <Card className="mt-6 p-6 bg-primary/10 border-2 border-primary">
+            <div className="space-y-3 text-center">
+              <div className="flex justify-between items-center">
+                <span className="font-semibold">Separate Tools Total:</span>
+                <span className="text-xl font-bold text-destructive">£{totalCost}/mo</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="font-semibold">GrowCheq:</span>
+                <span className="text-xl font-bold gradient-text">£197/mo</span>
+              </div>
+              <div className="border-t-2 border-primary pt-3 flex justify-between items-center">
+                <span className="text-lg font-bold">Total Savings:</span>
+                <span className="text-2xl font-bold text-green-600">£{displaySavings}/mo</span>
               </div>
             </div>
-          </div>
+          </Card>
         </div>
 
         <div className="text-center mt-12 space-y-6 animate-fade-in" style={{ animationDelay: "500ms" }}>
@@ -153,6 +167,11 @@ export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
             Stop Overpaying. Start Your Free Trial
             <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
+          <div className="pt-4">
+            <a href="/pricing" className="inline-flex items-center gap-2 text-primary hover:underline">
+              See Full Comparison →
+            </a>
+          </div>
         </div>
       </div>
     </section>

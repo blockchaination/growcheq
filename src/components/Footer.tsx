@@ -3,22 +3,17 @@ import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 export const Footer = () => {
   const footerLinks = {
     company: [
-      { label: "About", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Press", href: "#" },
-      { label: "Contact", href: "#" },
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
     ],
     product: [
-      { label: "Features", href: "#features" },
-      { label: "Pricing", href: "#pricing" },
-      { label: "Integrations", href: "#" },
-      { label: "API", href: "#" },
+      { label: "Features", href: "/features" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Industries", href: "/industries" },
     ],
-    resources: [
-      { label: "Blog", href: "#" },
-      { label: "Help Center", href: "#" },
-      { label: "Case Studies", href: "#" },
-      { label: "Webinars", href: "#" },
+    support: [
+      { label: "Contact Us", href: "/contact" },
+      { label: "FAQs", href: "/pricing#faqs" },
     ],
     legal: [
       { label: "Privacy Policy", href: "#" },
@@ -38,7 +33,7 @@ export const Footer = () => {
   return (
     <footer className="bg-foreground text-background pt-16 pb-8">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <img 
@@ -100,11 +95,11 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Resources Column */}
+          {/* Support Column */}
           <div>
-            <h4 className="font-heading font-semibold mb-4">Resources</h4>
+            <h4 className="font-heading font-semibold mb-4">Support</h4>
             <ul className="space-y-3">
-              {footerLinks.resources.map((link, index) => (
+              {footerLinks.support.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
