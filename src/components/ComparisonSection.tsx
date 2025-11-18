@@ -10,16 +10,11 @@ export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
   const [displaySavings, setDisplaySavings] = useState(0);
   
   const comparisons = [
-    { feature: "CRM & Pipeline Management", competitor: "HubSpot", cost: "£99" },
-    { feature: "Website Builder", competitor: "Wix Pro", cost: "£29" },
+    { feature: "CRM & Pipeline", competitor: "HubSpot", cost: "£99" },
     { feature: "Email Marketing", competitor: "Mailchimp", cost: "£99" },
     { feature: "SMS Marketing", competitor: "Twilio", cost: "£99" },
-    { feature: "Booking & Scheduling", competitor: "Calendly", cost: "£29" },
     { feature: "Reputation Management", competitor: "Birdeye", cost: "£159" },
-    { feature: "Call Tracking", competitor: "CallRail", cost: "£49" },
     { feature: "Marketing Automation", competitor: "ActiveCampaign", cost: "£169" },
-    { feature: "Online Courses Platform", competitor: "Teachable", cost: "£99" },
-    { feature: "Forms & Surveys", competitor: "Typeform", cost: "£49" },
   ];
 
   const totalCost = comparisons.reduce((sum, item) => sum + parseInt(item.cost.replace("£", "")), 0);

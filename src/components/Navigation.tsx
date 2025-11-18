@@ -32,19 +32,12 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
   }, []);
 
   const menuItems = [
-    { label: "Features", href: "#features" },
-    { label: "Industries", href: "#industries" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "Contact", href: "#contact" },
+    { label: "Features", href: "/features" },
+    { label: "Industries", href: "/industries" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ];
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
-  };
 
   return (
     <nav
@@ -56,7 +49,7 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-52 lg:h-60">
           {/* Logo */}
-          <a href="#" className="flex items-center space-x-2">
+          <a href="/" className="flex items-center space-x-2">
             <img 
               src="/branding/main_logo.png" 
               alt="GrowCheq Logo" 
@@ -67,13 +60,13 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {menuItems.map((item) => (
-              <button
+              <a
                 key={item.label}
-                onClick={() => scrollToSection(item.href)}
+                href={item.href}
                 className="text-foreground hover:text-primary transition-colors font-medium"
               >
                 {item.label}
-              </button>
+              </a>
             ))}
             {user ? (
               <DropdownMenu>
@@ -131,13 +124,14 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 space-y-4 animate-slide-up">
             {menuItems.map((item) => (
-              <button
+              <a
                 key={item.label}
-                onClick={() => scrollToSection(item.href)}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="block w-full text-left px-4 py-2 text-foreground hover:bg-muted rounded-lg transition-colors"
               >
                 {item.label}
-              </button>
+              </a>
             ))}
             <div className="px-4">
               <Button variant="gradient" className="w-full" onClick={onCtaClick}>
