@@ -5,7 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Target, Users, Zap, Heart } from "lucide-react";
 import { useState } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
+import { SEO } from "@/components/SEO";
 
 const About = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +36,13 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <HelmetProvider>
+      <SEO 
+        title="About GrowCheq - Built for UK Small Businesses"
+        description="Learn about GrowCheq's mission to help UK SMEs compete with enterprise-level customer engagement tools at affordable prices."
+        canonical="https://growcheq.com/about"
+      />
+      <div className="min-h-screen bg-background">
       <Navigation onCtaClick={() => setIsModalOpen(true)} />
 
       {/* Hero Section */}
@@ -233,6 +241,7 @@ const About = () => {
         planName=""
       />
     </div>
+    </HelmetProvider>
   );
 };
 

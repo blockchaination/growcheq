@@ -124,12 +124,14 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
           ))}
         </div>
 
-        <p className="text-center text-muted-foreground mt-12 max-w-2xl mx-auto">
-          All plans include 14-day free trial. No credit card required. Cancel anytime.
-        </p>
-        <p className="text-center text-sm text-muted-foreground mt-4">
-          💡 Using separate tools? You're likely paying £800+/month. See comparison below.
-        </p>
+        <div className="text-center mt-12 space-y-4">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            14-day free trial • No credit card required • Cancel anytime
+          </p>
+          <a href="/pricing" className="inline-flex items-center gap-2 text-primary hover:underline">
+            Compare Plans in Detail →
+          </a>
+        </div>
       </div>
     </section>
   );
