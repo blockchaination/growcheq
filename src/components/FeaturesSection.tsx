@@ -1,6 +1,10 @@
 import { MessageSquare, Zap, TrendingUp, Star, BarChart, Users } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+
 export const FeaturesSection = () => {
   const features = [
     {
@@ -20,24 +24,6 @@ export const FeaturesSection = () => {
       title: "Instant Payments",
       description: "Send payment links via text. Get paid in seconds with integrated payment processing.",
       gradient: "from-accent to-brand-light",
-    },
-    {
-      icon: Star,
-      title: "Review Management",
-      description: "Automatically request and showcase 5-star reviews to boost your online reputation.",
-      gradient: "from-primary to-accent",
-    },
-    {
-      icon: BarChart,
-      title: "Analytics Dashboard",
-      description: "Track every interaction, conversion, and revenue source with beautiful real-time dashboards.",
-      gradient: "from-secondary to-brand-light",
-    },
-    {
-      icon: Users,
-      title: "Team Collaboration",
-      description: "Assign conversations, leave internal notes, and never let a customer slip through the cracks.",
-      gradient: "from-accent to-primary",
     },
   ];
 
@@ -83,6 +69,15 @@ export const FeaturesSection = () => {
               </Card>
             );
           })}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link to="/features">
+            <Button variant="outline" size="lg" className="group">
+              Explore All Features
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
