@@ -19,10 +19,10 @@ const buttonVariants = cva(
         hero: "gradient-hero text-white shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 font-semibold",
       },
       size: {
-        default: "h-11 px-6 py-2",
-        sm: "h-9 rounded-md px-4",
-        lg: "h-14 rounded-lg px-10 text-base",
-        icon: "h-10 w-10",
+        default: "h-11 px-6 py-2 min-h-[44px]",
+        sm: "h-10 rounded-md px-4 min-h-[40px]",
+        lg: "h-14 rounded-lg px-10 text-base min-h-[56px]",
+        icon: "h-11 w-11 min-h-[44px] min-w-[44px]",
       },
     },
     defaultVariants: {

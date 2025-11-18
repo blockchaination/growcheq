@@ -39,6 +39,29 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
     { label: "Contact", href: "/contact" },
   ];
 
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMobileMenuOpen]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <nav
       className={cn(
@@ -112,34 +135,68 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-foreground"
+            className="md:hidden w-11 h-11 flex items-center justify-center rounded-lg hover:bg-accent transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <Menu className="h-6 w-6" />
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile menu backdrop */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-4 animate-slide-up">
-            {menuItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
+          <div 
+            className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-fade-in"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+
+        {/* Mobile menu drawer */}
+        <div 
+          className={cn(
+            "md:hidden fixed top-0 right-0 h-full w-[280px] bg-background border-l shadow-2xl z-50 transition-transform duration-300 ease-in-out",
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          )}
+        >
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between p-4 border-b">
+              <span className="font-semibold text-lg">Menu</span>
+              <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full text-left px-4 py-2 text-foreground hover:bg-muted rounded-lg transition-colors"
+                className="w-11 h-11 flex items-center justify-center rounded-lg hover:bg-accent transition-colors"
+                aria-label="Close menu"
               >
-                {item.label}
-              </a>
-            ))}
-            <div className="px-4">
-              <Button variant="gradient" className="w-full" onClick={onCtaClick}>
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            
+            <nav className="flex-1 overflow-y-auto p-6 space-y-2">
+              {menuItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="block py-4 px-4 text-base font-medium rounded-lg hover:bg-accent transition-colors min-h-[44px] flex items-center"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+
+            <div className="p-6 border-t">
+              <Button 
+                onClick={() => {
+                  onCtaClick();
+                  setIsMobileMenuOpen(false);
+                }} 
+                variant="hero" 
+                className="w-full h-12"
+              >
                 Get Started
               </Button>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
