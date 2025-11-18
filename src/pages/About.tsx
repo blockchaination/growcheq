@@ -48,9 +48,6 @@ const About = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-24">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-sm text-muted-foreground mb-8">
-            <a href="/" className="hover:text-primary">Home</a> / <span>About</span>
-          </div>
 
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <Badge variant="secondary" className="px-4 py-2">
@@ -84,59 +81,6 @@ const About = () => {
                 That's where GrowCheq comes in. We've built an all-in-one platform that gives you the same powerful features as tools costing £800+/month—for a fraction of the price.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Founder Section */}
-      <section className="py-16 lg:py-24 bg-background">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl lg:text-5xl font-heading font-bold text-center mb-16">
-              Meet the <span className="gradient-text">Founder</span>
-            </h2>
-
-            <Card className="overflow-hidden">
-              <CardContent className="p-0">
-                <div className="grid md:grid-cols-2 gap-0">
-                  {/* Photo Placeholder */}
-                  <div className="bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center p-12 md:p-16">
-                    <div className="w-48 h-48 rounded-full gradient-hero flex items-center justify-center text-white">
-                      <span className="text-6xl font-bold">AC</span>
-                    </div>
-                  </div>
-
-                  {/* Bio */}
-                  <div className="p-8 md:p-12 space-y-6">
-                    <div>
-                      <h3 className="text-3xl font-heading font-bold">Ariana Clarke</h3>
-                      <p className="text-lg text-muted-foreground">Founder & CEO</p>
-                    </div>
-
-                    <div className="space-y-4 text-muted-foreground">
-                      <p>
-                        With over a decade of experience in marketing automation and CRM solutions, Ariana saw firsthand how UK SMEs were struggling with fragmented, expensive tools.
-                      </p>
-                      <p>
-                        After working with hundreds of small businesses and seeing the same challenges repeated—multiple subscriptions, lost leads, missed opportunities—she knew there had to be a better way.
-                      </p>
-                      <p>
-                        In 2025, Ariana founded GrowCheq with a clear mission: provide UK small businesses with affordable, enterprise-level customer engagement tools in one unified platform.
-                      </p>
-                      <p className="font-semibold text-foreground">
-                        "Every local business should have the tools to compete and win—without breaking the bank." — Ariana
-                      </p>
-                    </div>
-
-                    <div className="pt-4">
-                      <p className="text-sm">
-                        📧 <a href="mailto:hello@growcheq.com" className="text-primary hover:underline">hello@growcheq.com</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>

@@ -148,10 +148,6 @@ const Features = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-24">
         <div className="container mx-auto px-4 lg:px-8">
-          {/* Breadcrumb */}
-          <div className="text-sm text-muted-foreground mb-8">
-            <a href="/" className="hover:text-primary">Home</a> / <span>Features</span>
-          </div>
 
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <Badge variant="secondary" className="px-4 py-2">
