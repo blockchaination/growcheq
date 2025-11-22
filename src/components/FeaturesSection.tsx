@@ -36,12 +36,12 @@ export const FeaturesSection = () => {
             <span className="gradient-text">One Platform</span>
           </h2>
           <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Stop juggling multiple tools. GrowCheq brings all your customer communications 
+            Stop juggling multiple tools. GrowCheq brings all your customer communications
             and business tools into one powerful platform.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
@@ -52,7 +52,7 @@ export const FeaturesSection = () => {
               >
                 {/* Gradient accent bar */}
                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.gradient}`} />
-                
+
                 <CardHeader>
                   <div
                     className={`w-16 h-16 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}

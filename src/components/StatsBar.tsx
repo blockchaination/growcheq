@@ -9,11 +9,11 @@ export const StatsBar = () => {
   return (
     <section className="gradient-hero py-12 lg:py-16">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-12">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="text-center space-y-2 animate-scale-in"
+              className="text-center space-y-2 animate-scale-in p-4"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <p className="text-3xl lg:text-5xl font-heading font-bold text-white">

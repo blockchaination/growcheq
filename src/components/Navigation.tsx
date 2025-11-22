@@ -70,13 +70,13 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
       )}
     >
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-52 lg:h-60">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a href="/" className="flex items-center space-x-2">
-            <img 
-              src="/branding/main_logo.png" 
-              alt="GrowCheq Logo" 
-              className="h-48 lg:h-56 w-auto object-contain"
+            <img
+              src="/logo.png"
+              alt="GrowCheq Logo"
+              className="h-10 lg:h-12 w-auto max-w-[180px] object-contain"
             />
           </a>
 
@@ -135,7 +135,7 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden w-11 h-11 flex items-center justify-center rounded-lg hover:bg-accent transition-colors"
+            className="md:hidden w-12 h-12 flex items-center justify-center rounded-lg hover:bg-accent transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -145,14 +145,14 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
 
         {/* Mobile menu backdrop */}
         {isMobileMenuOpen && (
-          <div 
+          <div
             className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-fade-in"
             onClick={() => setIsMobileMenuOpen(false)}
           />
         )}
 
         {/* Mobile menu drawer */}
-        <div 
+        <div
           className={cn(
             "md:hidden fixed top-0 right-0 h-full w-[280px] bg-background border-l shadow-2xl z-50 transition-transform duration-300 ease-in-out",
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
@@ -169,7 +169,7 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
                 <X className="h-6 w-6" />
               </button>
             </div>
-            
+
             <nav className="flex-1 overflow-y-auto p-6 space-y-2">
               {menuItems.map((item) => (
                 <a
@@ -184,12 +184,12 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
             </nav>
 
             <div className="p-6 border-t">
-              <Button 
+              <Button
                 onClick={() => {
                   onCtaClick();
                   setIsMobileMenuOpen(false);
-                }} 
-                variant="hero" 
+                }}
+                variant="hero"
                 className="w-full h-12"
               >
                 Get Started

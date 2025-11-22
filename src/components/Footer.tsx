@@ -36,9 +36,9 @@ export const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <img 
-              src="/branding/main_logo.png" 
-              alt="GrowCheq Logo" 
+            <img
+              src="/logo.png"
+              alt="GrowCheq Logo"
               className="h-48 lg:h-56 w-auto object-contain mb-4 brightness-0 invert"
             />
             <p className="text-background/70 text-sm leading-relaxed mb-6">
