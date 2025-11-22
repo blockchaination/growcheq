@@ -31,7 +31,7 @@ export const LeadCaptureModal = ({ open, onOpenChange, interestLevel = "trial", 
     setIsSubmitting(true);
 
     try {
-      // Insert lead into Supabase
+      // 1. Insert lead into Supabase (Critical Step)
       const { error } = await supabase.from("leads").insert({
         name: formData.name,
         email: formData.email,
@@ -45,19 +45,29 @@ export const LeadCaptureModal = ({ open, onOpenChange, interestLevel = "trial", 
 
       if (error) throw error;
 
-      // Send email notification to admin
-      await supabase.functions.invoke("send-lead-notification", {
-        body: {
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          phone: formData.phone,
-          message: formData.message,
-          interest_level: interestLevel,
-          plan_name: planName,
-          source_page: window.location.pathname,
-        },
-      });
+      // 2. Send email notification (Non-critical Step)
+      // We wrap this in a separate try/catch so email failures don't block the user success flow
+      try {
+        const { error: fnError } = await supabase.functions.invoke("send-lead-notification", {
+          body: {
+            name: formData.name,
+            email: formData.email,
+            company: formData.company,
+            phone: formData.phone,
+            message: formData.message,
+            interest_level: interestLevel,
+            plan_name: planName,
+            source_page: window.location.pathname,
+          },
+        });
+
+        if (fnError) {
+          console.error("Email notification failed:", fnError);
+        }
+      } catch (emailError) {
+        console.error("Failed to invoke email function:", emailError);
+        // We intentionally swallow this error so the user still gets a success message
+      }
 
       toast({
         title: "Thank you! 🎉",
@@ -75,9 +85,10 @@ export const LeadCaptureModal = ({ open, onOpenChange, interestLevel = "trial", 
 
       onOpenChange(false);
     } catch (error) {
+      console.error("Form submission error:", error);
       toast({
         title: "Oops!",
-        description: "Something went wrong. Please try again.",
+        description: "Something went wrong. Please try again or email us at hello@growcheq.com",
         variant: "destructive",
       });
     } finally {
