@@ -18,16 +18,16 @@ All colors MUST be HSL.
     --popover-foreground: 217 33% 17%;
 
     /* GrowCheq Brand Colors */
-    --primary: 261 63% 26%;
+    --primary: 256 63% 26%;
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 237 42% 40%;
+    --secondary: 237 43% 40%;
     --secondary-foreground: 0 0% 100%;
 
-    --accent: 217 48% 50%;
+    --accent: 224 43% 50%;
     --accent-foreground: 0 0% 100%;
 
-    --brand-light: 213 68% 60%;
+    --brand-light: 216 64% 60%;
     
     --muted: 220 13% 95%;
     --muted-foreground: 217 20% 45%;
