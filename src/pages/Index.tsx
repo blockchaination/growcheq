@@ -11,7 +11,7 @@ import { FinalCTASection } from "@/components/FinalCTASection";
 import { Footer } from "@/components/Footer";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { BackToTopButton } from "@/components/BackToTopButton";
-import { ChatWidget } from "@/components/ChatWidget";
+import { AIChatbot } from "@/components/AIChatbot";
 import { SEO } from "@/components/SEO";
 
 const Index = () => {
@@ -31,31 +31,31 @@ const Index = () => {
 
   return (
     <HelmetProvider>
-      <SEO 
+      <SEO
         title="Turn Every Interaction Into Revenue"
         description="Save £683/month with GrowCheq. The all-in-one customer engagement platform for UK SMEs. Unified inbox, automated follow-ups, reviews & payments. 14-day free trial."
         canonical="https://growcheq.com"
       />
       <div className="min-h-screen bg-background">
-      <Navigation onCtaClick={() => handleCtaClick("trial")} />
-      <HeroSection onCtaClick={() => handleCtaClick("trial")} />
-      <StatsBar />
-      <ProblemSolutionSection />
-      <FeaturesSection />
-      <PricingSection onCtaClick={handleCtaClick} />
-      <ComparisonSection onCtaClick={() => handleCtaClick("trial")} />
-      <FinalCTASection onCtaClick={() => handleCtaClick("trial")} />
-      <Footer />
-      <ChatWidget />
-      <BackToTopButton />
-      
-      <LeadCaptureModal
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        interestLevel={modalConfig.interestLevel}
-        planName={modalConfig.planName}
-      />
-    </div>
+        <Navigation onCtaClick={() => handleCtaClick("trial")} />
+        <HeroSection onCtaClick={() => handleCtaClick("trial")} />
+        <StatsBar />
+        <ProblemSolutionSection />
+        <FeaturesSection />
+        <PricingSection onCtaClick={handleCtaClick} />
+        <ComparisonSection onCtaClick={() => handleCtaClick("trial")} />
+        <FinalCTASection onCtaClick={() => handleCtaClick("trial")} />
+        <Footer />
+        <AIChatbot />
+        <BackToTopButton />
+
+        <LeadCaptureModal
+          open={isModalOpen}
+          onOpenChange={setIsModalOpen}
+          interestLevel={modalConfig.interestLevel}
+          planName={modalConfig.planName}
+        />
+      </div>
     </HelmetProvider>
   );
 };
