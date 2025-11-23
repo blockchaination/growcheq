@@ -115,7 +115,33 @@ export const Footer = () => {
           {/* Legal Column */}
           <div>
             <h4 className="font-heading font-semibold mb-4">Legal</h4>
+            <ul className="space-y-3">
+              {footerLinks.legal.map((link, index) => (
+                <li key={index}>
+                  <a
+                    href={link.href}
+                    className="text-background/70 hover:text-background text-sm transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-        </footer>
-        );
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-background/20 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-background/70 text-sm">
+              © {new Date().getFullYear()} GrowCheq. All rights reserved.
+            </p>
+            <p className="text-background/70 text-sm">
+              Made with ❤️ for UK businesses
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 };
