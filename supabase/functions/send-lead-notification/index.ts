@@ -63,6 +63,14 @@ serve(async (req) => {
             <li style="margin-bottom: 10px;">I'll personally review your information</li>
             <li style="margin-bottom: 10px;">You'll hear from me within 24 hours</li>
             <li style="margin-bottom: 10px;">We'll schedule a personalized demo to show you around</li>
+          </ul>
+          <p style="font-size: 16px; line-height: 1.6; margin-top: 20px;">Looking forward to speaking with you soon!</p>
+          <p style="font-size: 14px; color: #666; margin-top: 20px;">Best regards,<br><strong>Ariana Clarke</strong><br>Founder, GrowCheq</p>
+        </div>
+      </div>
+    `;
+
+    // 2. Admin Email Content
     const adminHtml = `
       <div style="font-family: sans-serif;">
         <h2 style="color: #2f196d;">New Lead: ${leadData.name} from ${leadData.company || 'Unknown Company'}</h2>
