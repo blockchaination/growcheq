@@ -80,60 +80,40 @@ serve(async (req) => {
 
     try {
         const { message, conversationHistory } = await req.json();
-        const apiKey = Deno.env.get('GEMINI_API_KEY') || "AIzaSyDwmLKEd9a2SNKSC0ohE0tVzleSmqHXzb0";
+        const apiKey = Deno.env.get('OPENAI_API_KEY');
 
         if (!apiKey) {
-            throw new Error('GEMINI_API_KEY is not set');
+            throw new Error('OPENAI_API_KEY is not set');
         }
 
-        // Construct the prompt with history
-        const contents = [
-            {
-                role: "user",
-                parts: [{ text: SYSTEM_PROMPT }]
-            }
+        // Construct messages array
+        const messages = [
+            { role: "system", content: SYSTEM_PROMPT },
+            ...(conversationHistory || []),
+            { role: "user", content: message }
         ];
 
-        // Add conversation history
-        if (conversationHistory && conversationHistory.length > 0) {
-            conversationHistory.forEach((msg: any) => {
-                contents.push({
-                    role: msg.role === 'assistant' ? 'model' : 'user',
-                    parts: [{ text: msg.content }]
-                });
-            });
-        }
-
-        // Add current message
-        contents.push({
-            role: "user",
-            parts: [{ text: message }]
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                model: 'gpt-4o-mini', // Cost effective and fast
+                messages: messages,
+                temperature: 0.7,
+                max_tokens: 500,
+            }),
         });
-
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    contents: contents,
-                    generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 500,
-                    },
-                }),
-            }
-        );
 
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error?.message || 'Failed to fetch from Gemini API');
+            throw new Error(data.error?.message || 'Failed to fetch from OpenAI API');
         }
 
-        const generatedText = data.candidates[0].content.parts[0].text;
+        const generatedText = data.choices[0].message.content;
 
         return new Response(
             JSON.stringify({ response: generatedText }),
