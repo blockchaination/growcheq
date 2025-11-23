@@ -63,7 +63,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
             <span className="gradient-text">Pricing</span>
           </h2>
           <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Save over £600/month compared to using separate tools
+            Save over £683/month compared to using separate tools
           </p>
         </div>
 
@@ -72,8 +72,8 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
             <Card
               key={index}
               className={`relative hover:shadow-2xl transition-all duration-300 animate-scale-in ${plan.popular
-                  ? "border-4 border-primary shadow-2xl lg:scale-105"
-                  : "border-2 hover:scale-105"
+                ? "border-4 border-primary shadow-2xl lg:scale-105"
+                : "border-2 hover:scale-105"
                 }`}
               style={{ animationDelay: `${index * 100}ms` }}
             >

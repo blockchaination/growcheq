@@ -1,14 +1,3 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-
-const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
-const SENDER_EMAIL = "hello@growcheq.com";
-const SENDER_NAME = "Ariana from GrowCheq";
-const ADMIN_EMAIL = "yassine.anaddam@hotmail.co.uk";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
 
 interface LeadNotification {
   name: string;
@@ -74,40 +63,23 @@ serve(async (req) => {
             <li style="margin-bottom: 10px;">I'll personally review your information</li>
             <li style="margin-bottom: 10px;">You'll hear from me within 24 hours</li>
             <li style="margin-bottom: 10px;">We'll schedule a personalized demo to show you around</li>
-          </ul>
-          <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-            <a href="https://growcheq.com" style="background-color: #2f196d; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">Visit GrowCheq.com</a>
-          </div>
-          <p style="font-size: 16px; line-height: 1.6;">
-            Talk soon,<br>
-            <strong>Ariana Clarke</strong><br>
-            Founder, GrowCheq
-          </p>
-        </div>
-        <div style="text-align: center; padding: 20px; font-size: 12px; color: #888; border-top: 1px solid #eee;">
-          &copy; 2025 GrowCheq. All rights reserved. 🇬🇧
-        </div>
-      </div>
-    `;
-
-    // 2. Admin Email Content
     const adminHtml = `
-      <div style="font-family: sans-serif;">
-        <h2 style="color: #2f196d;">New Lead: ${leadData.name} from ${leadData.company || 'Unknown Company'}</h2>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Name:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.name}</td></tr>
-          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.email}</td></tr>
-          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Company:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.company || 'N/A'}</td></tr>
-          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Phone:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.phone || 'N/A'}</td></tr>
-          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Interest:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.interest_level}</td></tr>
-          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Plan:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.plan_name || 'N/A'}</td></tr>
-          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Message:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.message ? leadData.message.replace(/\n/g, '<br>') : 'N/A'}</td></tr>
-        </table>
-        <div style="margin-top: 20px; padding: 15px; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 4px;">
-          <strong>Action Required:</strong> Reply within 1-2 hours for best conversion!
-        </div>
-      </div>
-    `;
+      < div style = "font-family: sans-serif;" >
+        <h2 style="color: #2f196d;" > New Lead: ${ leadData.name } from ${ leadData.company || 'Unknown Company' } </h2>
+          < table style = "width: 100%; border-collapse: collapse; margin-top: 20px;" >
+            <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Name: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.name}</td > </tr>
+              < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Email: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.email}</td > </tr>
+                < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Company: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.company || 'N/A'}</td></tr>
+                  < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Phone: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.phone || 'N/A'}</td></tr>
+                    < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Interest: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.interest_level}</td > </tr>
+                      < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Plan: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.plan_name || 'N/A'}</td></tr>
+                        < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Message: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.message ? leadData.message.replace(/\n / g, '<br>') : 'N/A'}</td></tr >
+                          </table>
+                          < div style = "margin-top: 20px; padding: 15px; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 4px;" >
+                            <strong>Action Required: </strong> Reply within 1-2 hours for best conversion!
+                              </div>
+                              </div>
+                                `;
 
     // Send both emails in parallel
     const emailPromises = [
@@ -118,7 +90,7 @@ serve(async (req) => {
       ),
       sendEmail(
         [{ email: ADMIN_EMAIL }],
-        `New Lead: ${leadData.name} from ${leadData.company || 'Unknown'}`,
+        `New Lead: ${ leadData.name } from ${ leadData.company || 'Unknown' } `,
         adminHtml
       )
     ];
