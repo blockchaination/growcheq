@@ -1,8 +1,7 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+export const config = {
+    runtime: 'edge',
 };
 
 const SYSTEM_PROMPT = `
@@ -73,78 +72,68 @@ Ask about specific industry → Explain industry-specific benefits
 Compare to competitors → Highlight all-in-one approach and cost savings
 `;
 
-serve(async (req) => {
+export default async function handler(req: Request) {
     if (req.method === 'OPTIONS') {
-        return new Response('ok', { headers: corsHeaders });
+        return new Response('ok', {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+            }
+        });
     }
 
     try {
         const { message, conversationHistory } = await req.json();
-        const apiKey = Deno.env.get('GEMINI_API_KEY') || "AIzaSyDwmLKEd9a2SNKSC0ohE0tVzleSmqHXzb0";
+        const apiKey = process.env.GEMINI_API_KEY || "AIzaSyDwmLKEd9a2SNKSC0ohE0tVzleSmqHXzb0";
 
         if (!apiKey) {
             throw new Error('GEMINI_API_KEY is not set');
         }
 
-        // Construct the prompt with history
-        const contents = [
-            {
-                role: "user",
-                parts: [{ text: SYSTEM_PROMPT }]
-            }
-        ];
-
-        // Add conversation history
-        if (conversationHistory && conversationHistory.length > 0) {
-            conversationHistory.forEach((msg: any) => {
-                contents.push({
-                    role: msg.role === 'assistant' ? 'model' : 'user',
-                    parts: [{ text: msg.content }]
-                });
-            });
-        }
-
-        // Add current message
-        contents.push({
-            role: "user",
-            parts: [{ text: message }]
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({
+            model: "gemini-1.5-flash",
+            systemInstruction: SYSTEM_PROMPT,
         });
 
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    contents: contents,
-                    generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 500,
-                    },
-                }),
-            }
-        );
+        // Convert history to Gemini format
+        const history = (conversationHistory || []).map((msg: any) => ({
+            role: msg.role === 'assistant' ? 'model' : 'user',
+            parts: [{ text: msg.content }]
+        }));
 
-        const data = await response.json();
+        const chat = model.startChat({
+            history: history,
+            generationConfig: {
+                maxOutputTokens: 500,
+                temperature: 0.7,
+            },
+        });
 
-        if (!response.ok) {
-            throw new Error(data.error?.message || 'Failed to fetch from Gemini API');
-        }
-
-        const generatedText = data.candidates[0].content.parts[0].text;
+        const result = await chat.sendMessage(message);
+        const response = result.response.text();
 
         return new Response(
-            JSON.stringify({ response: generatedText }),
-            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            JSON.stringify({ response }),
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                }
+            }
         );
 
     } catch (error) {
         console.error('Error:', error);
         return new Response(
             JSON.stringify({ error: error.message }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            {
+                status: 500,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                }
+            }
         );
     }
-});
+}
