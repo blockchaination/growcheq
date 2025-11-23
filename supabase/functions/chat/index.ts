@@ -80,10 +80,10 @@ serve(async (req) => {
 
     try {
         const { message, conversationHistory } = await req.json();
-        const apiKey = Deno.env.get('OPENAI_API_KEY');
+        const apiKey = Deno.env.get('LOVABLE_API_KEY');
 
         if (!apiKey) {
-            throw new Error('OPENAI_API_KEY is not set');
+            throw new Error('LOVABLE_API_KEY is not set');
         }
 
         // Construct messages array
@@ -93,14 +93,14 @@ serve(async (req) => {
             { role: "user", content: message }
         ];
 
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                model: 'gpt-4o-mini', // Cost effective and fast
+                model: 'google/gemini-2.5-flash',
                 messages: messages,
                 temperature: 0.7,
                 max_tokens: 500,
@@ -110,7 +110,8 @@ serve(async (req) => {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error?.message || 'Failed to fetch from OpenAI API');
+            console.error('Lovable AI error:', response.status, data);
+            throw new Error(data.error?.message || 'Failed to fetch from Lovable AI');
         }
 
         const generatedText = data.choices[0].message.content;

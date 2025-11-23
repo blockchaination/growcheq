@@ -64,22 +64,22 @@ serve(async (req) => {
             <li style="margin-bottom: 10px;">You'll hear from me within 24 hours</li>
             <li style="margin-bottom: 10px;">We'll schedule a personalized demo to show you around</li>
     const adminHtml = `
-      < div style = "font-family: sans-serif;" >
-        <h2 style="color: #2f196d;" > New Lead: ${ leadData.name } from ${ leadData.company || 'Unknown Company' } </h2>
-          < table style = "width: 100%; border-collapse: collapse; margin-top: 20px;" >
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Name: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.name}</td > </tr>
-              < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Email: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.email}</td > </tr>
-                < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Company: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.company || 'N/A'}</td></tr>
-                  < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Phone: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.phone || 'N/A'}</td></tr>
-                    < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Interest: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.interest_level}</td > </tr>
-                      < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Plan: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.plan_name || 'N/A'}</td></tr>
-                        < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Message: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.message ? leadData.message.replace(/\n / g, '<br>') : 'N/A'}</td></tr >
-                          </table>
-                          < div style = "margin-top: 20px; padding: 15px; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 4px;" >
-                            <strong>Action Required: </strong> Reply within 1-2 hours for best conversion!
-                              </div>
-                              </div>
-                                `;
+      <div style="font-family: sans-serif;">
+        <h2 style="color: #2f196d;">New Lead: ${leadData.name} from ${leadData.company || 'Unknown Company'}</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Name:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.name}</td></tr>
+          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.email}</td></tr>
+          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Company:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.company || 'N/A'}</td></tr>
+          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Phone:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.phone || 'N/A'}</td></tr>
+          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Interest:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.interest_level}</td></tr>
+          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Plan:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.plan_name || 'N/A'}</td></tr>
+          <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Message:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.message ? leadData.message.replace(/\n/g, '<br>') : 'N/A'}</td></tr>
+        </table>
+        <div style="margin-top: 20px; padding: 15px; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 4px;">
+          <strong>Action Required:</strong> Reply within 1-2 hours for best conversion!
+        </div>
+      </div>
+    `;
 
     // Send both emails in parallel
     const emailPromises = [
