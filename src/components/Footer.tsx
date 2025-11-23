@@ -111,34 +111,27 @@ export const Footer = () => {
               ))}
             </ul>
           </div>
-
-          {/* Legal Column */}
-          <div>
-            <h4 className="font-heading font-semibold mb-4">Legal</h4>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-background/70 hover:text-background text-sm transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-background/20 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-background/70 text-sm">
-              © {new Date().getFullYear()} GrowCheq. All rights reserved.
-            </p>
-            <p className="text-background/70 text-sm">
-              Made with ❤️ for UK businesses
-            </p>
+        {/* Bottom Section */}
+        <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-background/50 text-sm">
+            © 2025 GrowCheq. All rights reserved.
+          </p>
+          <div className="flex gap-6">
+            {footerLinks.legal.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                className="text-background/50 hover:text-background text-sm transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <div className="flex items-center gap-2 text-background/50 text-sm">
+            <span>🇬🇧</span>
+            <span>United Kingdom</span>
           </div>
         </div>
       </div>
