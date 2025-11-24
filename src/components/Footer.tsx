@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   const footerLinks = {
@@ -67,12 +68,12 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-background/70 hover:text-background text-sm transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -84,12 +85,12 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-background/70 hover:text-background text-sm transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -101,12 +102,21 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.support.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-background/70 hover:text-background text-sm transition-colors"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.includes('#') ? (
+                    <a
+                      href={link.href}
+                      className="text-background/70 hover:text-background text-sm transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-background/70 hover:text-background text-sm transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -120,13 +130,23 @@ export const Footer = () => {
           </p>
           <div className="flex gap-6">
             {footerLinks.legal.map((link, index) => (
-              <a
-                key={index}
-                href={link.href}
-                className="text-background/50 hover:text-background text-sm transition-colors"
-              >
-                {link.label}
-              </a>
+              <li key={index} className="list-none">
+                {link.href.includes('#') ? (
+                  <a
+                    href={link.href}
+                    className="text-background/50 hover:text-background text-sm transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    to={link.href}
+                    className="text-background/50 hover:text-background text-sm transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                )}
+              </li>
             ))}
           </div>
           <div className="flex items-center gap-2 text-background/50 text-sm">
