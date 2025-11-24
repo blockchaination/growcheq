@@ -19,7 +19,7 @@ export const Footer = () => {
     legal: [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
-      { label: "GDPR Compliance", href: "/privacy" },
+      { label: "GDPR Compliance", href: "/privacy#gdpr" },
       { label: "Cookie Policy", href: "/privacy#cookies" },
     ],
   };
