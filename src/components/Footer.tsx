@@ -16,10 +16,10 @@ export const Footer = () => {
       { label: "FAQs", href: "/pricing#faqs" },
     ],
     legal: [
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
-      { label: "GDPR Compliance", href: "#" },
-      { label: "Cookie Policy", href: "#" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+      { label: "GDPR Compliance", href: "/privacy" },
+      { label: "Cookie Policy", href: "/privacy#cookies" },
     ],
   };
 

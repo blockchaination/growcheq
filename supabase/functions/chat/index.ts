@@ -5,74 +5,6 @@ const corsHeaders = {
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const SYSTEM_PROMPT = `
-You are a helpful AI assistant for GrowCheq, a UK-based customer engagement platform.
-
-ABOUT GROWCHEQ:
-All-in-one platform for UK SMEs to manage customer communications
-Replaces 10+ separate tools (CRM, email, SMS, reviews, payments)
-Saves businesses £683/month compared to using separate tools
-Founded by Ariana Clarke
-Website: growcheq.com
-
-PRICING PLANS:
-Essential: £79/month
-- Up to 5,000 email contacts
-- 500 SMS messages/month
-- Basic features: CRM, email marketing, SMS, booking, automations
-
-Professional: £197/month (MOST POPULAR)
-- Up to 25,000 contacts
-- 2,500 SMS messages/month
-- Everything in Essential PLUS: reputation management, call tracking, advanced automations, courses, communities
-
-Enterprise: £347/month
-- Unlimited contacts and messages
-- Everything in Professional PLUS: white-label mobile app, priority support, dedicated account manager
-
-KEY FEATURES:
-Unified Inbox: Manage SMS, WhatsApp, Facebook, calls, emails in one place
-AI-Powered Automation: Auto-qualify leads, send follow-ups, request reviews
-Instant Payments: Send payment links via text
-Review Management: Collect and display customer reviews
-Call Tracking & Recording: Track all customer calls
-Analytics Dashboard: Real-time business insights
-
-FREE TRIAL:
-14-day free trial
-No credit card required
-Full access to all features
-
-TARGET CUSTOMERS:
-UK businesses in: Automotive, Salons & Beauty, Home Services (plumbing, HVAC), Retail, Healthcare, Professional Services
-
-YOUR ROLE:
-Answer questions about GrowCheq features, pricing, and how it works
-Be friendly, helpful, and concise (2-3 sentences max per response)
-If asked to book a demo or start trial, collect: name, email, company
-If you can't answer something, offer to connect them with our team
-Always mention UK focus and cost savings (£683/month vs separate tools)
-Use British English spellings (optimise, colour, etc.)
-
-TONE:
-Friendly and professional
-Enthusiastic but not pushy
-Clear and concise
-Use emojis sparingly (only when appropriate)
-
-RESPONSES SHOULD BE:
-2-3 sentences maximum
-Direct and actionable
-Include relevant links when helpful
-Ask clarifying questions if needed
-
-If someone wants to:
-Book demo → Collect name, email, company
-Start trial → Direct to website or collect details
-Ask about specific industry → Explain industry-specific benefits
-Compare to competitors → Highlight all-in-one approach and cost savings
-`;
-
 serve(async (req) => {
     if (req.method === 'OPTIONS') {
         return new Response('ok', { headers: corsHeaders });
@@ -80,51 +12,131 @@ serve(async (req) => {
 
     try {
         const { message, conversationHistory } = await req.json();
-        const apiKey = Deno.env.get('OPENAI_API_KEY');
+        const apiKey = Deno.env.get('HUGGINGFACE_API_KEY');
 
         if (!apiKey) {
-            throw new Error('OPENAI_API_KEY is not set');
+            throw new Error('HUGGINGFACE_API_KEY is not set');
         }
 
-        // Construct messages array
+        // Build messages array for OpenAI-compatible endpoint
         const messages = [
-            { role: "system", content: SYSTEM_PROMPT },
-            ...(conversationHistory || []),
-            { role: "user", content: message }
+            {
+                role: "system",
+                content: `You are a helpful AI assistant for GrowCheq, a UK-based customer engagement platform.
+
+ABOUT GROWCHEQ:
+- All-in-one platform for UK SMEs to manage customer communications
+- Replaces 10+ separate tools (CRM, email, SMS, reviews, payments, call tracking)
+- Saves businesses £683/month compared to using separate tools
+- 14-day free trial, no credit card required
+- Founded by Yassine Anaddam and Eesa Badat
+- Website: growcheq.com
+
+PRICING PLANS:
+1. Essential - £79/month
+   • 5,000 email contacts, 500 SMS/month
+   • CRM, email marketing, SMS, booking, basic automations
+
+2. Professional - £197/month (MOST POPULAR)
+   • 25,000 contacts, 2,500 SMS/month
+   • Everything in Essential PLUS: reputation management, call tracking, advanced automations, courses, communities
+
+3. Enterprise - £347/month
+   • Unlimited contacts and messages
+   • Everything in Professional PLUS: white-label mobile app, priority support, dedicated account manager
+
+KEY FEATURES:
+- Unified Inbox: All messages (SMS, WhatsApp, Facebook, calls, email) in one place
+- AI Automation: Auto-qualify leads, send follow-ups, request reviews
+- Instant Payments: Send payment links via text
+- Review Management: Collect and manage reviews
+- Call Tracking: Track and record calls
+- Analytics: Real-time dashboards
+
+TARGET INDUSTRIES:
+Automotive, Salons & Beauty, Home Services, Retail, Healthcare, Professional Services
+
+YOUR ROLE:
+- Answer questions about GrowCheq concisely (2-3 sentences max)
+- Be friendly and professional
+- If asked to book demo or start trial, request: name, email, company
+- Emphasize UK focus and £683/month savings
+- Use British English
+
+KEEP RESPONSES SHORT: Maximum 2-3 sentences per response!`
+            }
         ];
 
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${apiKey}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                model: 'gpt-4o-mini', // Cost effective and fast
-                messages: messages,
-                temperature: 0.7,
-                max_tokens: 500,
-            }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error?.message || 'Failed to fetch from OpenAI API');
+        // Add conversation history (last 6 messages)
+        if (conversationHistory && Array.isArray(conversationHistory)) {
+            conversationHistory.slice(-6).forEach((msg: any) => {
+                messages.push({
+                    role: msg.role === 'assistant' ? 'assistant' : 'user',
+                    content: msg.content
+                });
+            });
         }
 
-        const generatedText = data.choices[0].message.content;
+        // Add current message
+        messages.push({
+            role: "user",
+            content: message
+        });
+
+        // Call Hugging Face OpenAI-compatible API
+        const response = await fetch(
+            'https://router.huggingface.co/v1/chat/completions',
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    model: "meta-llama/Meta-Llama-3-8B-Instruct",
+                    messages: messages,
+                    max_tokens: 300,
+                    temperature: 0.7,
+                    stream: false
+                })
+            }
+        );
+
+        // Handle cold start (503)
+        if (response.status === 503) {
+            return new Response(
+                JSON.stringify({
+                    response: "I'm warming up... This first message takes a moment. Please try again in 10 seconds!",
+                    isLoading: true
+                }),
+                { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            );
+        }
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('HuggingFace API error:', response.status, errorText);
+            throw new Error(`API request failed: ${response.status} ${errorText}`);
+        }
+
+        const data = await response.json();
+        const botResponse = data.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response.";
 
         return new Response(
-            JSON.stringify({ response: generatedText }),
+            JSON.stringify({ response: botResponse }),
             { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
 
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Chatbot API error:', error);
+
+        // Keep debug mode for now to be safe, or revert to friendly?
+        // Let's revert to friendly since we verified it works.
         return new Response(
-            JSON.stringify({ error: error.message }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            JSON.stringify({
+                response: "I'm having trouble connecting right now. Please try again or email us at hello@growcheq.com for immediate help!"
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
     }
 });

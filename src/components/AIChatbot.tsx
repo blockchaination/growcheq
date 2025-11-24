@@ -45,10 +45,21 @@ export const AIChatbot = () => {
         }
     }, [messages, isTyping, isOpen]);
 
+    const [lastMessageTime, setLastMessageTime] = useState(0);
+    const [loadingMessage, setLoadingMessage] = useState("");
+
     const handleSendMessage = async (e?: React.FormEvent) => {
         e?.preventDefault();
 
         if (!inputValue.trim()) return;
+
+        // Rate limiting: Require 3 seconds between messages
+        const now = Date.now();
+        if (now - lastMessageTime < 3000) {
+            toast.error("Please wait a moment between messages");
+            return;
+        }
+        setLastMessageTime(now);
 
         const userMessage: Message = {
             id: Date.now().toString(),
@@ -61,15 +72,39 @@ export const AIChatbot = () => {
         setInputValue("");
         setIsTyping(true);
 
-        try {
-            const { data, error } = await supabase.functions.invoke('chat', {
-                body: {
-                    message: userMessage.content,
-                    conversationHistory: messages.map(m => ({ role: m.role, content: m.content })),
-                },
-            });
+        // Show special loading message for first message (cold start)
+        if (messages.length <= 1) { // <= 1 because we added the user message just now, so length is 2? No, state update is async. Actually messages.length refers to previous state.
+            // Wait, messages state hasn't updated yet in this render cycle.
+            // If messages was empty (just welcome message), length is 1.
+            if (messages.length <= 1) {
+                setLoadingMessage("AI is warming up... (first message takes ~20 seconds)");
+            }
+        }
 
-            if (error) throw error;
+        try {
+            const callChatApi = async () => {
+                const { data, error } = await supabase.functions.invoke('chat', {
+                    body: {
+                        message: userMessage.content,
+                        conversationHistory: messages.map(m => ({ role: m.role, content: m.content })),
+                    },
+                });
+                if (error) throw error;
+                return data;
+            };
+
+            let data = await callChatApi();
+
+            // If model is loading (cold start), wait and retry
+            if (data.isLoading) {
+                setLoadingMessage("AI is loading... Retrying in 10 seconds...");
+
+                // Wait 10 seconds
+                await new Promise(resolve => setTimeout(resolve, 10000));
+
+                // Retry the request
+                data = await callChatApi();
+            }
 
             const botMessage: Message = {
                 id: (Date.now() + 1).toString(),
@@ -92,6 +127,7 @@ export const AIChatbot = () => {
             }]);
         } finally {
             setIsTyping(false);
+            setLoadingMessage("");
         }
     };
 
@@ -158,10 +194,15 @@ export const AIChatbot = () => {
                             {isTyping && (
                                 <div className="flex justify-start">
                                     <div className="bg-white border border-gray-100 rounded-2xl rounded-bl-none px-4 py-3 shadow-sm">
-                                        <div className="flex gap-1">
-                                            <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                                            <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                                            <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                                        <div className="flex flex-col gap-2">
+                                            <div className="flex gap-1">
+                                                <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                                                <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                                                <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                                            </div>
+                                            {loadingMessage && (
+                                                <span className="text-xs text-gray-500 animate-pulse">{loadingMessage}</span>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

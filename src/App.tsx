@@ -18,6 +18,9 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import Overview from "./pages/admin/Overview";
 import Bookings from "./pages/admin/Bookings";
 import Chats from "./pages/admin/Chats";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import CookieConsent from "./components/CookieConsent";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +31,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
+          <CookieConsent />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/features" element={<Features />} />
@@ -36,6 +40,9 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+
             <Route
               path="/profile"
               element={
@@ -44,6 +51,7 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
+
             <Route
               path="/admin"
               element={
@@ -56,6 +64,7 @@ const App = () => (
               <Route path="bookings" element={<Bookings />} />
               <Route path="chats" element={<Chats />} />
             </Route>
+
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
