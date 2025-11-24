@@ -1,13 +1,55 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { stripePromise } from "@/integrations/stripe/stripe-promise";
+import { useToast } from "@/components/ui/use-toast";
 
 interface PricingSectionProps {
   onCtaClick: (plan: string) => void;
 }
 
 export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const handleCheckout = async (planName: string) => {
+    if (planName === "Enterprise") {
+      onCtaClick(planName);
+      return;
+    }
+
+    try {
+      setLoadingPlan(planName);
+      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+        body: { planName },
+      });
+
+      if (error) throw error;
+
+      const stripe = await stripePromise;
+      if (!stripe) throw new Error("Stripe failed to load");
+
+      const { error: stripeError } = await stripe.redirectToCheckout({
+        sessionId: data.sessionId,
+      });
+
+      if (stripeError) throw stripeError;
+
+    } catch (error) {
+      console.error('Checkout error:', error);
+      toast({
+        title: "Checkout Failed",
+        description: "There was an error starting the checkout process. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoadingPlan(null);
+    }
+  };
+
   const plans = [
     {
       name: "Essential",
@@ -114,9 +156,17 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
                   variant={plan.variant}
                   size="lg"
                   className="w-full"
-                  onClick={() => onCtaClick(plan.name)}
+                  onClick={() => handleCheckout(plan.name)}
+                  disabled={loadingPlan === plan.name}
                 >
-                  {plan.cta}
+                  {loadingPlan === plan.name ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    plan.cta
+                  )}
                 </Button>
               </CardFooter>
             </Card>
