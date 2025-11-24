@@ -4,6 +4,7 @@ import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
 import { StatsBar } from "@/components/StatsBar";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSection";
+import { KeyToEngagementSection } from "@/components/KeyToEngagementSection";
 import { FeaturesSection } from "@/components/FeaturesSection";
 import { PricingSection } from "@/components/PricingSection";
 import { ComparisonSection } from "@/components/ComparisonSection";
@@ -40,6 +41,7 @@ const Index = () => {
         <Navigation onCtaClick={() => handleCtaClick("trial")} />
         <HeroSection onCtaClick={() => handleCtaClick("trial")} />
         <StatsBar />
+        <KeyToEngagementSection />
         <ProblemSolutionSection />
         <FeaturesSection />
         <PricingSection onCtaClick={handleCtaClick} />

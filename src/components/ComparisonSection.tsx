@@ -50,6 +50,14 @@ export const ComparisonSection = ({ onCtaClick }: ComparisonSectionProps) => {
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div className="flex flex-col items-center justify-center mb-6">
+            <img
+              src="/images/growcheq-key-checkmark.png"
+              alt="Unlock Savings"
+              className="w-16 h-16 object-contain mb-2 animate-pulse"
+            />
+            <span className="text-primary font-bold tracking-wide uppercase text-sm">Unlock Massive Savings</span>
+          </div>
           <h2 className="text-3xl md:text-5xl font-heading font-bold">
             Stop Paying for <span className="gradient-text">Multiple Tools</span>
           </h2>
