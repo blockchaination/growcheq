@@ -1,11 +1,11 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 const Privacy = () => {
     return (
         <div className="min-h-screen bg-white">
-            <Navbar />
+            <Navigation />
             <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                 <h1 className="text-4xl font-bold text-gray-900 mb-8">Privacy Policy</h1>
                 <div className="prose prose-lg text-gray-600">
