@@ -77,13 +77,11 @@ export const CheckoutFlow = ({
 
             // Step 3: Redirect to Stripe Checkout
             if (data?.url) {
+                console.log("Redirecting to Stripe:", data.url);
                 window.location.href = data.url;
-            } else if (data?.sessionId) {
-                // Fallback: Construct URL manually if backend doesn't return it
-                // This handles cases where the edge function hasn't been updated yet
-                window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
             } else {
-                throw new Error("No checkout URL returned");
+                console.error("Checkout response missing URL:", data);
+                throw new Error("Stripe checkout URL not available. Please try again.");
             }
         } catch (err: any) {
             console.error("Checkout error:", err);
