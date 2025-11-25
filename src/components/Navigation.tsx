@@ -14,7 +14,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface NavigationProps {
-  onCtaClick: () => void;
+  onCtaClick?: () => void;
 }
 
 export const Navigation = ({ onCtaClick }: NavigationProps) => {
@@ -186,7 +186,7 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
             <div className="p-6 border-t">
               <Button
                 onClick={() => {
-                  onCtaClick();
+                  onCtaClick?.();
                   setIsMobileMenuOpen(false);
                 }}
                 variant="hero"

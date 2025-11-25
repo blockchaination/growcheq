@@ -1,3 +1,14 @@
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+
+const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
+const ADMIN_EMAIL = "leads@growcheq.com";
+const SENDER_NAME = "Ariana from GrowCheq";
+const SENDER_EMAIL = "hello@growcheq.com";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
 
 interface LeadNotification {
   name: string;
@@ -47,18 +58,53 @@ serve(async (req) => {
       throw new Error("BREVO_API_KEY is not set");
     }
 
-    // 1. Customer Email Content
+    // Customer Email
     const customerHtml = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
         <div style="background: linear-gradient(to right, #2f196d, #4865b7); padding: 20px; text-align: center;">
           <h1 style="color: white; margin: 0; font-size: 24px;">GrowCheq</h1>
         </div>
+        <div style="padding: 30px; background: white;">
+          <h2 style="color: #2f196d; margin-bottom: 20px;">Thanks for your interest, ${leadData.name}!</h2>
+          <p style="font-size: 16px; line-height: 1.6;">We're excited to help ${leadData.company || 'your business'} grow with GrowCheq.</p>
+          <p style="font-size: 16px; line-height: 1.6;">One of our team members will reach out shortly to discuss how we can help.</p>
+          <p style="font-size: 16px; line-height: 1.6; margin-top: 30px;">Best regards,<br><strong>Ariana</strong><br>Founder, GrowCheq</p>
+        </div>
+        <div style="padding: 20px; background: #f5f5f5; text-align: center; font-size: 14px; color: #666;">
+          <p>© 2025 GrowCheq. All rights reserved.</p>
+        </div>
+      </div>
+    `;
+
+    // Admin Email
+    const adminHtml = `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+        <div style="background: linear-gradient(to right, #2f196d, #4865b7); padding: 20px; text-align: center;">
+          <h1 style="color: white; margin: 0; font-size: 24px;">New Lead Alert</h1>
+        </div>
+        <div style="padding: 30px; background: white;">
+          <h2 style="color: #2f196d; margin-bottom: 20px;">Lead Details</h2>
+          <p><strong>Name:</strong> ${leadData.name}</p>
+          <p><strong>Email:</strong> ${leadData.email}</p>
+          <p><strong>Company:</strong> ${leadData.company || 'Not provided'}</p>
+          <p><strong>Phone:</strong> ${leadData.phone || 'Not provided'}</p>
+          <p><strong>Interest Level:</strong> ${leadData.interest_level}</p>
+          <p><strong>Plan:</strong> ${leadData.plan_name || 'Not specified'}</p>
+          <p><strong>Source Page:</strong> ${leadData.source_page || 'Not specified'}</p>
+          ${leadData.message ? `<p><strong>Message:</strong><br>${leadData.message}</p>` : ''}
+        </div>
+      </div>
+    `;
+
+    const emailPromises = [
+      sendEmail(
+        [{ email: leadData.email, name: leadData.name }],
+        "Thanks for your interest in GrowCheq!",
         customerHtml
       ),
       sendEmail(
         [{ email: ADMIN_EMAIL }],
-        `New Lead: ${ leadData.name } from ${ leadData.company || 'Unknown'
-  } `,
+        `New Lead: ${leadData.name} from ${leadData.company || 'Unknown'}`,
         adminHtml
       )
     ];
@@ -73,9 +119,6 @@ serve(async (req) => {
 
   } catch (error) {
     console.error("Error in send-lead-notification function:", error);
-    // Even if email fails, we don't want to break the client flow if possible, 
-    // but since this is the backend, we report the error. 
-    // The client handles the "soft fail" logic.
     const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
     return new Response(JSON.stringify({ error: errorMessage }), {
       status: 500,
