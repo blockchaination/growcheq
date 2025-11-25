@@ -12,36 +12,61 @@ serve(async (req) => {
   }
 
   try {
-    const { priceId, planName } = await req.json();
+    const { planName, planPrice, userId, email, customerName } = await req.json();
+
+    // Validate inputs
+    if (!planName || !planPrice || !userId || !email) {
+      return new Response(
+        JSON.stringify({ error: 'Missing required fields' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
       apiVersion: '2022-11-15',
       httpClient: Stripe.createFetchHttpClient(),
     });
 
-    // Map plan names to amounts for testing (since we don't have Price IDs yet)
-    // In production, you should use Price IDs from your Stripe Dashboard
-    let unitAmount = 7900; // Default to Essential
-    if (planName === 'Professional') unitAmount = 19700;
-    if (planName === 'Enterprise') unitAmount = 34700;
+    // Get base URL from environment or request origin
+    const baseUrl = Deno.env.get('VITE_BASE_URL') || req.headers.get('origin') || 'http://localhost:5173';
 
-    // Create Checkout Session
+    // Create Checkout Session for subscription with trial
     const session = await stripe.checkout.sessions.create({
+      customer_email: email,
+      client_reference_id: userId,
+      mode: 'subscription',
       payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
             currency: 'gbp',
+            unit_amount: planPrice * 100, // Convert £79 to 7900 pence
+            recurring: {
+              interval: 'month',
+            },
             product_data: {
               name: `GrowCheq ${planName} Plan`,
+              description: `${planName} subscription with 14-day free trial`,
             },
-            unit_amount: unitAmount,
           },
           quantity: 1,
         },
       ],
-      mode: 'payment', // Use 'subscription' if you have recurring prices set up
-      success_url: `${req.headers.get('origin')}/?success=true`,
-      cancel_url: `${req.headers.get('origin')}/?canceled=true`,
+      subscription_data: {
+        trial_period_days: 14,
+        metadata: {
+          userId,
+          planName,
+          planPrice: planPrice.toString(),
+        },
+      },
+      success_url: `${baseUrl}/profile?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/pricing`,
+      metadata: {
+        userId,
+        planName,
+        planPrice: planPrice.toString(),
+      },
     });
 
     return new Response(

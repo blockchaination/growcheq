@@ -7,15 +7,17 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Upload, User } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Loader2, Upload, User, CheckCircle2 } from 'lucide-react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function Profile() {
   const { user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
   const [profile, setProfile] = useState({
     full_name: '',
     email: '',
@@ -28,7 +30,18 @@ export default function Profile() {
       return;
     }
     loadProfile();
-  }, [user, navigate]);
+
+    // Check for successful checkout
+    const sessionId = searchParams.get('session_id');
+    if (sessionId) {
+      setShowWelcome(true);
+      // Hide welcome message after 10 seconds
+      setTimeout(() => setShowWelcome(false), 10000);
+      // Remove session_id from URL
+      searchParams.delete('session_id');
+      navigate({ search: searchParams.toString() }, { replace: true });
+    }
+  }, [user, navigate, searchParams]);
 
   const loadProfile = async () => {
     if (!user) return;
@@ -61,7 +74,7 @@ export default function Profile() {
     if (!e.target.files || !e.target.files[0] || !user) return;
 
     const file = e.target.files[0];
-    
+
     // Validate file size (5MB max)
     if (file.size > 5 * 1024 * 1024) {
       toast({
@@ -182,6 +195,29 @@ export default function Profile() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Welcome Banner */}
+            {showWelcome && (
+              <div className="bg-green-50 dark:bg-green-950 border-2 border-green-200 dark:border-green-800 rounded-lg p-6 space-y-2 animate-fade-in">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  <h3 className="text-xl font-semibold text-green-800 dark:text-green-200">
+                    🎉 Welcome to GrowCheq!
+                  </h3>
+                </div>
+                <p className="text-green-700 dark:text-green-300">
+                  Your 14-day free trial has started. No charges until{' '}
+                  {new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                  })}.
+                </p>
+                <p className="text-sm text-green-600 dark:text-green-400">
+                  You can cancel anytime from your account settings.
+                </p>
+              </div>
+            )}
+
             {/* Avatar Section */}
             <div className="flex flex-col items-center space-y-4">
               <Avatar className="h-32 w-32">
@@ -190,7 +226,7 @@ export default function Profile() {
                   {initials}
                 </AvatarFallback>
               </Avatar>
-              
+
               <div className="flex items-center gap-2">
                 <Input
                   id="avatar"

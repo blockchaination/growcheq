@@ -1,53 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Loader2 } from "lucide-react";
+import { Check } from "lucide-react";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { stripePromise } from "@/integrations/stripe/stripe-promise";
-import { useToast } from "@/components/ui/use-toast";
+import { CheckoutFlow } from "@/components/CheckoutFlow";
 
 interface PricingSectionProps {
   onCtaClick: (plan: string) => void;
 }
 
 export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
-  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
-  const { toast } = useToast();
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{
+    name: "Essential" | "Professional" | "Enterprise";
+    price: number;
+  } | null>(null);
 
-  const handleCheckout = async (planName: string) => {
+  const handleStartTrial = (planName: "Essential" | "Professional" | "Enterprise", price: number) => {
     if (planName === "Enterprise") {
       onCtaClick(planName);
       return;
     }
-
-    try {
-      setLoadingPlan(planName);
-      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-        body: { planName },
-      });
-
-      if (error) throw error;
-
-      const stripe = await stripePromise;
-      if (!stripe) throw new Error("Stripe failed to load");
-
-      const { error: stripeError } = await stripe.redirectToCheckout({
-        sessionId: data.sessionId,
-      });
-
-      if (stripeError) throw stripeError;
-
-    } catch (error) {
-      console.error('Checkout error:', error);
-      toast({
-        title: "Checkout Failed",
-        description: "There was an error starting the checkout process. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoadingPlan(null);
-    }
+    setSelectedPlan({ name: planName, price });
+    setCheckoutOpen(true);
   };
 
   const plans = [
@@ -156,17 +131,9 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
                   variant={plan.variant}
                   size="lg"
                   className="w-full"
-                  onClick={() => handleCheckout(plan.name)}
-                  disabled={loadingPlan === plan.name}
+                  onClick={() => handleStartTrial(plan.name as "Essential" | "Professional" | "Enterprise", parseInt(plan.price.replace("£", "")))}
                 >
-                  {loadingPlan === plan.name ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    plan.cta
-                  )}
+                  {plan.cta}
                 </Button>
               </CardFooter>
             </Card>
@@ -182,6 +149,16 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
           </a>
         </div>
       </div>
+
+      {/* Checkout Modal */}
+      {selectedPlan && (
+        <CheckoutFlow
+          planName={selectedPlan.name}
+          planPrice={selectedPlan.price}
+          isOpen={checkoutOpen}
+          onClose={() => setCheckoutOpen(false)}
+        />
+      )}
     </section>
   );
 };
