@@ -55,7 +55,7 @@ serve(async (req) => {
     const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
     const SENDER_NAME = "Ariana from GrowCheq";
     const SENDER_EMAIL = "hello@growcheq.com";
-    const ADMIN_EMAIL = "leads@growcheq.com";
+    const ADMIN_EMAIL = "sales@growcheq.com";
 
     if (!BREVO_API_KEY) {
       throw new Error("BREVO_API_KEY is not set");

@@ -37,8 +37,8 @@ const handler = async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Chat Notifications <onboarding@resend.dev>",
-        to: ["yassine.anaddam@hotmail.co.uk"],
+        from: "GrowCheq Chat <hello@growcheq.com>",
+        to: ["hello@growcheq.com"],
         subject: `New Chat Message ${lead_quality ? `(${lead_quality.toUpperCase()} Lead)` : ''}`,
         html: `
           <h1>New Chat Message Received</h1>
