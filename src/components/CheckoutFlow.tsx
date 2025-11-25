@@ -76,7 +76,6 @@ export const CheckoutFlow = ({
             if (!data?.sessionId) throw new Error("No session ID returned");
 
             // Step 3: Redirect to Stripe Checkout
-            // Step 3: Redirect to Stripe Checkout
             if (data?.url) {
                 window.location.href = data.url;
             } else if (data?.sessionId) {
