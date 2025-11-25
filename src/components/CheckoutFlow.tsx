@@ -78,7 +78,10 @@ export const CheckoutFlow = ({
             // Step 3: Redirect to Stripe Checkout
             console.log("Checkout session response:", data);
             if (data?.url) {
-                window.location.href = data.url;
+                const newWindow = window.open(data.url, "_blank", "noopener,noreferrer");
+                if (!newWindow) {
+                    window.location.href = data.url;
+                }
             } else if (data?.sessionId) {
                 window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
             } else {
