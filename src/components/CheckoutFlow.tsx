@@ -76,11 +76,12 @@ export const CheckoutFlow = ({
             if (!data?.sessionId) throw new Error("No session ID returned");
 
             // Step 3: Redirect to Stripe Checkout
+            console.log("Checkout session response:", data);
             if (data?.url) {
-                console.log("Redirecting to Stripe:", data.url);
                 window.location.href = data.url;
+            } else if (data?.sessionId) {
+                window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
             } else {
-                console.error("Checkout response missing URL:", data);
                 throw new Error("Stripe checkout URL not available. Please try again.");
             }
         } catch (err: any) {
