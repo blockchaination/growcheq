@@ -76,13 +76,13 @@ export const CheckoutFlow = ({
             if (!data?.sessionId) throw new Error("No session ID returned");
 
             // Step 3: Redirect to Stripe Checkout
+            // Step 3: Redirect to Stripe Checkout
             if (data?.url) {
                 window.location.href = data.url;
             } else if (data?.sessionId) {
-                // Fallback for older API versions if url is missing but sessionId exists
-                const stripe = await stripePromise;
-                if (!stripe) throw new Error("Stripe failed to load");
-                await stripe.redirectToCheckout({ sessionId: data.sessionId });
+                // Fallback: Construct URL manually if backend doesn't return it
+                // This handles cases where the edge function hasn't been updated yet
+                window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
             } else {
                 throw new Error("No checkout URL returned");
             }
