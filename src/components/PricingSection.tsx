@@ -16,6 +16,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
     price: number;
   } | null>(null);
 
+<<<<<<< HEAD
   const handleStartTrial = (planName: "Essential" | "Professional" | "Enterprise", price: number) => {
     if (planName === "Enterprise") {
       onCtaClick(planName);
@@ -29,6 +30,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
     {
       name: "Essential",
       price: "£79",
+      priceValue: 79,
       description: "Perfect for solo operators",
       popular: false,
       features: [
@@ -43,6 +45,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
     {
       name: "Professional",
       price: "£197",
+      priceValue: 197,
       description: "Best for growing businesses",
       popular: true,
       features: [
@@ -58,6 +61,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
     {
       name: "Enterprise",
       price: "£347",
+      priceValue: 347,
       description: "For agencies & multi-location",
       popular: false,
       features: [
