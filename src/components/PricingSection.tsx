@@ -134,7 +134,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
                   variant={plan.variant}
                   size="lg"
                   className="w-full"
-                  onClick={() => handleStartTrial(plan.name as "Essential" | "Professional" | "Enterprise", parseInt(plan.price.replace("£", "")))}
+                  onClick={() => handleStartTrial(plan.name as "Essential" | "Professional" | "Enterprise", plan.priceValue)}
                 >
                   {plan.cta}
                 </Button>
