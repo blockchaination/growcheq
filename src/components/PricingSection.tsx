@@ -16,7 +16,6 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
     price: number;
   } | null>(null);
 
-<<<<<<< HEAD
   const handleStartTrial = (planName: "Essential" | "Professional" | "Enterprise", price: number) => {
     if (planName === "Enterprise") {
       onCtaClick(planName);
