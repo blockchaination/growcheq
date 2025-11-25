@@ -73,16 +73,10 @@ export const CheckoutFlow = ({
             );
 
             if (functionError) throw functionError;
-            if (!data?.sessionId) throw new Error("No session ID returned");
+            if (!data?.url) throw new Error("No checkout URL returned");
 
             // Step 3: Redirect to Stripe Checkout
-            const stripe = await stripePromise;
-            if (!stripe) throw new Error("Stripe failed to load");
-
-            // Redirect to Stripe Checkout
-            await stripe.redirectToCheckout({
-                sessionId: data.sessionId,
-            });
+            window.location.href = data.url;
         } catch (err: any) {
             console.error("Checkout error:", err);
             setError(err.message || "Failed to start checkout. Please try again.");
