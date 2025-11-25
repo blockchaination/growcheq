@@ -15,7 +15,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const handleCheckout = async (planName: string) => {
+  const handleCheckout = async (planName: string, planPrice: number) => {
     if (planName === "Enterprise") {
       onCtaClick(planName);
       return;
@@ -23,20 +23,32 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
 
     try {
       setLoadingPlan(planName);
+      
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: "Authentication Required",
+          description: "Please sign in to start your free trial.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-        body: { planName },
+        body: { 
+          planName,
+          planPrice,
+          userId: user.id,
+          email: user.email,
+        },
       });
 
       if (error) throw error;
 
-      const stripe = await stripePromise;
-      if (!stripe) throw new Error("Stripe failed to load");
-
-      const { error: stripeError } = await stripe.redirectToCheckout({
-        sessionId: data.sessionId,
-      });
-
-      if (stripeError) throw stripeError;
+      // Redirect to Stripe Checkout
+      window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
 
     } catch (error) {
       console.error('Checkout error:', error);
@@ -54,6 +66,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
     {
       name: "Essential",
       price: "£79",
+      priceValue: 79,
       description: "Perfect for solo operators",
       popular: false,
       features: [
@@ -68,6 +81,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
     {
       name: "Professional",
       price: "£197",
+      priceValue: 197,
       description: "Best for growing businesses",
       popular: true,
       features: [
@@ -83,6 +97,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
     {
       name: "Enterprise",
       price: "£347",
+      priceValue: 347,
       description: "For agencies & multi-location",
       popular: false,
       features: [
@@ -156,7 +171,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
                   variant={plan.variant}
                   size="lg"
                   className="w-full"
-                  onClick={() => handleCheckout(plan.name)}
+                  onClick={() => handleCheckout(plan.name, plan.priceValue)}
                   disabled={loadingPlan === plan.name}
                 >
                   {loadingPlan === plan.name ? (
