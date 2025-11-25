@@ -93,8 +93,8 @@ const handler = async (req: Request): Promise<Response> => {
               <p><strong>What happens next?</strong></p>
               <ul>
                 <li>I'll personally review your information</li>
-                <li>You'll hear from me within 24 hours</li>
-                <li>We'll schedule a personalized 15-minute demo</li>
+                <li>You'll hear from me within 1 hour to confirm your demo</li>
+                <li>We'll schedule a personalized 15-minute demo at your preferred time</li>
               </ul>
               
               <p>In the meantime, feel free to explore our website or reply to this email with any questions.</p>
