@@ -28,38 +28,43 @@ const Index = () => {
       planName: planName || "",
     });
     setIsModalOpen(true);
+    const scrollToPricing = () => {
+      const pricingSection = document.getElementById("pricing");
+      if (pricingSection) {
+        pricingSection.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    return (
+      <HelmetProvider>
+        <SEO
+          title="Turn Every Interaction Into Revenue"
+          description="Save £683/month with GrowCheq. The all-in-one customer engagement platform for UK SMEs. Unified inbox, automated follow-ups, reviews & payments. 14-day free trial."
+          canonical="https://growcheq.com"
+        />
+        <div className="min-h-screen bg-background">
+          <Navigation onCtaClick={scrollToPricing} />
+          <HeroSection onCtaClick={scrollToPricing} />
+          <StatsBar />
+          <KeyToEngagementSection />
+          <ProblemSolutionSection />
+          <FeaturesSection />
+          <PricingSection onCtaClick={handleCtaClick} />
+          <ComparisonSection onCtaClick={scrollToPricing} />
+          <FinalCTASection onCtaClick={scrollToPricing} />
+          <Footer />
+          <AIChatbot />
+          <BackToTopButton />
+
+          <LeadCaptureModal
+            open={isModalOpen}
+            onOpenChange={setIsModalOpen}
+            interestLevel={modalConfig.interestLevel}
+            planName={modalConfig.planName}
+          />
+        </div>
+      </HelmetProvider>
+    );
   };
 
-  return (
-    <HelmetProvider>
-      <SEO
-        title="Turn Every Interaction Into Revenue"
-        description="Save £683/month with GrowCheq. The all-in-one customer engagement platform for UK SMEs. Unified inbox, automated follow-ups, reviews & payments. 14-day free trial."
-        canonical="https://growcheq.com"
-      />
-      <div className="min-h-screen bg-background">
-        <Navigation onCtaClick={() => handleCtaClick("trial")} />
-        <HeroSection onCtaClick={() => handleCtaClick("trial")} />
-        <StatsBar />
-        <KeyToEngagementSection />
-        <ProblemSolutionSection />
-        <FeaturesSection />
-        <PricingSection onCtaClick={handleCtaClick} />
-        <ComparisonSection onCtaClick={() => handleCtaClick("trial")} />
-        <FinalCTASection onCtaClick={() => handleCtaClick("trial")} />
-        <Footer />
-        <AIChatbot />
-        <BackToTopButton />
-
-        <LeadCaptureModal
-          open={isModalOpen}
-          onOpenChange={setIsModalOpen}
-          interestLevel={modalConfig.interestLevel}
-          planName={modalConfig.planName}
-        />
-      </div>
-    </HelmetProvider>
-  );
-};
-
-export default Index;
+  export default Index;

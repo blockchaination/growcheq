@@ -53,44 +53,12 @@ serve(async (req) => {
         <div style="background: linear-gradient(to right, #2f196d, #4865b7); padding: 20px; text-align: center;">
           <h1 style="color: white; margin: 0; font-size: 24px;">GrowCheq</h1>
         </div>
-        <div style="padding: 30px; background-color: #f9f9f9;">
-          <h2 style="color: #2f196d;">Thanks for your interest, ${leadData.name}!</h2>
-          <p style="font-size: 16px; line-height: 1.6;">
-            Hi there, I'm Ariana, the founder of GrowCheq. I'm thrilled you're interested in seeing how we can help you turn every interaction into revenue.
-          </p>
-          <h3 style="color: #4865b7; margin-top: 25px;">Here's what happens next:</h3>
-          <ul style="font-size: 16px; line-height: 1.6; padding-left: 20px;">
-            <li style="margin-bottom: 10px;">I'll personally review your information</li>
-            <li style="margin-bottom: 10px;">You'll hear from me within 24 hours</li>
-            <li style="margin-bottom: 10px;">We'll schedule a personalized demo to show you around</li>
-    const adminHtml = `
-      < div style = "font-family: sans-serif;" >
-        <h2 style="color: #2f196d;" > New Lead: ${ leadData.name } from ${ leadData.company || 'Unknown Company' } </h2>
-          < table style = "width: 100%; border-collapse: collapse; margin-top: 20px;" >
-            <tr><td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Name: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.name}</td > </tr>
-              < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Email: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.email}</td > </tr>
-                < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Company: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.company || 'N/A'}</td></tr>
-                  < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Phone: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.phone || 'N/A'}</td></tr>
-                    < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Interest: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.interest_level}</td > </tr>
-                      < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Plan: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.plan_name || 'N/A'}</td></tr>
-                        < tr > <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;" > Message: </td><td style="padding: 8px; border-bottom: 1px solid #eee;">${leadData.message ? leadData.message.replace(/\n / g, '<br>') : 'N/A'}</td></tr >
-                          </table>
-                          < div style = "margin-top: 20px; padding: 15px; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 4px;" >
-                            <strong>Action Required: </strong> Reply within 1-2 hours for best conversion!
-                              </div>
-                              </div>
-                                `;
-
-    // Send both emails in parallel
-    const emailPromises = [
-      sendEmail(
-        [{ email: leadData.email, name: leadData.name }],
-        "Thanks for Your Interest in GrowCheq!",
         customerHtml
       ),
       sendEmail(
         [{ email: ADMIN_EMAIL }],
-        `New Lead: ${ leadData.name } from ${ leadData.company || 'Unknown' } `,
+        `New Lead: ${ leadData.name } from ${ leadData.company || 'Unknown'
+  } `,
         adminHtml
       )
     ];
