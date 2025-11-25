@@ -148,6 +148,9 @@ export const CheckoutFlow = ({
                             placeholder="Min. 8 characters"
                             disabled={isLoading}
                         />
+                        <p className="text-xs text-muted-foreground">
+                            Must include uppercase, lowercase, number, and special character
+                        </p>
                     </div>
 
                     <div className="space-y-2">
