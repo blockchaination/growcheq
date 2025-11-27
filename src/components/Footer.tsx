@@ -52,7 +52,7 @@ export const Footer = () => {
                     key={index}
                     href={social.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     aria-label={social.label}
                     className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
                   >
