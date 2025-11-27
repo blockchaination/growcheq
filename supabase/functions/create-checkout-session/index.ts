@@ -69,6 +69,16 @@ serve(async (req) => {
       },
     });
 
+    console.log('Stripe session created:', { id: session.id, url: session.url, hasUrl: !!session.url });
+
+    if (!session.url) {
+      console.error('Stripe session missing URL:', session);
+      return new Response(
+        JSON.stringify({ error: 'Failed to create checkout session URL' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     return new Response(
       JSON.stringify({ sessionId: session.id, url: session.url }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
