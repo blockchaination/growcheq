@@ -2,9 +2,16 @@ import React from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 
+import { SEO } from '@/components/SEO';
+
 const Terms = () => {
     return (
         <div className="min-h-screen bg-white">
+            <SEO
+                title="Terms of Service"
+                description="Read GrowCheq's Terms of Service to understand the rules and regulations for using our website and services."
+                canonical="https://growcheq.com/terms"
+            />
             <Navigation />
             <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                 <h1 className="text-4xl font-bold text-gray-900 mb-8">Terms of Service</h1>

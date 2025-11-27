@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Check, X } from "lucide-react";
 import { useState } from "react";
-import { HelmetProvider } from "react-helmet-async";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SEO } from "@/components/SEO";
@@ -142,13 +141,12 @@ const Pricing = () => {
   ];
 
   return (
-    <HelmetProvider>
-      <SEO 
+    <div className="min-h-screen bg-background">
+      <SEO
         title="Pricing - Save £683/Month on Customer Engagement"
         description="Transparent pricing from £79/month. Replace HubSpot, Mailchimp, Twilio and more with one affordable platform. 14-day free trial, no credit card required."
         canonical="https://growcheq.com/pricing"
       />
-      <div className="min-h-screen bg-background">
       <Navigation onCtaClick={() => handleCtaClick("")} />
 
       {/* Hero Section */}
@@ -176,11 +174,10 @@ const Pricing = () => {
             {plans.map((plan, index) => (
               <Card
                 key={index}
-                className={`relative hover:shadow-2xl transition-all duration-300 ${
-                  plan.popular
+                className={`relative hover:shadow-2xl transition-all duration-300 ${plan.popular
                     ? "border-4 border-primary shadow-2xl lg:scale-105"
                     : "border-2 hover:scale-105"
-                }`}
+                  }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
@@ -408,7 +405,6 @@ const Pricing = () => {
         planName={modalConfig.planName}
       />
     </div>
-    </HelmetProvider>
   );
 };
 

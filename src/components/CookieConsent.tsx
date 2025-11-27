@@ -1,13 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
 
 const CookieConsent = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
         // Check if user has already consented
-        const hasConsented = localStorage.getItem('cookieConsent');
-        if (!hasConsented) {
+        const consentStatus = localStorage.getItem('cookieConsent');
+
+        if (consentStatus === 'true') {
+            // Restore consent
+            if (typeof window.gtag !== 'undefined') {
+                window.gtag('consent', 'update', {
+                    'ad_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted',
+                    'analytics_storage': 'granted'
+                });
+            }
+        } else if (consentStatus === 'false') {
+            // Ensure denied
+            if (typeof window.gtag !== 'undefined') {
+                window.gtag('consent', 'update', {
+                    'ad_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied',
+                    'analytics_storage': 'denied'
+                });
+            }
+        }
+
+        if (!consentStatus) {
             // Show banner after a short delay
             const timer = setTimeout(() => setIsVisible(true), 1000);
             return () => clearTimeout(timer);
@@ -16,13 +38,27 @@ const CookieConsent = () => {
 
     const handleAccept = () => {
         localStorage.setItem('cookieConsent', 'true');
+        if (typeof window.gtag !== 'undefined') {
+            window.gtag('consent', 'update', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted',
+                'analytics_storage': 'granted'
+            });
+        }
         setIsVisible(false);
     };
 
     const handleDecline = () => {
-        // For strict GDPR, we should block non-essential cookies here.
-        // For this implementation, we'll just hide the banner and note the choice.
         localStorage.setItem('cookieConsent', 'false');
+        if (typeof window.gtag !== 'undefined') {
+            window.gtag('consent', 'update', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+            });
+        }
         setIsVisible(false);
     };
 

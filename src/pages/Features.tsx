@@ -5,7 +5,6 @@ import { MessageSquare, Zap, TrendingUp, Star, BarChart, Users, Phone, Mail } fr
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
-import { HelmetProvider } from "react-helmet-async";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { DemoBookingSection } from "@/components/DemoBookingSection";
 import { SEO } from "@/components/SEO";
@@ -136,13 +135,12 @@ const Features = () => {
   ];
 
   return (
-    <HelmetProvider>
-      <SEO 
+    <div className="min-h-screen bg-background">
+      <SEO
         title="Features - All-in-One Customer Engagement Platform"
         description="Discover GrowCheq's powerful features: unified inbox, AI automation, instant payments, review management, and more. See how we replace 10+ tools."
         canonical="https://growcheq.com/features"
       />
-      <div className="min-h-screen bg-background">
       <Navigation onCtaClick={() => setIsModalOpen(true)} />
 
       {/* Hero Section */}
@@ -263,7 +261,6 @@ const Features = () => {
         planName=""
       />
     </div>
-    </HelmetProvider>
   );
 };
 

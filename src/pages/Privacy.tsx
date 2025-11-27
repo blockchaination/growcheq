@@ -2,9 +2,16 @@ import React from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 
+import { SEO } from '@/components/SEO';
+
 const Privacy = () => {
     return (
         <div className="min-h-screen bg-white">
+            <SEO
+                title="Privacy Policy"
+                description="Read GrowCheq's Privacy Policy to understand how we collect, use, and protect your personal information."
+                canonical="https://growcheq.com/privacy"
+            />
             <Navigation />
             <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                 <h1 className="text-4xl font-bold text-gray-900 mb-8">Privacy Policy</h1>
