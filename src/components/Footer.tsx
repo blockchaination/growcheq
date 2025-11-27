@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Facebook, Linkedin, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
@@ -25,10 +25,9 @@ export const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Facebook, href: "https://www.facebook.com/growcheq/", label: "Facebook" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/growcheq/", label: "LinkedIn" },
+    { icon: Instagram, href: "https://www.instagram.com/growcheq/", label: "Instagram" },
   ];
 
   return (
