@@ -127,7 +127,7 @@ export const Footer = () => {
         {/* Bottom Section */}
         <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-background/50 text-sm">
-            © 2025 GrowCheq. All rights reserved.
+            © 2025 GrowCheq. All rights reserved. (v1.0.1)
           </p>
           <div className="flex gap-6">
             {footerLinks.legal.map((link, index) => (
