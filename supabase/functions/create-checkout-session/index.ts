@@ -60,8 +60,8 @@ serve(async (req) => {
           planPrice: planPrice.toString(),
         },
       },
-      success_url: `${baseUrl}/profile?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/pricing`,
+      success_url: `${baseUrl}/dashboard?session_id={CHECKOUT_SESSION_ID}&success=true`,
+      cancel_url: `${baseUrl}/pricing?canceled=true`,
       metadata: {
         userId,
         planName,
