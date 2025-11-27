@@ -5,17 +5,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Check, X } from "lucide-react";
 import { useState } from "react";
-import { LeadCaptureModal } from "@/components/LeadCaptureModal";
+import { CheckoutFlow } from "@/components/CheckoutFlow";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SEO } from "@/components/SEO";
 
 const Pricing = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalConfig, setModalConfig] = useState({ interestLevel: "trial", planName: "" });
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{ name: "Essential" | "Professional" | "Enterprise"; price: number }>({ name: "Professional", price: 197 });
 
-  const handleCtaClick = (plan: string) => {
-    setModalConfig({ interestLevel: "trial", planName: plan });
-    setIsModalOpen(true);
+  const handleCtaClick = (planName: "Essential" | "Professional" | "Enterprise", price: number) => {
+    setSelectedPlan({ name: planName, price });
+    setIsCheckoutOpen(true);
   };
 
   const plans = [
@@ -147,7 +147,7 @@ const Pricing = () => {
         description="Transparent pricing from £79/month. Replace HubSpot, Mailchimp, Twilio and more with one affordable platform. 14-day free trial, no credit card required."
         canonical="https://growcheq.com/pricing"
       />
-      <Navigation onCtaClick={() => handleCtaClick("")} />
+      <Navigation onCtaClick={() => handleCtaClick("Professional", 197)} />
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-24">
@@ -175,8 +175,8 @@ const Pricing = () => {
               <Card
                 key={index}
                 className={`relative hover:shadow-2xl transition-all duration-300 ${plan.popular
-                    ? "border-4 border-primary shadow-2xl lg:scale-105"
-                    : "border-2 hover:scale-105"
+                  ? "border-4 border-primary shadow-2xl lg:scale-105"
+                  : "border-2 hover:scale-105"
                   }`}
               >
                 {plan.popular && (
@@ -218,7 +218,7 @@ const Pricing = () => {
                     variant={plan.popular ? "gradient" : "outline"}
                     size="lg"
                     className="w-full"
-                    onClick={() => handleCtaClick(plan.name)}
+                    onClick={() => handleCtaClick(plan.name as "Essential" | "Professional" | "Enterprise", parseInt(plan.price.replace("£", "")))}
                   >
                     {plan.name === "Enterprise" ? "Contact Sales" : "Start Free Trial"}
                   </Button>
@@ -398,11 +398,11 @@ const Pricing = () => {
 
       <Footer />
 
-      <LeadCaptureModal
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        interestLevel={modalConfig.interestLevel}
-        planName={modalConfig.planName}
+      <CheckoutFlow
+        planName={selectedPlan.name}
+        planPrice={selectedPlan.price}
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
       />
     </div>
   );
