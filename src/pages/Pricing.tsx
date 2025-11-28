@@ -38,7 +38,9 @@ const Pricing = () => {
       console.log('Checkout session created:', data.sessionId);
 
       // Load Stripe and redirect to checkout
-      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY!);
+      // Use env var or fallback to the key we found in the codebase
+      const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_51SX1aILuWelYhCLm2nA5csgHxKVj3rNiI1rS3quGGomQewmXv8iZcW268S2tE567HXaAyfIIteHUSusIISP58uQ000QFtGK4ug";
+      const stripe = await loadStripe(stripeKey);
       if (!stripe) throw new Error('Stripe failed to load');
 
       const { error: stripeError } = await stripe.redirectToCheckout({
