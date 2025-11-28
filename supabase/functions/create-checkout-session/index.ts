@@ -12,10 +12,10 @@ serve(async (req) => {
   }
 
   try {
-    const { planName, planPrice, userId, email, customerName } = await req.json();
+    const { planName, planPrice } = await req.json();
 
     // Validate inputs
-    if (!planName || !planPrice || !userId || !email) {
+    if (!planName || !planPrice) {
       return new Response(
         JSON.stringify({ error: 'Missing required fields' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -31,11 +31,11 @@ serve(async (req) => {
     const baseUrl = Deno.env.get('VITE_BASE_URL') || req.headers.get('origin') || 'http://localhost:5173';
 
     // Create Checkout Session for subscription with trial
+    // Stripe will collect email - no pre-existing user required
     const session = await stripe.checkout.sessions.create({
-      customer_email: email,
-      client_reference_id: userId,
       mode: 'subscription',
       payment_method_types: ['card'],
+      billing_address_collection: 'auto', // Stripe collects email and billing info
       line_items: [
         {
           price_data: {
@@ -55,15 +55,13 @@ serve(async (req) => {
       subscription_data: {
         trial_period_days: 14,
         metadata: {
-          userId,
           planName,
           planPrice: planPrice.toString(),
         },
       },
-      success_url: `${baseUrl}/dashboard?session_id={CHECKOUT_SESSION_ID}&success=true`,
+      success_url: `${baseUrl}/setup-account?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/pricing?canceled=true`,
       metadata: {
-        userId,
         planName,
         planPrice: planPrice.toString(),
       },

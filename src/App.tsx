@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
+import SetupAccount from "./pages/SetupAccount";
 import AdminLayout from "./pages/admin/AdminLayout";
 import Overview from "./pages/admin/Overview";
 import Bookings from "./pages/admin/Bookings";
@@ -48,6 +49,7 @@ const App = () => (
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/setup-account" element={<SetupAccount />} />
 
               <Route
                 path="/profile"
