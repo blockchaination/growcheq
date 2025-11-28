@@ -15,5 +15,11 @@ verify_jwt = true
 [functions.verify-checkout]
 verify_jwt = false
 
+[functions.verify-stripe-session]
+verify_jwt = false
+
+[functions.complete-account-setup]
+verify_jwt = false
+
 [functions.webhook-stripe]
 verify_jwt = false
