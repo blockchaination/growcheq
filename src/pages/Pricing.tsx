@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Check, X } from "lucide-react";
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -37,17 +36,12 @@ const Pricing = () => {
 
       console.log('Checkout session created:', data.sessionId);
 
-      // Load Stripe and redirect to checkout
-      // Use env var or fallback to the key we found in the codebase
-      const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_51SX1aILuWelYhCLm2nA5csgHxKVj3rNiI1rS3quGGomQewmXv8iZcW268S2tE567HXaAyfIIteHUSusIISP58uQ000QFtGK4ug";
-      const stripe = await loadStripe(stripeKey);
-      if (!stripe) throw new Error('Stripe failed to load');
-
-      const { error: stripeError } = await stripe.redirectToCheckout({
-        sessionId: data.sessionId
-      });
-
-      if (stripeError) throw stripeError;
+      if (data.url) {
+        console.log('Redirecting to Stripe URL:', data.url);
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
+      }
 
     } catch (error: any) {
       console.error('Checkout error:', error);
