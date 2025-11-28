@@ -131,7 +131,7 @@ async function handleCheckoutComplete(session: Stripe.Checkout.Session) {
 
 async function sendWelcomeEmail(email: string, planName: string, planPrice: string, trialEnd: Date) {
     const brevoApiKey = Deno.env.get('BREVO_API_KEY');
-    
+
     if (!brevoApiKey) {
         console.error('BREVO_API_KEY not configured');
         return;
@@ -246,7 +246,7 @@ async function sendWelcomeEmail(email: string, planName: string, planPrice: stri
                             
                             <p style="margin: 0; color: #1f2937; font-size: 16px; line-height: 1.6;">
                                 Best regards,<br>
-                                <strong>Ariana from GrowCheq</strong>
+                                <strong>Yassine from GrowCheq</strong>
                             </p>
                         </td>
                     </tr>
@@ -280,7 +280,7 @@ async function sendWelcomeEmail(email: string, planName: string, planPrice: stri
             },
             body: JSON.stringify({
                 sender: {
-                    name: 'Ariana from GrowCheq',
+                    name: 'Yassine from GrowCheq',
                     email: 'hello@growcheq.com',
                 },
                 to: [

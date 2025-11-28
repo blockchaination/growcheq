@@ -53,7 +53,7 @@ serve(async (req) => {
 
   try {
     const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
-    const SENDER_NAME = "Ariana from GrowCheq";
+    const SENDER_NAME = "Yassine from GrowCheq";
     const SENDER_EMAIL = "hello@growcheq.com";
     const ADMIN_EMAIL = "sales@growcheq.com";
 
@@ -73,7 +73,7 @@ serve(async (req) => {
         <div style="padding: 30px; background-color: #f9f9f9;">
           <h2 style="color: #2f196d;">Thanks for your interest, ${leadData.name}!</h2>
           <p style="font-size: 16px; line-height: 1.6;">
-            Hi there, I'm Ariana, the founder of GrowCheq. I'm thrilled you're interested in seeing how we can help you turn every interaction into revenue.
+            Hi there, I'm Yassine, the founder of GrowCheq. I'm thrilled you're interested in seeing how we can help you turn every interaction into revenue.
           </p>
           <h3 style="color: #4865b7; margin-top: 25px;">Here's what happens next:</h3>
           <ul style="font-size: 16px; line-height: 1.6; padding-left: 20px;">
@@ -82,7 +82,7 @@ serve(async (req) => {
             <li style="margin-bottom: 10px;">We'll schedule a personalized demo to show you around</li>
           </ul>
           <p style="font-size: 16px; line-height: 1.6; margin-top: 30px;">
-            Best regards,<br><strong>Ariana</strong><br>Founder, GrowCheq
+            Best regards,<br><strong>Yassine</strong><br>Founder, GrowCheq
           </p>
         </div>
         <div style="padding: 20px; background: #f5f5f5; text-align: center; font-size: 14px; color: #666;">

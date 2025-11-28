@@ -96,7 +96,7 @@ serve(async (req) => {
                     },
                     body: JSON.stringify({
                         sender: {
-                            name: 'Ariana from GrowCheq',
+                            name: 'Yassine from GrowCheq',
                             email: 'hello@growcheq.com',
                         },
                         to: [{
@@ -158,7 +158,7 @@ serve(async (req) => {
                             </p>
                             <p style="margin: 0; color: #1f2937; font-size: 16px; line-height: 1.6;">
                                 Best regards,<br>
-                                <strong>Ariana from GrowCheq</strong>
+                                <strong>Yassine from GrowCheq</strong>
                             </p>
                         </td>
                     </tr>

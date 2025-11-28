@@ -55,7 +55,7 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     const adminEmailData = await adminEmailResponse.json();
-    
+
     // Send confirmation to customer
     const customerEmailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -64,7 +64,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Ariana from GrowCheq <hello@growcheq.com>",
+        from: "Yassine from GrowCheq <hello@growcheq.com>",
         to: [email],
         subject: "Thanks for Your Interest in GrowCheq!",
         html: `
@@ -88,7 +88,7 @@ const handler = async (req: Request): Promise<Response> => {
             <div class="content">
               <h2>Thanks for Your Interest, ${name}!</h2>
               
-              <p>I'm Ariana, founder of GrowCheq. We've received your demo request and I'm excited to show you how we can help ${company} save over £600/month.</p>
+              <p>I'm Yassine, founder of GrowCheq. We've received your demo request and I'm excited to show you how we can help ${company} save over £600/month.</p>
               
               <p><strong>What happens next?</strong></p>
               <ul>
@@ -102,7 +102,7 @@ const handler = async (req: Request): Promise<Response> => {
               <a href="https://growcheq.com" class="cta-button">Visit GrowCheq</a>
               
               <p>Looking forward to speaking!<br><br>
-              <strong>Ariana Clarke</strong><br>
+              <strong>Yassine Anaddam</strong><br>
               Founder, GrowCheq<br>
               📧 hello@growcheq.com</p>
             </div>
@@ -122,10 +122,10 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Emails sent successfully:", { adminEmailData, customerEmailData });
 
-    return new Response(JSON.stringify({ 
+    return new Response(JSON.stringify({
       success: true,
       adminEmail: adminEmailData,
-      customerEmail: customerEmailData 
+      customerEmail: customerEmailData
     }), {
       status: 200,
       headers: {

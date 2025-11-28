@@ -11,7 +11,7 @@ ABOUT GROWCHEQ:
 All-in-one platform for UK SMEs to manage customer communications
 Replaces 10+ separate tools (CRM, email, SMS, reviews, payments)
 Saves businesses £683/month compared to using separate tools
-Founded by Ariana Clarke
+Founded by Yassine Anaddam
 Website: growcheq.com
 
 PRICING PLANS:
