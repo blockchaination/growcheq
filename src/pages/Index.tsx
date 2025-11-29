@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
@@ -10,24 +9,13 @@ import { PricingSection } from "@/components/PricingSection";
 import { ComparisonSection } from "@/components/ComparisonSection";
 import { FinalCTASection } from "@/components/FinalCTASection";
 import { Footer } from "@/components/Footer";
-import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { BackToTopButton } from "@/components/BackToTopButton";
 import { AIChatbot } from "@/components/AIChatbot";
 import { SEO } from "@/components/SEO";
 
 const Index = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalConfig, setModalConfig] = useState({
-    interestLevel: "trial",
-    planName: "",
-  });
-
-  const handleCtaClick = (interestLevel: string = "trial", planName?: string) => {
-    setModalConfig({
-      interestLevel,
-      planName: planName || "",
-    });
-    setIsModalOpen(true);
+  const handleRedirect = () => {
+    window.location.href = "https://app.growcheq.com/";
   };
 
   const scrollToPricing = () => {
@@ -45,25 +33,18 @@ const Index = () => {
         canonical="https://growcheq.com"
       />
       <div className="min-h-screen bg-background">
-        <Navigation onCtaClick={scrollToPricing} />
-        <HeroSection onCtaClick={scrollToPricing} />
+        <Navigation onCtaClick={handleRedirect} />
+        <HeroSection onCtaClick={handleRedirect} />
         <StatsBar />
         <KeyToEngagementSection />
         <ProblemSolutionSection />
         <FeaturesSection />
-        <PricingSection onCtaClick={handleCtaClick} />
-        <ComparisonSection onCtaClick={scrollToPricing} />
-        <FinalCTASection onCtaClick={scrollToPricing} />
+        <PricingSection onCtaClick={handleRedirect} />
+        <ComparisonSection onCtaClick={handleRedirect} />
+        <FinalCTASection onCtaClick={handleRedirect} />
         <Footer />
         <AIChatbot />
         <BackToTopButton />
-
-        <LeadCaptureModal
-          open={isModalOpen}
-          onOpenChange={setIsModalOpen}
-          interestLevel={modalConfig.interestLevel}
-          planName={modalConfig.planName}
-        />
       </div>
     </HelmetProvider>
   );

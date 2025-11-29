@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { MessageSquare, Zap, TrendingUp, Star, BarChart, Users, Phone, Mail } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
-import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { DemoBookingSection } from "@/components/DemoBookingSection";
 import { SEO } from "@/components/SEO";
 
 const Features = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleRedirect = () => {
+    window.location.href = "https://app.growcheq.com/";
+  };
 
   const features = [
     {
@@ -141,7 +141,7 @@ const Features = () => {
         description="Discover GrowCheq's powerful features: unified inbox, AI automation, instant payments, review management, and more. See how we replace 10+ tools."
         canonical="https://growcheq.com/features"
       />
-      <Navigation onCtaClick={() => setIsModalOpen(true)} />
+      <Navigation onCtaClick={handleRedirect} />
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-24">
@@ -238,7 +238,7 @@ const Features = () => {
               Ready to See It in Action?
             </h2>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button variant="hero" size="lg" onClick={() => setIsModalOpen(true)}>
+              <Button variant="hero" size="lg" onClick={handleRedirect}>
                 Start Free Trial
               </Button>
               <Button variant="outline" size="lg" onClick={() => window.location.href = '/#demo'}>
@@ -254,12 +254,6 @@ const Features = () => {
 
       <Footer />
 
-      <LeadCaptureModal
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        interestLevel="trial"
-        planName=""
-      />
     </div>
   );
 };

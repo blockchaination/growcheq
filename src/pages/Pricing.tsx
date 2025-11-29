@@ -4,55 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, X } from "lucide-react";
-import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SEO } from "@/components/SEO";
 
 const Pricing = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-
-  const handleStartTrial = async (planName: "Essential" | "Professional" | "Enterprise", planPrice: number) => {
-    try {
-      setIsLoading(true);
-
-      console.log('Starting checkout for:', { planName, planPrice });
-
-      // Create checkout session (no user account yet)
-      const { data, error: functionError } = await supabase.functions.invoke(
-        'create-checkout-session',
-        {
-          body: {
-            planName,
-            planPrice,
-          }
-        }
-      );
-
-      if (functionError) throw functionError;
-      if (!data?.sessionId) throw new Error('No session ID returned');
-
-      console.log('Checkout session created:', data.sessionId);
-
-      if (data.url) {
-        console.log('Redirecting to Stripe URL:', data.url);
-        window.location.href = data.url;
-      } else {
-        throw new Error('No checkout URL returned');
-      }
-
-    } catch (error: any) {
-      console.error('Checkout error:', error);
-      toast({
-        title: 'Checkout Failed',
-        description: error.message || 'Failed to start checkout. Please try again.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsLoading(false);
-    }
+  const handleRedirect = () => {
+    window.location.href = "https://app.growcheq.com/";
   };
 
   const plans = [
@@ -184,7 +142,7 @@ const Pricing = () => {
         description="Transparent pricing from £79/month. Replace HubSpot, Mailchimp, Twilio and more with one affordable platform. 14-day free trial, no credit card required."
         canonical="https://growcheq.com/pricing"
       />
-      <Navigation onCtaClick={() => handleStartTrial("Professional", 197)} />
+      <Navigation onCtaClick={handleRedirect} />
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-24">
@@ -255,10 +213,9 @@ const Pricing = () => {
                     variant={plan.popular ? "gradient" : "outline"}
                     size="lg"
                     className="w-full"
-                    onClick={() => handleStartTrial(plan.name as "Essential" | "Professional" | "Enterprise", parseInt(plan.price.replace("£", "")))}
-                    disabled={isLoading}
+                    onClick={handleRedirect}
                   >
-                    {isLoading ? 'Loading...' : (plan.name === "Enterprise" ? "Contact Sales" : "Start Free Trial")}
+                    {plan.name === "Enterprise" ? "Contact Sales" : "Start Free Trial"}
                   </Button>
                 </CardFooter>
               </Card>
@@ -376,7 +333,7 @@ const Pricing = () => {
           </div>
 
           <div className="text-center mt-8">
-            <Button variant="hero" size="lg" onClick={() => handleCtaClick("Professional")}>
+            <Button variant="hero" size="lg" onClick={handleRedirect}>
               Stop Overpaying. Start Your Free Trial
             </Button>
           </div>
@@ -423,7 +380,7 @@ const Pricing = () => {
               Our team is here to help you choose the right plan for your business.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button variant="hero" size="lg" onClick={() => handleCtaClick("")}>
+              <Button variant="hero" size="lg" onClick={handleRedirect}>
                 Start Free Trial
               </Button>
               <Button variant="outline" size="lg" onClick={() => window.location.href = '/contact'}>

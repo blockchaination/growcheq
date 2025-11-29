@@ -127,9 +127,17 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button variant="gradient" onClick={onCtaClick}>
-                Get Started
-              </Button>
+              <>
+                <a
+                  href="https://app.growcheq.com"
+                  className="text-foreground hover:text-primary transition-colors font-medium mr-4"
+                >
+                  Login
+                </a>
+                <Button variant="gradient" onClick={() => window.location.href = "https://app.growcheq.com"}>
+                  Start Free Trial
+                </Button>
+              </>
             )}
           </div>
 
@@ -186,13 +194,13 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
             <div className="p-6 border-t">
               <Button
                 onClick={() => {
-                  onCtaClick?.();
+                  window.location.href = "https://app.growcheq.com";
                   setIsMobileMenuOpen(false);
                 }}
                 variant="hero"
                 className="w-full h-12"
               >
-                Get Started
+                Start Free Trial
               </Button>
             </div>
           </div>

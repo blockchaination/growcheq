@@ -2,27 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
-import { useState } from "react";
-import { CheckoutFlow } from "@/components/CheckoutFlow";
+
 
 interface PricingSectionProps {
   onCtaClick: (plan: string) => void;
 }
 
 export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<{
-    name: "Essential" | "Professional" | "Enterprise";
-    price: number;
-  } | null>(null);
-
   const handleStartTrial = (planName: "Essential" | "Professional" | "Enterprise", price: number) => {
-    if (planName === "Enterprise") {
-      onCtaClick(planName);
-      return;
-    }
-    setSelectedPlan({ name: planName, price });
-    setCheckoutOpen(true);
+    onCtaClick(planName);
   };
 
   const plans = [
@@ -152,16 +140,6 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
           </a>
         </div>
       </div>
-
-      {/* Checkout Modal */}
-      {selectedPlan && (
-        <CheckoutFlow
-          planName={selectedPlan.name}
-          planPrice={selectedPlan.price}
-          isOpen={checkoutOpen}
-          onClose={() => setCheckoutOpen(false)}
-        />
-      )}
     </section>
   );
 };
