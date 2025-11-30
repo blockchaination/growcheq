@@ -1,17 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface NavigationProps {
   onCtaClick?: () => void;
@@ -20,8 +10,6 @@ interface NavigationProps {
 export const Navigation = ({ onCtaClick }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, isAdmin, signOut } = useAuth();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,54 +79,15 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
                 {item.label}
               </a>
             ))}
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage src="" alt={user.email || ''} />
-                      <AvatarFallback>
-                        {user.email?.[0].toUpperCase() || 'U'}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <div className="flex items-center justify-start gap-2 p-2">
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium">{user.email}</p>
-                    </div>
-                  </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate('/profile')}>
-                    <User className="mr-2 h-4 w-4" />
-                    Profile
-                  </DropdownMenuItem>
-                  {isAdmin && (
-                    <DropdownMenuItem onClick={() => navigate('/admin')}>
-                      <User className="mr-2 h-4 w-4" />
-                      Admin Dashboard
-                    </DropdownMenuItem>
-                  )}
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => signOut()}>
-                    Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <>
-                <a
-                  href="https://app.growcheq.com"
-                  className="text-foreground hover:text-primary transition-colors font-medium mr-4"
-                >
-                  Login
-                </a>
-                <Button variant="gradient" onClick={() => window.location.href = "https://app.growcheq.com"}>
-                  Start Free Trial
-                </Button>
-              </>
-            )}
+            <a
+              href="https://app.growcheq.com"
+              className="text-foreground hover:text-primary transition-colors font-medium mr-4"
+            >
+              Login
+            </a>
+            <Button variant="gradient" onClick={() => window.location.href = "https://app.growcheq.com"}>
+              Start Free Trial
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}

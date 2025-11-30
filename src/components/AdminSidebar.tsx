@@ -1,8 +1,6 @@
-import { Calendar, MessageSquare, LogOut, LayoutDashboard } from "lucide-react";
+import { Calendar, MessageSquare, LayoutDashboard } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
-import { Button } from "@/components/ui/button";
 
 import {
   Sidebar,
@@ -13,7 +11,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarFooter,
   useSidebar,
 } from "@/components/ui/sidebar";
 
@@ -26,7 +23,6 @@ const menuItems = [
 export function AdminSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
-  const { signOut, user } = useAuth();
   const currentPath = location.pathname;
   const isCollapsed = state === "collapsed";
 
@@ -77,26 +73,6 @@ export function AdminSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
-      <SidebarFooter className="p-4 border-t">
-        <div className="space-y-2">
-          {!isCollapsed && (
-            <div className="px-2 py-1 text-sm">
-              <p className="font-medium truncate">{user?.email}</p>
-              <p className="text-xs text-muted-foreground">Admin</p>
-            </div>
-          )}
-          <Button
-            variant="outline"
-            size={isCollapsed ? "icon" : "default"}
-            className="w-full"
-            onClick={() => signOut()}
-          >
-            <LogOut className="h-4 w-4" />
-            {!isCollapsed && <span className="ml-2">Sign Out</span>}
-          </Button>
-        </div>
-      </SidebarFooter>
     </Sidebar>
   );
 }
