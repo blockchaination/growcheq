@@ -7,19 +7,19 @@ export const StatsBar = () => {
   ];
 
   return (
-    <section className="gradient-hero py-12 lg:py-16">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-12">
+    <section className="bg-gradient-to-r from-primary via-primary/95 to-accent py-16 lg:py-20">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="text-center space-y-2 animate-scale-in p-4"
+              className="text-center space-y-3 animate-fade-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <p className="text-3xl lg:text-5xl font-heading font-bold text-white">
+              <p className="text-4xl lg:text-6xl font-bold text-white tracking-tight">
                 {stat.value}
               </p>
-              <p className="text-sm lg:text-base text-white/90">{stat.label}</p>
+              <p className="text-sm lg:text-base text-white/80 font-medium">{stat.label}</p>
             </div>
           ))}
         </div>

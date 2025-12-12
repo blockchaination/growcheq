@@ -13,7 +13,7 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -53,46 +53,56 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "glass-effect shadow-md" : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out",
+        isScrolled
+          ? "glass shadow-lg py-3"
+          : "bg-transparent py-4"
       )}
     >
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center space-x-2">
+          <a href="/" className="flex items-center space-x-2 group">
             <img
               src="/logo.png"
               alt="GrowCheq Logo"
-              className="h-10 lg:h-12 w-auto max-w-[180px] object-contain"
+              className="h-9 lg:h-11 w-auto max-w-[180px] object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-1">
             {menuItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="text-foreground hover:text-primary transition-colors font-medium"
+                className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-all duration-200 rounded-lg hover:bg-secondary/50"
               >
                 {item.label}
               </a>
             ))}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="hidden lg:flex items-center space-x-3">
             <a
               href="https://app.growcheq.com"
-              className="text-foreground hover:text-primary transition-colors font-medium mr-4"
+              className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
             >
               Login
             </a>
-            <Button variant="gradient" onClick={() => window.location.href = "https://app.growcheq.com"}>
+            <Button
+              size="default"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              onClick={() => window.location.href = "https://app.growcheq.com"}
+            >
               Start Free Trial
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden w-12 h-12 flex items-center justify-center rounded-lg hover:bg-accent transition-colors"
+            className="lg:hidden w-11 h-11 flex items-center justify-center rounded-lg hover:bg-secondary transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -103,7 +113,7 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
         {/* Mobile menu backdrop */}
         {isMobileMenuOpen && (
           <div
-            className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-fade-in"
+            className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 animate-fade-in"
             onClick={() => setIsMobileMenuOpen(false)}
           />
         )}
@@ -111,33 +121,40 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
         {/* Mobile menu drawer */}
         <div
           className={cn(
-            "md:hidden fixed top-0 right-0 h-full w-[280px] bg-background border-l shadow-2xl z-50 transition-transform duration-300 ease-in-out",
+            "lg:hidden fixed top-0 right-0 h-full w-[300px] bg-background border-l shadow-2xl z-50 transition-transform duration-300 ease-out",
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           )}
         >
           <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between p-4 border-b">
-              <span className="font-semibold text-lg">Menu</span>
+            <div className="flex items-center justify-between p-6 border-b">
+              <span className="font-bold text-lg">Menu</span>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-11 h-11 flex items-center justify-center rounded-lg hover:bg-accent transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-secondary transition-colors"
                 aria-label="Close menu"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5" />
               </button>
             </div>
 
-            <nav className="flex-1 overflow-y-auto p-6 space-y-2">
+            <nav className="flex-1 overflow-y-auto p-6 space-y-1">
               {menuItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="block py-4 px-4 text-base font-medium rounded-lg hover:bg-accent transition-colors min-h-[44px] flex items-center"
+                  className="block py-3 px-4 text-base font-medium rounded-lg hover:bg-secondary transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
+              <a
+                href="https://app.growcheq.com"
+                className="block py-3 px-4 text-base font-medium rounded-lg hover:bg-secondary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Login
+              </a>
             </nav>
 
             <div className="p-6 border-t">
@@ -146,8 +163,7 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
                   window.location.href = "https://app.growcheq.com";
                   setIsMobileMenuOpen(false);
                 }}
-                variant="hero"
-                className="w-full h-12"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
               >
                 Start Free Trial
               </Button>
