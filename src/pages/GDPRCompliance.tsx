@@ -123,7 +123,7 @@ const GDPRCompliance = () => {
                         <li>provide analytics on how the Website and Platform are used.</li>
                     </ul>
                     <p className="mb-4">11.2 Where required by law, we will seek your consent for non‑essential cookies via a cookie banner or preference tool. You can withdraw consent or change your preferences at any time.</p>
-                    <p className="mb-4">11.3 You can also disable cookies through your browser settings, although this may affect the functionality of the Website or Platform. Further details about the cookies used and retention periods can be provided in a separate Cookie Policy or schedule.</p>
+                    <p className="mb-4">11.3 You can also disable cookies through your browser settings, although this may affect the functionality of the Website or Platform. Further details about the cookies used and retention periods are provided in our <a href="/cookie-policy" className="text-blue-600 hover:text-blue-800">Cookie Policy</a>.</p>
 
                     <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">12. Processing as processor on behalf of customers</h2>
                     <p className="mb-4">When we process personal data strictly on behalf of a business customer via the Platform, that customer is the controller and is responsible for providing appropriate privacy information to data subjects and for determining the lawful basis for processing. Our role as processor is governed by the Data Processing Addendum in our Terms and Conditions and by the customer's configuration and instructions.</p>

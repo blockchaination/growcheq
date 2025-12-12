@@ -39,6 +39,7 @@ const Terms = () => {
                     </ul>
                     <p className="mb-4">2.4 We use reasonable skill and care to select and supervise the Underlying Platform Provider(s) and to configure the Platform, but you accept that the Platform is dependent on such third party infrastructure and standard cloud computing risks apply.</p>
                     <p className="mb-4">2.5 To the extent permitted by law, we are not responsible for any unavailability or performance issues to the extent caused by the Underlying Platform Provider(s), the public internet, or your own systems; however, we will use reasonable efforts to liaise with the relevant providers and to minimise disruption where issues arise.</p>
+                    <p className="mb-4">2.6 The underlying platform and certain third‑party tools may use cookies and similar technologies to provide their services to us and to you; these are covered in our <a href="/cookie-policy" className="text-blue-600 hover:text-blue-800">Cookie Policy</a> and, where applicable, in the relevant third‑party terms and privacy notices.</p>
 
                     <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">3. Account registration and eligibility</h2>
                     <p className="mb-4">3.1 To use the Platform you must create an account and provide accurate, current and complete information. You must keep your login credentials confidential and not share them with any third party.</p>
@@ -79,6 +80,7 @@ const Terms = () => {
                     <p className="mb-4">8.2 The data processing terms set out in Schedule 1 (Data Processing Addendum) to these Terms form part of and are incorporated into these Terms whenever GrowCheq processes personal data on your behalf.</p>
                     <p className="mb-4">8.3 We implement appropriate technical and organisational measures to protect personal data against unauthorised or unlawful processing and against accidental loss, destruction or damage, taking into account the nature of the processing and the risks involved.</p>
                     <p className="mb-4">8.4 Details of how we process personal data as controller (for example, for our own account management, billing and marketing) are set out in our Privacy Policy, which you should read carefully alongside these Terms.</p>
+                    <p className="mb-4">8.5 You acknowledge that we use cookies and similar technologies in connection with the Website and Platform. The types of cookies we use and how you can manage your preferences are described in our <a href="/cookie-policy" className="text-blue-600 hover:text-blue-800">Cookie Policy</a>, which forms part of these Terms by reference.</p>
 
                     <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">9. Service levels, availability and support</h2>
                     <p className="mb-4">9.1 We aim to provide a high level of availability for the Platform, but we do not guarantee that the Platform or any particular feature will be available at all times or error free.</p>
@@ -90,6 +92,9 @@ const Terms = () => {
                     <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">10. Trials and beta features</h2>
                     <p className="mb-4">10.1 We may offer free trials or beta features at our discretion. Such access is provided “as is” without any warranties or service levels and may be withdrawn at any time.</p>
                     <p className="mb-4">10.2 Trials and beta features should not be relied upon for production critical activities.</p>
+
+                    <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">10A. AI and experimental features</h2>
+                    <p className="mb-4">Certain features of the Platform may use artificial intelligence or machine‑learning models to provide recommendations, scoring or automation. These features are designed to assist you but do not replace your own judgement or obligations. You remain responsible for reviewing and verifying outputs before relying on them. To the extent permitted by law, we do not guarantee the accuracy, completeness or suitability of any AI‑generated content or recommendations.</p>
 
                     <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">11. Fees, payment, taxes and price changes</h2>
                     <p className="mb-4">11.1 You agree to pay the subscription fees and any other charges set out in your Order. Unless agreed otherwise, fees are payable in advance for each subscription period.</p>
@@ -168,7 +173,7 @@ const Terms = () => {
                     <p className="mb-4">GrowCheq processes personal data on your behalf for the purpose of providing the Platform and related support, for the duration of your subscription and any post termination data retention period described in these Terms.</p>
 
                     <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">2. Nature and purpose of processing</h3>
-                    <p className="mb-4">Hosting, storage, transmission, display, duplication for backup, analysis, and other processing necessary to provide, secure, troubleshoot, support and improve the Platform.</p>
+                    <p className="mb-4">Hosting, storage, transmission, display, duplication for backup, analysis, and other processing necessary to provide, secure, troubleshoot, support and improve the Platform, including using event data and interaction logs to support AI‑driven and machine‑learning features (such as recommendations, routing and scoring), where configured by you within the Platform.</p>
 
                     <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">3. Types of personal data and categories of data subjects</h3>
                     <ul className="list-disc pl-6 mb-4 space-y-2">
@@ -177,6 +182,7 @@ const Terms = () => {
                         <li>Usage and interaction data relating to your end users and customers.</li>
                     </ul>
                     <p className="mb-4">Data subjects may include your employees, contractors, customers, prospective customers and other individuals whose personal data you choose to process through the Platform.</p>
+                    <p className="mb-4">Where the Platform uses cookies or similar technologies in connection with personal data (for example, to authenticate users or to provide analytics within your account), such use forms part of the processing we carry out on your behalf or on our own behalf as described in the main agreement and our Cookie Policy.</p>
 
                     <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">4. Processor obligations</h3>
                     <p className="mb-4">GrowCheq shall:</p>
@@ -186,6 +192,7 @@ const Terms = () => {
                         <li>implement appropriate technical and organisational measures to protect personal data;</li>
                         <li>notify you without undue delay upon becoming aware of a personal data breach affecting personal data we process on your behalf;</li>
                         <li>assist you, where reasonably possible, with fulfilling your obligations to respond to data subject requests and to carry out data protection impact assessments; and</li>
+                        <li>where your use of the Platform involves high‑risk processing (for example, certain AI‑enabled workflows), provide reasonable information about our processing and technical measures to assist you with conducting any necessary data protection impact assessments; and</li>
                         <li>make available information reasonably necessary to demonstrate compliance and allow for audits no more than once per year, subject to appropriate confidentiality and notice.</li>
                     </ul>
 
