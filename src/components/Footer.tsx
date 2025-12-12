@@ -31,20 +31,20 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-foreground text-background pt-20 pb-10">
+    <footer className="bg-foreground text-background pt-24 pb-12">
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-16 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-16 mb-20">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <img
               src="/logo.png"
               alt="GrowCheq Logo"
-              className="h-10 w-auto object-contain mb-6 brightness-0 invert"
+              className="h-9 w-auto object-contain mb-8 brightness-0 invert opacity-90"
             />
             <p className="text-background/60 text-sm leading-relaxed mb-8 max-w-xs">
-              The all-in-one customer engagement platform for UK businesses.
+              The AI-powered operating system for local businesses to capture, convert, and keep more customers.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               {socialLinks.map((social, index) => {
                 const Icon = social.icon;
                 return (
@@ -54,9 +54,9 @@ export const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-10 h-10 rounded-lg bg-background/10 hover:bg-background/20 flex items-center justify-center transition-all duration-200 hover:scale-110"
+                    className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/5"
                   >
-                    <Icon className="h-4 w-4 text-background" />
+                    <Icon className="h-4 w-4 text-background/80" />
                   </a>
                 );
               })}
@@ -65,13 +65,13 @@ export const Footer = () => {
 
           {/* Company Column */}
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-6">Company</h4>
-            <ul className="space-y-3">
+            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-background/40 mb-8">Company</h4>
+            <ul className="space-y-4">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
                   <Link
                     to={link.href}
-                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    className="text-background/70 hover:text-white text-sm transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -82,13 +82,13 @@ export const Footer = () => {
 
           {/* Product Column */}
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-6">Product</h4>
-            <ul className="space-y-3">
+            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-background/40 mb-8">Product</h4>
+            <ul className="space-y-4">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
                   <Link
                     to={link.href}
-                    className="text-background/60 hover:text-background text-sm transition-colors"
+                    className="text-background/70 hover:text-white text-sm transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -99,21 +99,21 @@ export const Footer = () => {
 
           {/* Support Column */}
           <div>
-            <h4 className="font-bold text-sm uppercase tracking-wider mb-6">Support</h4>
-            <ul className="space-y-3">
+            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-background/40 mb-8">Support</h4>
+            <ul className="space-y-4">
               {footerLinks.support.map((link, index) => (
                 <li key={index}>
                   {link.href.includes('#') ? (
                     <a
                       href={link.href}
-                      className="text-background/60 hover:text-background text-sm transition-colors"
+                      className="text-background/70 hover:text-white text-sm transition-colors duration-200"
                     >
                       {link.label}
                     </a>
                   ) : (
                     <Link
                       to={link.href}
-                      className="text-background/60 hover:text-background text-sm transition-colors"
+                      className="text-background/70 hover:text-white text-sm transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -125,24 +125,24 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-background/50 text-xs">
-            © 2025 GrowCheq. All rights reserved. (v1.0.1)
+        <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-background/40 text-xs font-medium">
+            © 2025 GrowCheq. All rights reserved.
           </p>
-          <div className="flex flex-wrap gap-6 justify-center">
+          <div className="flex flex-wrap gap-8 justify-center">
             {footerLinks.legal.map((link, index) => (
               <li key={index} className="list-none">
                 {link.href.includes('#') ? (
                   <a
                     href={link.href}
-                    className="text-background/50 hover:text-background text-xs transition-colors"
+                    className="text-background/40 hover:text-white text-xs transition-colors duration-200"
                   >
                     {link.label}
                   </a>
                 ) : (
                   <Link
                     to={link.href}
-                    className="text-background/50 hover:text-background text-xs transition-colors"
+                    className="text-background/40 hover:text-white text-xs transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -150,7 +150,7 @@ export const Footer = () => {
               </li>
             ))}
           </div>
-          <div className="flex items-center gap-2 text-background/50 text-xs">
+          <div className="flex items-center gap-2 text-background/40 text-xs font-medium bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
             <span>🇬🇧</span>
             <span>United Kingdom</span>
           </div>
