@@ -1,12 +1,12 @@
 import { HelmetProvider } from "react-helmet-async";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
+import { TrustBar } from "@/components/TrustBar";
 import { StatsBar } from "@/components/StatsBar";
-import { ProblemSolutionSection } from "@/components/ProblemSolutionSection";
-import { KeyToEngagementSection } from "@/components/KeyToEngagementSection";
+import { ProductShowcase } from "@/components/ProductShowcase";
 import { FeaturesSection } from "@/components/FeaturesSection";
 import { PricingSection } from "@/components/PricingSection";
-import { ComparisonSection } from "@/components/ComparisonSection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { FinalCTASection } from "@/components/FinalCTASection";
 import { Footer } from "@/components/Footer";
 import { BackToTopButton } from "@/components/BackToTopButton";
@@ -18,13 +18,6 @@ const Index = () => {
     window.location.href = "https://app.growcheq.com/";
   };
 
-  const scrollToPricing = () => {
-    const pricingSection = document.getElementById("pricing");
-    if (pricingSection) {
-      pricingSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <HelmetProvider>
       <SEO
@@ -32,16 +25,20 @@ const Index = () => {
         description="Save £683/month with GrowCheq. The all-in-one customer engagement platform for UK SMEs. Unified inbox, automated follow-ups, reviews & payments. 14-day free trial."
         canonical="https://growcheq.com"
       />
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background font-sans antialiased text-foreground">
         <Navigation onCtaClick={handleRedirect} />
-        <HeroSection onCtaClick={handleRedirect} />
-        <StatsBar />
-        <KeyToEngagementSection />
-        <ProblemSolutionSection />
-        <FeaturesSection />
-        <PricingSection onCtaClick={handleRedirect} />
-        <ComparisonSection onCtaClick={handleRedirect} />
-        <FinalCTASection onCtaClick={handleRedirect} />
+
+        <main>
+          <HeroSection onCtaClick={handleRedirect} />
+          <TrustBar />
+          <ProductShowcase />
+          <StatsBar />
+          <FeaturesSection />
+          <TestimonialsSection />
+          <PricingSection onCtaClick={handleRedirect} />
+          <FinalCTASection onCtaClick={handleRedirect} />
+        </main>
+
         <Footer />
         <AIChatbot />
         <BackToTopButton />

@@ -1,67 +1,73 @@
-import { MessageSquare, Zap, TrendingUp, Star, BarChart, Users } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
-import { Link } from "react-router-dom";
+import { MessageSquare, Zap, TrendingUp, ShieldCheck, Smartphone, Users } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const FeaturesSection = () => {
   const features = [
     {
       icon: MessageSquare,
       title: "Unified Inbox",
-      description: "Manage SMS, WhatsApp, Facebook, calls, and emails from one place. Never miss a lead again.",
-      gradient: "from-primary to-blue-600",
+      description: "Manage SMS, WhatsApp, Facebook, and emails from one single dashboard.",
     },
     {
       icon: Zap,
-      title: "AI-Powered Automation",
-      description: "Automatically qualify leads, send follow-ups, and request reviews at the perfect moment.",
-      gradient: "from-accent to-cyan-500",
+      title: "AI Automation",
+      description: "Qualify leads and book appointments automatically, 24/7.",
     },
     {
       icon: TrendingUp,
-      title: "Instant Payments",
-      description: "Send payment links via text. Get paid in seconds with integrated payment processing.",
-      gradient: "from-green-500 to-emerald-600",
+      title: "Google Reviews",
+      description: "Automatically request and manage reviews to boost your local ranking.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Secure Payments",
+      description: "Send text-to-pay links and get paid in seconds, not days.",
+    },
+    {
+      icon: Smartphone,
+      title: "Mobile App",
+      description: "Run your business from anywhere with our top-rated mobile app.",
+    },
+    {
+      icon: Users,
+      title: "Team Collaboration",
+      description: "Assign conversations and track team performance in real-time.",
     },
   ];
 
   return (
-    <section id="features" className="py-24 lg:py-32 bg-secondary/20">
+    <section id="features" className="py-24 lg:py-32 bg-secondary/30">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center space-y-6 mb-20 max-w-3xl mx-auto">
-          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
-            Everything You Need in{" "}
-            <span className="text-gradient">One Platform</span>
+          <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+            Everything You Need to <br /> <span className="text-primary">Grow Your Business</span>
           </h2>
-          <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
-            Stop juggling multiple tools. GrowCheq brings all your customer communications
-            and business tools into one powerful platform.
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Replace your fragmented tech stack with one powerful, easy-to-use platform designed for local businesses.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <Card
                 key={index}
-                className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 hover:border-primary/20 animate-fade-up bg-card/80 backdrop-blur-sm"
-                style={{ animationDelay: `${index * 150}ms` }}
+                className="group border border-border/50 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white"
               >
-                <CardHeader className="space-y-4">
-                  <div
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg`}
-                  >
-                    <Icon className="h-8 w-8 text-white" />
+                <CardHeader className="space-y-4 pt-8">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <Icon className="h-6 w-6 text-primary group-hover:text-white transition-colors duration-300" />
                   </div>
-                  <CardTitle className="text-2xl font-bold">{feature.title}</CardTitle>
+                  <CardTitle className="text-xl font-bold text-foreground">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground leading-relaxed">
                     {feature.description}
-                  </CardDescription>
+                  </p>
                 </CardContent>
               </Card>
             );
@@ -70,9 +76,9 @@ export const FeaturesSection = () => {
 
         <div className="text-center mt-16">
           <Link to="/features">
-            <Button variant="outline" size="lg" className="group px-8 py-6 h-auto text-base font-semibold border-2 hover:bg-secondary">
+            <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 h-auto text-base font-semibold">
               Explore All Features
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
         </div>

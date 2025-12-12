@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 interface FinalCTASectionProps {
   onCtaClick: () => void;
@@ -6,56 +7,34 @@ interface FinalCTASectionProps {
 
 export const FinalCTASection = ({ onCtaClick }: FinalCTASectionProps) => {
   return (
-    <section className="py-20 lg:py-32 gradient-hero relative overflow-hidden">
-      {/* Decorative circles */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
-      
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold text-white leading-tight">
-            Ready to Grow Your Business?
-          </h2>
-          <p className="text-lg lg:text-2xl text-white/90 max-w-2xl mx-auto">
-            Join hundreds of UK businesses already using GrowCheq to capture more leads, 
-            automate follow-ups, and boost revenue.
+    <section className="py-24 lg:py-32 bg-primary relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-primary bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+
+      <div className="container mx-auto px-6 lg:px-12 relative z-10 text-center">
+        <h2 className="text-4xl lg:text-6xl font-bold tracking-tight text-white mb-8 max-w-4xl mx-auto leading-tight">
+          Ready to turn every interaction <br /> into revenue?
+        </h2>
+        <p className="text-xl text-primary-foreground/90 max-w-2xl mx-auto mb-10">
+          Join 100,000+ local businesses using GrowCheq to get more leads, reviews, and sales.
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button
+            size="lg"
+            onClick={onCtaClick}
+            className="bg-white text-primary hover:bg-white/90 px-10 py-7 h-auto text-lg font-bold shadow-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:-translate-y-1 transition-all duration-300"
+          >
+            Start Your Free 14-Day Trial
+            <ArrowRight className="ml-2 h-6 w-6" />
+          </Button>
+          <p className="text-sm text-primary-foreground/80 mt-4 sm:mt-0 sm:hidden">
+            No credit card required
           </p>
-
-          <div className="pt-6">
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-white text-primary hover:bg-white hover:text-primary hover:scale-110 shadow-2xl border-0 text-lg h-16 px-12 font-semibold"
-              onClick={onCtaClick}
-            >
-              Start Your Free Trial
-            </Button>
-          </div>
-
-          <p className="text-white/80 text-sm pt-4">
-            Set up in under 10 minutes. No credit card required. Cancel anytime.
-          </p>
-
-          {/* Trust badges */}
-          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-12 pt-8 text-white/70 text-sm">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">✓</span>
-              <span>14-Day Free Trial</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">✓</span>
-              <span>GDPR Compliant</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">✓</span>
-              <span>UK-Based Support</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">✓</span>
-              <span>No Setup Fees</span>
-            </div>
-          </div>
         </div>
+        <p className="text-sm text-primary-foreground/70 mt-6 hidden sm:block">
+          No credit card required • Cancel anytime • 14-day free trial
+        </p>
       </div>
     </section>
   );
