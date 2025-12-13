@@ -9,7 +9,7 @@ export interface IndustryData {
 }
 
 export const industryContent: Record<string, IndustryData> = {
-    'ALL': {
+    'general': {
         heroHeadline: 'Turn Every Interaction Into Revenue',
         heroSubheadline: 'The all-in-one AI platform for local businesses to capture, convert, and keep more customers. No complex software, just results.',
         heroCTA: 'Start Free Trial',
@@ -48,7 +48,7 @@ export const industryContent: Record<string, IndustryData> = {
         finalCTA: "Ready to Grow Your Business?",
         finalCTAButton: "Start Free Trial"
     },
-    'AUTOMOTIVE & VEHICLE SERVICES': {
+    'automotive': {
         heroHeadline: 'Turn Service Inquiries Into Booked Appointments',
         heroSubheadline: 'From MOT reminders to service booking confirmations, keep your auto shop running smoothly.',
         heroCTA: 'Get Started for Auto Shops',
@@ -58,7 +58,7 @@ export const industryContent: Record<string, IndustryData> = {
                 description: 'Send automated SMS confirmations the moment a customer books a service, reducing no-shows and building trust.'
             },
             {
-                title: 'Automated Service Reminders',
+                title: 'Automated Service Reminders & Follow-ups',
                 description: 'Keep customers coming back with timely MOT reminders, service due dates, and post-service follow-ups.'
             },
             {
@@ -68,14 +68,6 @@ export const industryContent: Record<string, IndustryData> = {
             {
                 title: 'Review Requests After Service',
                 description: 'Automatically request reviews after each service to build your online reputation and attract more customers.'
-            },
-            {
-                title: "Vehicle Status Updates",
-                description: "Keep customers informed about their vehicle status with automated text updates throughout the day."
-            },
-            {
-                title: "Parts Ordering Automation",
-                description: "Streamline your parts ordering process and notify customers immediately when parts arrive."
             }
         ],
         testimonial: {
@@ -88,34 +80,26 @@ export const industryContent: Record<string, IndustryData> = {
         finalCTAButton: 'Get Started Free'
     },
 
-    'SALONS & BEAUTY SERVICES': {
+    'salons': {
         heroHeadline: 'Fill Your Appointment Book & Reduce No-Shows',
         heroSubheadline: 'Reduce no-shows and keep your appointment book full with automated reminders and easy booking.',
         heroCTA: 'Get Started for Salons',
         features: [
             {
-                title: 'Easy Online Scheduling',
+                title: 'Easy Online Appointment Scheduling',
                 description: 'Let clients book their appointments 24/7 through simple SMS or web links, no phone calls needed.'
             },
             {
-                title: 'Automated Reminders',
+                title: 'Automated Appointment Reminders',
                 description: 'Send automatic reminders via SMS to dramatically reduce no-shows and last-minute cancellations.'
             },
             {
-                title: 'Loyalty Rewards',
+                title: 'Loyalty Rewards & Referral Programs',
                 description: 'Build customer loyalty with automated rewards tracking and referral incentives that drive repeat business.'
             },
             {
                 title: 'Before/After Photo Sharing',
                 description: 'Make it easy for happy clients to share their transformations and leave glowing reviews online.'
-            },
-            {
-                title: "Waitlist Management",
-                description: "Automatically notify clients on your waitlist when a slot opens up, keeping your calendar full."
-            },
-            {
-                title: "Stylist Portfolios",
-                description: "Showcase each stylist's work directly in the booking flow to help clients choose the right pro."
             }
         ],
         testimonial: {
@@ -128,7 +112,7 @@ export const industryContent: Record<string, IndustryData> = {
         finalCTAButton: 'Get Started Free'
     },
 
-    'HOME SERVICES': {
+    'home-services': {
         heroHeadline: 'Capture Every Lead, Get Paid Faster',
         heroSubheadline: 'Capture leads from every call and website visit. Get jobs approved and paid faster.',
         heroCTA: 'Get Started for Home Services',
@@ -138,7 +122,7 @@ export const industryContent: Record<string, IndustryData> = {
                 description: 'Never miss a lead from phone calls, website forms, or social media. Everything flows into one inbox.'
             },
             {
-                title: 'Job Estimate Approvals',
+                title: 'Job Estimate Approvals via SMS',
                 description: 'Send estimates instantly via SMS and get approval with a single tap from your customer.'
             },
             {
@@ -148,14 +132,6 @@ export const industryContent: Record<string, IndustryData> = {
             {
                 title: 'Post-Job Review Requests',
                 description: 'Automatically request reviews after job completion to build your reputation and win more work.'
-            },
-            {
-                title: "On-The-Way Alerts",
-                description: "Let customers know exactly when your tech is arriving with automated 'on the way' text notifications."
-            },
-            {
-                title: "Field Team Dispatch",
-                description: "Dispatch jobs to your field team instantly and track their progress in real-time."
             }
         ],
         testimonial: {
@@ -168,7 +144,7 @@ export const industryContent: Record<string, IndustryData> = {
         finalCTAButton: 'Get Started Free'
     },
 
-    'RETAIL & E-COMMERCE': {
+    'retail': {
         heroHeadline: 'Build Loyalty & Drive Repeat Business',
         heroSubheadline: 'Build customer loyalty and drive repeat business with targeted messaging and promotions.',
         heroCTA: 'Get Started for Retail',
@@ -178,24 +154,16 @@ export const industryContent: Record<string, IndustryData> = {
                 description: 'Reward your best customers with points, discounts, and exclusive offers delivered via SMS.'
             },
             {
-                title: 'Restock Notifications',
+                title: 'Inventory & Restock Notifications',
                 description: 'Alert customers when their favorite items are back in stock or when new products arrive.'
             },
             {
-                title: 'Flash Sales Announcements',
+                title: 'Flash Sales & Promotion Announcements',
                 description: 'Drive immediate traffic with time-sensitive promotions delivered directly to customers\' phones.'
             },
             {
                 title: 'Abandoned Cart Recovery',
                 description: 'Recover lost online sales with automated cart recovery messages that convert browsers into buyers.'
-            },
-            {
-                title: "Order Status Updates",
-                description: "Keep customers in the loop with automated shipping and delivery updates via text."
-            },
-            {
-                title: "Personalized Recommendations",
-                description: "Send personalized product recommendations based on past purchase history."
             }
         ],
         testimonial: {
@@ -208,34 +176,26 @@ export const industryContent: Record<string, IndustryData> = {
         finalCTAButton: 'Get Started Free'
     },
 
-    'HEALTH & WELLNESS': {
-        heroHeadline: 'Reduce Missed Appointments & Improve Care',
+    'healthcare': {
+        heroHeadline: 'Reduce Missed Appointments & Improve Patient Care',
         heroSubheadline: 'Improve patient communication and reduce missed appointments with GDPR-compliant messaging.',
         heroCTA: 'Get Started for Healthcare',
         features: [
             {
-                title: 'GDPR-Compliant Reminders',
+                title: 'GDPR-Compliant Appointment Reminders',
                 description: 'Send secure, compliant appointment reminders that reduce no-shows while protecting patient privacy.'
             },
             {
-                title: 'Secure Intake Forms',
+                title: 'Secure Patient Intake Forms',
                 description: 'Collect patient information securely online before appointments, saving time and reducing paperwork.'
             },
             {
-                title: 'Telehealth Scheduling',
+                title: 'Telehealth Appointment Scheduling',
                 description: 'Make it easy for patients to book virtual consultations with simple online scheduling links.'
             },
             {
-                title: 'Prescription Reminders',
+                title: 'Prescription Renewal Reminders',
                 description: 'Help patients stay on track with automated reminders for prescription renewals and refills.'
-            },
-            {
-                title: "Post-Visit Follow-up",
-                description: "Automatically check in with patients after their visit to ensure they are recovering well."
-            },
-            {
-                title: "Health Tips Newsletter",
-                description: "Keep patients engaged with regular health tips and wellness advice sent directly to their phones."
             }
         ],
         testimonial: {
@@ -248,14 +208,8 @@ export const industryContent: Record<string, IndustryData> = {
         finalCTAButton: 'Get Started Free'
     },
 
-    'FINANCIAL SERVICES': { // Using PROFESSIONAL SERVICES content but mapped to FINANCIAL SERVICES key if needed, or keeping explicit PROFESSIONAL
-        // Note: The prompt uses 'professional' key but displayed 'Professional Services'. 
-        // I'll map 'FINANCIAL SERVICES' to Professional content or create a specific one if I had it.
-        // For now I will use the 'professional' content for 'FINANCIAL SERVICES' (closest match in list) or 'Professional Services'
-        // The prompt asked for: FINANCIAL SERVICES in the pill selector list.
-        // Let's create a specific one for Financial logic or re-use Professional. 
-        // I will use the 'Professional' content here but tailored slightly for Finance/Professional context.
-        heroHeadline: 'Streamline Client Communication & Get Paid',
+    'professional': {
+        heroHeadline: 'Streamline Client Communication & Get Paid Faster',
         heroSubheadline: 'Streamline client communication, automate proposals, and get paid faster for your services.',
         heroCTA: 'Get Started for Professionals',
         features: [
@@ -264,24 +218,16 @@ export const industryContent: Record<string, IndustryData> = {
                 description: 'Automate your client intake process with forms, contracts, and welcome sequences delivered via SMS.'
             },
             {
-                title: 'Proposal Approval Tracking',
+                title: 'Proposal Delivery & Approval Tracking',
                 description: 'Send proposals instantly and track when clients view and approve them, speeding up your sales cycle.'
             },
             {
-                title: 'Meeting Scheduling',
+                title: 'Meeting Scheduling & Reminders',
                 description: 'Let clients book meetings on your calendar automatically, with reminders sent to both parties.'
             },
             {
-                title: 'Automated Invoicing',
+                title: 'Automated Invoice & Payment Collection',
                 description: 'Generate and send invoices automatically, with payment links that make it easy for clients to pay immediately.'
-            },
-            {
-                title: "Secure Document Sharing",
-                description: "Share sensitive financial documents securely with end-to-end encryption."
-            },
-            {
-                title: "Compliance Archiving",
-                description: "Automatically archive all client communications for compliance and audit purposes."
             }
         ],
         testimonial: {
@@ -291,45 +237,6 @@ export const industryContent: Record<string, IndustryData> = {
             company: 'Martinez Legal Consultants'
         },
         finalCTA: 'Transform Your Professional Practice Today',
-        finalCTAButton: 'Get Started Free'
-    },
-    'LEGAL SERVICES': { // Mapping for Legal Services
-        heroHeadline: ' streamline Client Communication & Get Paid',
-        heroSubheadline: 'Streamline client communication, automate proposals, and get paid faster for your services.',
-        heroCTA: 'Get Started for Law Firms',
-        features: [
-            {
-                title: 'Client Onboarding Automation',
-                description: 'Automate your client intake process with forms, contracts, and welcome sequences delivered via SMS.'
-            },
-            {
-                title: 'Proposal Approval Tracking',
-                description: 'Send proposals instantly and track when clients view and approve them, speeding up your sales cycle.'
-            },
-            {
-                title: 'Meeting Scheduling',
-                description: 'Let clients book meetings on your calendar automatically, with reminders sent to both parties.'
-            },
-            {
-                title: 'Automated Invoicing',
-                description: 'Generate and send invoices automatically, with payment links that make it easy for clients to pay immediately.'
-            },
-            {
-                title: "Case Status Updates",
-                description: "Keep clients informed about the status of their case with automated text updates."
-            },
-            {
-                title: "Secure Document Signing",
-                description: "Get contracts and agreements signed faster with secure mobile-friendly e-signatures."
-            }
-        ],
-        testimonial: {
-            quote: 'Our payment collection time went from 30 days to 7 days. GrowCheq made a huge difference to our cash flow.',
-            author: 'David Martinez',
-            title: 'Managing Partner',
-            company: 'Martinez Legal Consultants'
-        },
-        finalCTA: 'Transform Your Practice Today',
         finalCTAButton: 'Get Started Free'
     }
 };

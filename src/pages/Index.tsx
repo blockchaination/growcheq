@@ -19,7 +19,7 @@ import { industryContent } from "@/data/industries";
 
 const Index = () => {
   // State for selected industry
-  const [selectedIndustry, setSelectedIndustry] = useState("ALL");
+  const [selectedIndustry, setSelectedIndustry] = useState("general");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Load selection from local storage on mount
@@ -49,8 +49,8 @@ const Index = () => {
     window.location.href = "https://app.growcheq.com/";
   };
 
-  // Get current content based on selection, fallback to ALL
-  const content = industryContent[selectedIndustry] || industryContent["ALL"];
+  // Get current content based on selection, fallback to general
+  const content = industryContent[selectedIndustry] || industryContent["general"];
 
   return (
     <HelmetProvider>

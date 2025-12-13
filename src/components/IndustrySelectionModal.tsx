@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 
 interface IndustrySelectionModalProps {
     isOpen: boolean;
@@ -7,12 +8,12 @@ interface IndustrySelectionModalProps {
 }
 
 const industries = [
-    { label: "Automotive & Vehicle Services", key: "AUTOMOTIVE & VEHICLE SERVICES" },
-    { label: "Salons & Beauty Services", key: "SALONS & BEAUTY SERVICES" },
-    { label: "Home Services", key: "HOME SERVICES" },
-    { label: "Retail Stores", key: "RETAIL & E-COMMERCE" },
-    { label: "Healthcare & Wellness", key: "HEALTH & WELLNESS" },
-    { label: "Professional Services", key: "FINANCIAL SERVICES" } // Mapping 'Professional' general to 'FINANCIAL SERVICES' key for now or just generic
+    { label: "AUTOMOTIVE & VEHICLE SERVICES", key: "automotive" },
+    { label: "SALONS & BEAUTY SERVICES", key: "salons" },
+    { label: "HOME SERVICES", key: "home-services" },
+    { label: "RETAIL STORES", key: "retail" },
+    { label: "HEALTHCARE & WELLNESS", key: "healthcare" },
+    { label: "PROFESSIONAL SERVICES", key: "professional" }
 ];
 
 export const IndustrySelectionModal = ({ isOpen, onSelect }: IndustrySelectionModalProps) => {
@@ -20,13 +21,21 @@ export const IndustrySelectionModal = ({ isOpen, onSelect }: IndustrySelectionMo
 
     useEffect(() => {
         if (isOpen) {
-            // Small delay for smooth entrance
             const timer = setTimeout(() => setShowModal(true), 100);
             return () => clearTimeout(timer);
         } else {
             setShowModal(false);
         }
     }, [isOpen]);
+
+    const handleClose = () => {
+        setShowModal(false);
+        // User can dismiss, default to General/All? Or just close.
+        // Prompt says "Clicking X or backdrop = select 'General' by default" or just dismiss.
+        setTimeout(() => {
+            onSelect("general");
+        }, 300);
+    };
 
     if (!isOpen && !showModal) return null;
 
@@ -35,35 +44,47 @@ export const IndustrySelectionModal = ({ isOpen, onSelect }: IndustrySelectionMo
             "fixed inset-0 z-[9999] flex items-center justify-center transition-opacity duration-500",
             showModal ? "opacity-100" : "opacity-0 pointer-events-none"
         )}>
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" />
+            {/* Backdrop - See through to website */}
+            <div
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-500"
+                onClick={handleClose}
+            />
 
-            {/* Modal Content */}
+            {/* Modal Content - Podium Style (Compact 500px) */}
             <div className={cn(
-                "relative bg-white lg:bg-[#FAF9F7] w-full max-w-[900px] mx-4 p-8 lg:p-12 rounded-2xl shadow-2xl transform transition-transform duration-500",
+                "relative bg-white w-full max-w-[500px] mx-4 p-10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.3)] transform transition-all duration-500",
                 showModal ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
             )}>
-                <div className="text-center mb-10 space-y-4">
-                    <h2 className="text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
-                        Welcome to GrowCheq
+                {/* Close Button */}
+                <button
+                    onClick={handleClose}
+                    className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                    <X className="w-5 h-5" />
+                </button>
+
+                <div className="text-center mb-6">
+                    <h2 className="text-lg font-medium text-foreground">
+                        Select your industry:
                     </h2>
-                    <p className="text-base lg:text-lg text-muted-foreground">
-                        Select your industry to get started
-                    </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex flex-col space-y-3">
                     {industries.map((industry) => (
                         <button
                             key={industry.key}
                             onClick={() => onSelect(industry.key)}
-                            className="group bg-white border-[1.5px] border-border hover:border-primary/50 hover:bg-[#FFF5F5] rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg text-center flex items-center justify-center min-h-[100px]"
+                            className="w-full bg-[#5A8C8C] hover:bg-[#4a7272] text-white font-bold text-sm uppercase tracking-wide py-3.5 px-6 rounded-full transition-all duration-200 hover:scale-[1.02] shadow-sm"
                         >
-                            <span className="text-base lg:text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                                {industry.label}
-                            </span>
+                            {industry.label}
                         </button>
                     ))}
+                </div>
+
+                <div className="mt-6 text-center">
+                    <p className="text-[13px] text-gray-500">
+                        Already a GrowCheq customer? <a href="#" className="text-[#FF6B6B] hover:underline">Sign in.</a>
+                    </p>
                 </div>
             </div>
         </div>

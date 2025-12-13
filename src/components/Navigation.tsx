@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 interface NavigationProps {
   onCtaClick?: () => void;
@@ -10,6 +11,7 @@ interface NavigationProps {
 export const Navigation = ({ onCtaClick }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCompanyOpen, setIsCompanyOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,10 +25,9 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
     { label: "Features", href: "/features" },
     { label: "Industries", href: "/industries" },
     { label: "Pricing", href: "/pricing" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
   ];
 
+  /* Mobile menu logic... */
   // Close menu on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -81,10 +82,45 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
                 {item.label}
               </a>
             ))}
+
+            {/* Company Dropdown */}
+            <div
+              className="relative group"
+              onMouseEnter={() => setIsCompanyOpen(true)}
+              onMouseLeave={() => setIsCompanyOpen(false)}
+            >
+              <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-all duration-200 rounded-lg hover:bg-secondary/50">
+                Company
+                <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", isCompanyOpen ? "rotate-180" : "")} />
+              </button>
+
+              <div className={cn(
+                "absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.12)] p-2 transition-all duration-200 origin-top-left border border-border/50",
+                isCompanyOpen ? "opacity-100 scale-100 translate-y-0 visible" : "opacity-0 scale-95 -translate-y-2 invisible"
+              )}>
+                <Link to="/about" className="block px-4 py-3 text-sm text-foreground/80 hover:text-primary hover:bg-secondary/50 rounded-lg transition-colors">
+                  About
+                </Link>
+                <Link to="/careers" className="block px-4 py-3 text-sm text-foreground/80 hover:text-primary hover:bg-secondary/50 rounded-lg transition-colors">
+                  Careers
+                </Link>
+                <Link to="/newsroom" className="block px-4 py-3 text-sm text-foreground/80 hover:text-primary hover:bg-secondary/50 rounded-lg transition-colors">
+                  Newsroom
+                </Link>
+              </div>
+            </div>
+
+            <a
+              href="/contact"
+              className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-all duration-200 rounded-lg hover:bg-secondary/50"
+            >
+              Contact
+            </a>
           </div>
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-3">
+            {/* ... */}
             <a
               href="https://app.growcheq.com"
               className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"

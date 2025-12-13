@@ -12,11 +12,19 @@ export const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
 
-          {/* Left Content */}
           <div className="flex-1 space-y-8 animate-fade-up text-left transition-all duration-300">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground"
-              dangerouslySetInnerHTML={{ __html: headline.replace('revenue', '<span class="text-primary relative inline-block transform -rotate-2 font-emphasis">revenue</span>').replace('lost leads', '<span class="font-handwriting text-foreground/60 strikethrough-hand mr-4">lost leads</span>') }}
-            />
+            {/* Dynamic tagline structure */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground">
+              {headline.includes('revenue') ? (
+                <>
+                  Turn every interaction into <br />
+                  <span className="strikethrough-text text-5xl md:text-6xl lg:text-7xl">lost leads</span>
+                  <span className="emphasis-text text-6xl md:text-7xl lg:text-8xl">revenue</span>
+                </>
+              ) : (
+                <span dangerouslySetInnerHTML={{ __html: headline }} />
+              )}
+            </h1>
 
             <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
               {subheadline}
