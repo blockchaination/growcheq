@@ -15,7 +15,11 @@ export const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
           {/* Left Content */}
           <div className="flex-1 space-y-8 animate-fade-up text-left">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground">
-              Turn Every Interaction <br /> Into Revenue
+              Turn every interaction into <br />
+              <span className="font-handwriting text-foreground/60 strikethrough-hand mr-4">lost leads</span>
+              <span className="font-emphasis text-primary relative inline-block transform -rotate-2">
+                revenue
+              </span>
             </h1>
 
             <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
@@ -36,7 +40,6 @@ export const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
                 onClick={onCtaClick}
                 className="text-base font-medium px-8 py-6 h-auto border-2 hover:bg-secondary/50"
               >
-                <Play className="mr-2 h-4 w-4 fill-current" />
                 Watch Demo
               </Button>
             </div>

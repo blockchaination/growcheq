@@ -1,58 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Permanent+Marker&family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Podium.com Inspired Enterprise Palette */
-    /* Backgrounds: Clean, Clinical, Professional */
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    /* Deep Charcoal/Navy */
+    /* NEW PALETTE: Slite/Ready.so Inspired */
 
-    /* Cards: Pure White with distinct borders */
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    /* Backgrounds */
+    --background: 40 14% 96%;
+    /* #F5F3F0 - Soft Cream/Beige */
+    --background-secondary: 0 0% 100%;
+    /* White */
 
-    /* Primary: Podium Blue (Sophisticated, Trustworthy) */
-    --primary: 221 83% 53%;
-    --primary-foreground: 210 40% 98%;
+    /* Text / Foreground */
+    --foreground: 0 0% 10%;
+    /* #1A1A1A - Deep Charcoal */
+    --muted-foreground: 0 0% 40%;
+    /* #666666 - Medium Gray */
 
-    /* Secondary/Accent: Warm Coral for CTAs (Podium style) */
-    --accent: 14 89% 53%;
-    /* Warm Orange/Coral */
+    /* Primary / CTA */
+    --primary: 0 100% 71%;
+    /* #FF6B6B - Coral */
+    --primary-foreground: 0 0% 100%;
+
+    /* Accents */
+    --accent: 251 86% 75%;
+    /* #9B87F5 - Soft Purple */
     --accent-foreground: 0 0% 100%;
 
-    /* Neutrals: Cool Greys */
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215 16% 47%;
+    --secondary: 0 0% 96%;
+    /* #F5F5F5 - Very Light Gray */
+    --secondary-foreground: 0 0% 10%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* System */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221 83% 53%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
 
-    --radius: 0.5rem;
+    --border: 0 0% 90%;
+    /* #E6E6E6 */
+    --input: 0 0% 90%;
+    --ring: 0 100% 71%;
+    /* Coral ringing */
 
-    /* Podium Typography Scale */
-    --h1-size: clamp(3.5rem, 5vw, 5rem);
-    /* Massive headlines */
-    --h2-size: clamp(2.5rem, 4vw, 3.5rem);
-    --body-size: 1.125rem;
-    /* 18px body text */
+    --radius: 0.75rem;
+    /* 12px - Smooth but professional */
+
+    /* Typography Variables */
+    --font-heading: 'Inter', sans-serif;
+    --font-handwriting: 'Caveat', cursive;
+    --font-emphasis: 'Permanent Marker', cursive;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-    /* ... keep existing dark mode values ... */
+    /* Dark mode could use Deep Charcoal as base */
+    --background: 0 0% 10%;
+    --foreground: 40 14% 96%;
+    /* ... adaptations if needed */
   }
 
   * {
@@ -61,64 +69,65 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-size: var(--body-size);
-    line-height: 1.6;
-    letter-spacing: -0.01em;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-bold tracking-tight text-foreground;
-  }
-
-  h1 {
-    font-size: var(--h1-size);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    font-weight: 700;
-  }
-
-  h2 {
-    font-size: var(--h2-size);
-    line-height: 1.2;
-    font-weight: 600;
+    font-family: 'Inter', sans-serif;
   }
 }
 
 @layer utilities {
 
-  /* Glassmorphism - Subtle & Corporate */
-  .glass {
-    @apply bg-white/90 backdrop-blur-md border border-white/20 shadow-sm;
+  /* Text Styles */
+  .font-handwriting {
+    font-family: var(--font-handwriting);
+  }
+
+  .font-emphasis {
+    font-family: var(--font-emphasis);
+  }
+
+  /* Slite-style Strikethrough Effect */
+  .strikethrough-hand {
+    position: relative;
+    display: inline-block;
+  }
+
+  .strikethrough-hand::after {
+    content: "";
+    position: absolute;
+    left: -5%;
+    top: 50%;
+    width: 110%;
+    height: 2px;
+    background-color: theme('colors.primary.DEFAULT');
+    transform: rotate(-3deg);
+    border-radius: 50%;
+    opacity: 0.8;
+  }
+
+  /* Podium-style Pill Scroll Hider */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   /* Professional Animations */
   .animate-fade-up {
-    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
   }
 
-  /* Stagger Delays */
-  .delay-100 {
-    animation-delay: 100ms;
-  }
-
-  .delay-200 {
-    animation-delay: 200ms;
-  }
-
-  .delay-300 {
-    animation-delay: 300ms;
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
   }
 
   @keyframes fadeUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
 
     to {
@@ -127,8 +136,15 @@
     }
   }
 
-  /* Podium-style utility for bold text gradients only where needed */
-  .text-gradient-subtle {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70;
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }

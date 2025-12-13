@@ -79,8 +79,8 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
             <Card
               key={index}
               className={`relative flex flex-col h-full hover:shadow-2xl transition-all duration-300 ${plan.popular
-                  ? "border-2 border-primary shadow-xl scale-100 lg:scale-105 z-10 bg-white"
-                  : "border border-border/50 bg-white/50 hover:bg-white"
+                ? "border-2 border-primary shadow-xl scale-100 lg:scale-105 z-10 bg-white"
+                : "border border-border/50 bg-white/50 hover:bg-white"
                 }`}
             >
               {plan.popular && (
@@ -107,7 +107,7 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="mt-1">
-                        <Check className="h-5 w-5 text-primary" />
+                        <span className="text-primary font-bold text-lg leading-none">✓</span>
                       </div>
                       <span className={`text-sm leading-relaxed ${feature.includes("PLUS:") ? "font-bold text-foreground" : "text-muted-foreground"}`}>
                         {feature}
@@ -122,8 +122,8 @@ export const PricingSection = ({ onCtaClick }: PricingSectionProps) => {
                   variant={plan.popular ? "default" : "outline"}
                   size="lg"
                   className={`w-full h-auto py-4 text-base font-semibold ${plan.popular
-                      ? "bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl"
-                      : "border-2 hover:bg-secondary"
+                    ? "bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl"
+                    : "border-2 hover:bg-secondary"
                     }`}
                   onClick={() => handleStartTrial(plan.name as "Essential" | "Professional" | "Enterprise", plan.priceValue)}
                 >

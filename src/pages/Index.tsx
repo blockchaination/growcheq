@@ -10,7 +10,7 @@ import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { FinalCTASection } from "@/components/FinalCTASection";
 import { Footer } from "@/components/Footer";
 import { BackToTopButton } from "@/components/BackToTopButton";
-import { AIChatbot } from "@/components/AIChatbot";
+import { ChatWidget } from "@/components/ChatWidget";
 import { SEO } from "@/components/SEO";
 
 const Index = () => {
@@ -40,7 +40,7 @@ const Index = () => {
         </main>
 
         <Footer />
-        <AIChatbot />
+        <ChatWidget />
         <BackToTopButton />
       </div>
     </HelmetProvider>

@@ -1,49 +1,41 @@
-import { MessageSquare, Zap, TrendingUp, ShieldCheck, Smartphone, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const FeaturesSection = () => {
   const features = [
     {
-      icon: MessageSquare,
-      title: "Unified Inbox",
-      description: "Manage SMS, WhatsApp, Facebook, and emails from one single dashboard.",
+      title: "Lead Capture & Automation",
+      description: "Automatically capture every inquiry from your website, social media, and third-party platforms in one unified inbox. Never miss a lead again.",
     },
     {
-      icon: Zap,
-      title: "AI Automation",
-      description: "Qualify leads and book appointments automatically, 24/7.",
+      title: "AI Response System",
+      description: "Our AI agent instantly qualifies leads, answers questions, and books appointments 24/7 without you lifting a finger.",
     },
     {
-      icon: TrendingUp,
-      title: "Google Reviews",
-      description: "Automatically request and manage reviews to boost your local ranking.",
+      title: "Review Management",
+      description: "Automatically request reviews via text after every service. Watch your Google ranking climb and your reputation grow.",
     },
     {
-      icon: ShieldCheck,
-      title: "Secure Payments",
-      description: "Send text-to-pay links and get paid in seconds, not days.",
+      title: "Text-to-Pay",
+      description: "Securely send payment links via SMS. Get paid 85% faster and eliminate the hassle of chasing invoices.",
     },
     {
-      icon: Smartphone,
-      title: "Mobile App",
-      description: "Run your business from anywhere with our top-rated mobile app.",
+      title: "CRM & Pipelines",
+      description: "Track every customer journey from lead to sale. Visual pipelines help you see exactly where your revenue is coming from.",
     },
     {
-      icon: Users,
       title: "Team Collaboration",
-      description: "Assign conversations and track team performance in real-time.",
+      description: "Assign conversations, leave internal notes, and track performance. Keep your entire team aligned on one platform.",
     },
   ];
 
   return (
-    <section id="features" className="py-24 lg:py-32 bg-secondary/30">
+    <section id="features" className="py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center space-y-6 mb-20 max-w-3xl mx-auto">
           <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-            Everything You Need to <br /> <span className="text-primary">Grow Your Business</span>
+            Everything You Need. <br /> <span className="text-primary">Nothing You Don't.</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Replace your fragmented tech stack with one powerful, easy-to-use platform designed for local businesses.
@@ -51,34 +43,27 @@ export const FeaturesSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <Card
-                key={index}
-                className="group border border-border/50 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white"
-              >
-                <CardHeader className="space-y-4 pt-8">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                    <Icon className="h-6 w-6 text-primary group-hover:text-white transition-colors duration-300" />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-foreground">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
+          {features.map((feature, index) => (
+            <Card
+              key={index}
+              className="group border border-border/40 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white rounded-2xl overflow-hidden"
+            >
+              <CardHeader className="space-y-4 pt-10 px-8">
+                <CardTitle className="text-2xl font-bold text-foreground">{feature.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="px-8 pb-10">
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  {feature.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
-        <div className="text-center mt-16">
+        <div className="text-center mt-20">
           <Link to="/features">
-            <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 h-auto text-base font-semibold">
+            <Button size="lg" className="rounded-full px-10 py-6 h-auto text-base font-bold bg-secondary hover:bg-secondary/80 text-foreground transition-colors">
               Explore All Features
-              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
         </div>

@@ -102,11 +102,11 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden w-11 h-11 flex items-center justify-center rounded-lg hover:bg-secondary transition-colors"
+            className="lg:hidden h-11 px-4 flex items-center justify-center rounded-lg hover:bg-secondary transition-colors text-sm font-bold tracking-wide"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            <Menu className="h-6 w-6" />
+            MENU
           </button>
         </div>
 

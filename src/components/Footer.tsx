@@ -151,7 +151,6 @@ export const Footer = () => {
             ))}
           </div>
           <div className="flex items-center gap-2 text-background/40 text-xs font-medium bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
-            <span>🇬🇧</span>
             <span>United Kingdom</span>
           </div>
         </div>
