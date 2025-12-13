@@ -13,17 +13,13 @@ export const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
 
           {/* Left Content */}
-          <div className="flex-1 space-y-8 animate-fade-up text-left">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground">
-              Turn every interaction into <br />
-              <span className="font-handwriting text-foreground/60 strikethrough-hand mr-4">lost leads</span>
-              <span className="font-emphasis text-primary relative inline-block transform -rotate-2">
-                revenue
-              </span>
-            </h1>
+          <div className="flex-1 space-y-8 animate-fade-up text-left transition-all duration-300">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground"
+              dangerouslySetInnerHTML={{ __html: headline.replace('revenue', '<span class="text-primary relative inline-block transform -rotate-2 font-emphasis">revenue</span>').replace('lost leads', '<span class="font-handwriting text-foreground/60 strikethrough-hand mr-4">lost leads</span>') }}
+            />
 
             <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
-              The all-in-one platform that helps UK businesses capture leads, automate follow-ups, and get paid faster.
+              {subheadline}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -32,7 +28,7 @@ export const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
                 onClick={onCtaClick}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground text-base font-semibold px-8 py-6 h-auto shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
               >
-                Start Free Trial
+                {ctaText}
               </Button>
               <Button
                 variant="outline"

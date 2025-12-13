@@ -2,33 +2,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-export const FeaturesSection = () => {
-  const features = [
-    {
-      title: "Lead Capture & Automation",
-      description: "Automatically capture every inquiry from your website, social media, and third-party platforms in one unified inbox. Never miss a lead again.",
-    },
-    {
-      title: "AI Response System",
-      description: "Our AI agent instantly qualifies leads, answers questions, and books appointments 24/7 without you lifting a finger.",
-    },
-    {
-      title: "Review Management",
-      description: "Automatically request reviews via text after every service. Watch your Google ranking climb and your reputation grow.",
-    },
-    {
-      title: "Text-to-Pay",
-      description: "Securely send payment links via SMS. Get paid 85% faster and eliminate the hassle of chasing invoices.",
-    },
-    {
-      title: "CRM & Pipelines",
-      description: "Track every customer journey from lead to sale. Visual pipelines help you see exactly where your revenue is coming from.",
-    },
-    {
-      title: "Team Collaboration",
-      description: "Assign conversations, leave internal notes, and track performance. Keep your entire team aligned on one platform.",
-    },
-  ];
+interface FeaturesSectionProps {
+  features: { title: string; description: string }[];
+}
+
+export const FeaturesSection = ({ features }: FeaturesSectionProps) => {
+
 
   return (
     <section id="features" className="py-24 lg:py-32 bg-background">

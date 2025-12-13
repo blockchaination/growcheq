@@ -126,8 +126,17 @@ export const Footer = () => {
 
         {/* Bottom Section */}
         <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-background/40 text-xs font-medium">
-            © 2025 GrowCheq. All rights reserved.
+          <p className="text-background/40 text-xs font-medium flex flex-col sm:flex-row gap-2">
+            <span>© 2025 GrowCheq. All rights reserved.</span>
+            <button
+              onClick={() => {
+                localStorage.removeItem('selectedIndustry');
+                window.location.reload();
+              }}
+              className="text-background/20 hover:text-primary transition-colors hover:underline text-left sm:text-center"
+            >
+              Reset Industry Selection
+            </button>
           </p>
           <div className="flex flex-wrap gap-8 justify-center">
             {footerLinks.legal.map((link, index) => (
