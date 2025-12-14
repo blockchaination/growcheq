@@ -65,7 +65,7 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
           {/* Logo */}
           <a href="/" className="flex items-center space-x-2 group">
             <img
-              src="/logo.png"
+              src="/growcheq-logo.png"
               alt="GrowCheq Logo"
               className="h-9 lg:h-11 w-auto max-w-[180px] object-contain transition-transform duration-300 group-hover:scale-105"
             />

@@ -37,7 +37,7 @@ export const Footer = () => {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <img
-              src="/logo.png"
+              src="/growcheq-logo.png"
               alt="GrowCheq Logo"
               className="h-9 w-auto object-contain mb-8 brightness-0 invert opacity-90"
             />
