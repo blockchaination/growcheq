@@ -4,9 +4,12 @@ import { ArrowRight, Play } from "lucide-react";
 
 interface HeroSectionProps {
   onCtaClick: () => void;
+  headline: string;
+  subheadline: string;
+  ctaText: string;
 }
 
-export const HeroSection = ({ onCtaClick }: HeroSectionProps) => {
+export const HeroSection = ({ onCtaClick, headline, subheadline, ctaText }: HeroSectionProps) => {
   return (
     <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-40 overflow-hidden bg-background">
       <div className="container mx-auto px-6 lg:px-12">
