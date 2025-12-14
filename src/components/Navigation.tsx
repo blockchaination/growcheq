@@ -65,7 +65,7 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
           {/* Logo */}
           <a href="/" className="flex items-center space-x-2 group">
             <img
-              src="/growcheq-logo.png"
+              src="/logo.png"
               alt="GrowCheq Logo"
               className="h-9 lg:h-11 w-auto max-w-[180px] object-contain transition-transform duration-300 group-hover:scale-105"
             />
@@ -184,9 +184,32 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
                   {item.label}
                 </a>
               ))}
+
+              {/* Mobile Company Section */}
+              <div className="py-2 space-y-1">
+                <p className="px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Company</p>
+                <Link to="/about" className="block py-2 px-4 text-base font-medium rounded-lg hover:bg-secondary transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
+                  About
+                </Link>
+                <Link to="/careers" className="block py-2 px-4 text-base font-medium rounded-lg hover:bg-secondary transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
+                  Careers
+                </Link>
+                <Link to="/newsroom" className="block py-2 px-4 text-base font-medium rounded-lg hover:bg-secondary transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
+                  Newsroom
+                </Link>
+              </div>
+
+              <a
+                href="/contact"
+                className="block py-3 px-4 text-base font-medium rounded-lg hover:bg-secondary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </a>
+
               <a
                 href="https://app.growcheq.com"
-                className="block py-3 px-4 text-base font-medium rounded-lg hover:bg-secondary transition-colors"
+                className="block py-3 px-4 text-base font-medium rounded-lg hover:bg-secondary transition-colors text-primary"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Login
@@ -210,3 +233,4 @@ export const Navigation = ({ onCtaClick }: NavigationProps) => {
     </nav>
   );
 };
+```
