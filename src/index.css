@@ -85,22 +85,38 @@
   }
 
   /* Slite-style Strikethrough Effect */
-  .strikethrough-hand {
+  .strikethrough-text {
     position: relative;
     display: inline-block;
+    font-family: var(--font-handwriting);
+    color: theme('colors.muted.foreground');
+    padding: 0 0.2em;
   }
 
-  .strikethrough-hand::after {
+  .strikethrough-text::after {
     content: "";
     position: absolute;
     left: -5%;
     top: 50%;
     width: 110%;
-    height: 2px;
+    height: 3px;
     background-color: theme('colors.primary.DEFAULT');
     transform: rotate(-3deg);
-    border-radius: 50%;
-    opacity: 0.8;
+    border-radius: 99px;
+    opacity: 0.9;
+  }
+
+  .emphasis-text {
+    font-family: var(--font-emphasis);
+    color: theme('colors.foreground');
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(120deg, transparent 0%, transparent 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 30%;
+    background-position: 0 90%;
+    margin-left: 0.2em;
+    transform: rotate(-1deg);
   }
 
   /* Podium-style Pill Scroll Hider */

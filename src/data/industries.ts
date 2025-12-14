@@ -10,7 +10,7 @@ export interface IndustryData {
 
 export const industryContent: Record<string, IndustryData> = {
     'general': {
-        heroHeadline: 'Turn Every Interaction Into Revenue',
+        heroHeadline: 'Turn every interaction into <span class="strikethrough-text">lost leads</span> <span class="emphasis-text">revenue</span>',
         heroSubheadline: 'The all-in-one AI platform for local businesses to capture, convert, and keep more customers. No complex software, just results.',
         heroCTA: 'Start Free Trial',
         features: [
