@@ -89,7 +89,7 @@
     position: relative;
     display: inline-block;
     font-family: var(--font-handwriting);
-    color: theme('colors.muted.foreground');
+    color: hsl(var(--muted-foreground));
     padding: 0 0.2em;
   }
 
@@ -100,7 +100,7 @@
     top: 50%;
     width: 110%;
     height: 3px;
-    background-color: theme('colors.primary.DEFAULT');
+    background-color: hsl(var(--primary));
     transform: rotate(-3deg);
     border-radius: 99px;
     opacity: 0.9;
@@ -108,7 +108,7 @@
 
   .emphasis-text {
     font-family: var(--font-emphasis);
-    color: theme('colors.foreground');
+    color: hsl(var(--foreground));
     position: relative;
     display: inline-block;
     background: linear-gradient(120deg, transparent 0%, transparent 100%);
